@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>几个快捷命令 | 陈修榜的博客</title>
+  <title>关于jdk1.5中的ManagementFactory类 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="讲几个比较好用的命令： 一个是curl。我们经常搭建好项目后写一个测试用的接口，让后浏览器直接访问路径，打印一个hello world。我想基本大家都是这么干的。实际上像这种简单测试，用黑窗口的curl命令就可以代替，无论是linux或者windows都是可以使用。 比如我的springboot项目搭建好了，测试接口路径是  &#x2F;hello ，项目名my_project。默认808端口。 以前我会打">
+  <meta name="description" content="今天看了下一个在jdk1.5引入的类：ManagementFactory 这个类归属于lang包下 1package java.lang.management;  所以这个类无需导包就可以直接引入 这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息； 如图一下实例 12345int th">
 <meta property="og:type" content="article">
-<meta property="og:title" content="几个快捷命令">
-<meta property="og:url" content="http://example.com/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:title" content="关于jdk1.5中的ManagementFactory类">
+<meta property="og:url" content="http://example.com/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
-<meta property="og:description" content="讲几个比较好用的命令： 一个是curl。我们经常搭建好项目后写一个测试用的接口，让后浏览器直接访问路径，打印一个hello world。我想基本大家都是这么干的。实际上像这种简单测试，用黑窗口的curl命令就可以代替，无论是linux或者windows都是可以使用。 比如我的springboot项目搭建好了，测试接口路径是  &#x2F;hello ，项目名my_project。默认808端口。 以前我会打">
+<meta property="og:description" content="今天看了下一个在jdk1.5引入的类：ManagementFactory 这个类归属于lang包下 1package java.lang.management;  所以这个类无需导包就可以直接引入 这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息； 如图一下实例 12345int th">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-24T16:26:59.000Z">
-<meta property="article:modified_time" content="2021-10-24T16:39:47.786Z">
+<meta property="article:published_time" content="2021-10-26T15:11:10.000Z">
+<meta property="article:modified_time" content="2021-10-26T15:22:55.585Z">
 <meta property="article:author" content="omen">
 <meta name="twitter:card" content="summary">
   
@@ -158,52 +158,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-几个快捷命令" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-关于jdk1-5中的ManagementFactory类" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      几个快捷命令
+      关于jdk1.5中的ManagementFactory类
     </h1>
   
 
         
-        <a href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-10-24T16:26:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-25</time>
+        <a href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" class="archive-article-date">
+  	<time datetime="2021-10-26T15:11:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>讲几个比较好用的命令：</p>
-<p>一个是curl。我们经常搭建好项目后写一个测试用的接口，让后浏览器直接访问路径，打印一个hello world。我想基本大家都是这么干的。实际上像这种简单测试，用黑窗口的curl命令就可以代替，无论是linux或者windows都是可以使用。</p>
-<p>比如我的springboot项目搭建好了，测试接口路径是  /hello ，项目名my_project。默认808端口。</p>
-<p>以前我会打开chrome，输入<a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> ,然后屏幕打印一句话</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
+        <p>今天看了下一个在jdk1.5引入的类：ManagementFactory</p>
+<p>这个类归属于lang包下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.management;</span><br></pre></td></tr></table></figure>
 
-<p>这个就算是通了。</p>
-<p>现在我们可以直接打开黑窗口</p>
-<p>输入：curl  <a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> </p>
-<p>就会同样的在下一行打印</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>所以这个类无需导包就可以直接引入</p>
+<p>这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息；</p>
+<p>如图一下实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> threadCount = ManagementFactory.getThreadMXBean().getThreadCount();</span><br><span class="line"><span class="keyword">long</span> max = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax();</span><br><span class="line"><span class="keyword">long</span> used =ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();</span><br><span class="line">log.info(<span class="string">&quot;当前的线程数目为&#123;&#125;&quot;</span>, threadCount);</span><br><span class="line">log.info(<span class="string">&quot;当前堆内存最大值为&#123;&#125;,已使用&#123;&#125;&quot;</span>, max, used);</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-<p>另一个是tree命令，这个windows自带。如果是linux里面需要使用 yum install tree 安装一下</p>
-<p>在某个文件夹输入tree命令后，就会在窗口里树状展示整个文件夹的树状图（可能会比较长）</p>
-<p>在linux中，tree命令还有许多参数 ，比如tree -h 等，这里不多做介绍</p>
-<p>下面是一个文件夹的树状图例子</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">卷 Windows 的文件夹 PATH 列表</span><br><span class="line">卷序列号为 642E-B870</span><br><span class="line">C:.</span><br><span class="line">├─pkg</span><br><span class="line">│  └─mod</span><br><span class="line">│      └─cache</span><br><span class="line">└─src</span><br><span class="line">    └─go_code</span><br><span class="line">        └─tmp_go_study</span><br><span class="line">            ├─main</span><br><span class="line">            └─package</span><br></pre></td></tr></table></figure>
-
-
-
-
-
+<p>如有机会可以多使用下。</p>
 
       
 
@@ -293,7 +277,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -307,18 +291,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          关于jdk1.5中的ManagementFactory类
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/24/javase%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">javase基础知识点</div>
+    <a href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">几个快捷命令</div>
       <i class="icon-circle-right"></i>
     </a>
   
