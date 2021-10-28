@@ -156,6 +156,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-用jul创建的一个工具类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/">用jul创建的一个工具类</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="archive-article-date">
+  	<time datetime="2021-10-28T15:28:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hzsmk.common.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.experimental.UtilityClass;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chenxiubang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0 2021-10-28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@UtilityClass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据类路径创建logger对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(<span class="string">&quot;com.hzsmk.common.util.LogUtil&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//不沿用父logger的处理器</span></span><br><span class="line">        logger.setUseParentHandlers(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建输出处理器，控制台的ConsoleHandler，文件的FileHandler</span></span><br><span class="line">        ConsoleHandler consoleHandler = <span class="keyword">new</span> ConsoleHandler();</span><br><span class="line">        SimpleFormatter simpleFormatter = <span class="keyword">new</span> SimpleFormatter();</span><br><span class="line">        FileHandler fileHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//该处项目启动后必然会有该目录和文件，所以通常不会出现io异常</span></span><br><span class="line">            fileHandler = <span class="keyword">new</span> FileHandler(<span class="string">&quot;logs\\smk_yhqrcode.log&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> fileHandler != <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        fileHandler.setFormatter(simpleFormatter);</span><br><span class="line">        consoleHandler.setFormatter(simpleFormatter);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//logger和处理器都需要设置自定义级别</span></span><br><span class="line">        logger.setLevel(Level.ALL);</span><br><span class="line">        consoleHandler.setLevel(Level.ALL);</span><br><span class="line">        fileHandler.setLevel(Level.INFO);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为logger添加多个handler</span></span><br><span class="line">        logger.addHandler(consoleHandler);</span><br><span class="line">        logger.addHandler(fileHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logAll</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.ALL, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFinest</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINEST, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFiner</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINER, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFine</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logConfig</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.CONFIG, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logInfo</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.INFO, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logWarning</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.WARNING, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logServer</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.SEVERE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logOff</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.OFF, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面是我今天学了一些jul知识后再springboot项目中创建的一个工具类</p>
+<p>首先是根据静态常量创建一个本工具类类路径的logger对象</p>
+<p>紧接着由于默认的logger对象沿用的是父类的日志handler，</p>
+<p>先禁用父类handler，然后创建一个ConsoleHandler对象和一个FileHandler对象，分别是让日志控制台输入，和文件持久化的。</p>
+<p>这里要注意一点的是，文件持久化的FileHandler对象要指定路径，这里会有一个受检异常，如果路径不对文件不存在会引发io错误。</p>
+<p>两个Handler都要有一个SimpleFormat对象，这个也是jul下的（别和SimpleDateFormat对象弄混了）</p>
+<p>再接着我们为logger和两个Handler对象设置日志级别即可，你可以为两个Handler设置不同的日志级别，但一定要设置。</p>
+<p>最后用addHandler方法将处理器设置给logger，整个过程在静态代码块中处理。</p>
+<p>下面就是一些工具方法，因为刚写没想到什么好想法，就都是传一个Object对象，然后打印。</p>
+<p>其实jul的东西远不止此，这里只是写皮毛。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关于jdk1-5中的ManagementFactory类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
