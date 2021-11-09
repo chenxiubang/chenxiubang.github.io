@@ -156,6 +156,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-redis基本黑窗口命令1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/">redis基本黑窗口命令1</a>
+    </h1>
+  
+
+        
+        <a href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/" class="archive-article-date">
+  	<time datetime="2021-11-09T15:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>redis中常用命令：</p>
+<ol>
+<li>keys  * （查看当前库所有key）</li>
+<li>exists （key） （查看是否存在当前名字的key，存在返回1，否则0）</li>
+<li>type （key） （查看当前名字key的数据类型，例如返回：string）</li>
+<li>del （key) （删除该名字的key，同步，阻塞）</li>
+<li>unlink （key）（发送指令后，异步删除该key，系统会提示已经删除）（tip：unlink是解除链接的意思）</li>
+<li>select  （no)   （选择redis的0-15中其中一个数据库）</li>
+<li>flashdb （清空当前库所有key）</li>
+<li>flushall （删除redis16个库所有的key）</li>
+<li>expire  （key）（time） （给某个key设置过期时间）</li>
+<li>ttl （key)  （可以查看该key的剩余过期时间，返回秒，返回-1说明永不过期，返回-2 说明已经过期）</li>
+<li>dbsize  （返回当前选择库的key的数量）   </li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mybaits中的provider写法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -871,85 +947,10 @@
 
 
   
-    <article id="post-关于elasticsearch与jest中双括号语法的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/04/%E5%85%B3%E4%BA%8Eelasticsearch%E4%B8%8Ejest%E4%B8%AD%E5%8F%8C%E6%8B%AC%E5%8F%B7%E8%AF%AD%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/">关于elasticsearch与jest中双括号语法的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/04/%E5%85%B3%E4%BA%8Eelasticsearch%E4%B8%8Ejest%E4%B8%AD%E5%8F%8C%E6%8B%AC%E5%8F%B7%E8%AF%AD%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-10-04T07:38:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这边文章我使用的springboot版本为1.5.12.RELEASE(属于比较早的版本)</p>
-<p>交互技术是Jest，版本为5.3.3。</p>
-<p>下面是我在junit测试中使用的一个测试用例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">jestSaveTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> article = <span class="keyword">new</span> Article();</span><br><span class="line">      article.setId(<span class="number">2</span>);</span><br><span class="line">      article.setTitle(<span class="string">&quot;好消息&quot;</span>);</span><br><span class="line">      article.setAuthor(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">      article.setContent(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//构建索引</span></span><br><span class="line">      <span class="keyword">var</span> index = <span class="keyword">new</span> Index.Builder(article)</span><br><span class="line">              .index(<span class="string">&quot;atguigu&quot;</span>)<span class="comment">//索引</span></span><br><span class="line">              .type(<span class="string">&quot;news&quot;</span>)<span class="comment">//类型</span></span><br><span class="line">              .build();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">var</span> documentResult = jestClient.execute(index);</span><br><span class="line">          System.out.println(documentResult.getJsonString());<span class="comment">//打印响应的结果</span></span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>上述代码的执行结果如下，打印如下</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;_index&quot;</span>:<span class="string">&quot;atguigu&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;_type&quot;</span>:<span class="string">&quot;news&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;_id&quot;</span>:<span class="string">&quot;2&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;_version&quot;</span>:<span class="number">3</span>,</span><br><span class="line">    <span class="attr">&quot;result&quot;</span>:<span class="string">&quot;updated&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;_shards&quot;</span>:&#123;</span><br><span class="line">        <span class="attr">&quot;total&quot;</span>:<span class="number">2</span>,</span><br><span class="line">        <span class="attr">&quot;successful&quot;</span>:<span class="number">1</span>,</span><br><span class="line">        <span class="attr">&quot;failed&quot;</span>:<span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;created&quot;</span>:<span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我在es中索引被更新了（因为之前创建过）</p>
-<p>然后问题来了，我将测试用例的代码小小的改变一下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">jestSaveTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> article = <span class="keyword">new</span> Article() &#123;&#123;</span><br><span class="line">         setId(<span class="number">2</span>);</span><br><span class="line">         setTitle(<span class="string">&quot;好消息&quot;</span>);</span><br><span class="line">         setAuthor(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">         setContent(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">     &#125;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="comment">//构建索引</span></span><br><span class="line">     <span class="keyword">var</span> index = <span class="keyword">new</span> Index.Builder(article)</span><br><span class="line">             .index(<span class="string">&quot;atguigu&quot;</span>)<span class="comment">//索引</span></span><br><span class="line">             .type(<span class="string">&quot;news&quot;</span>)<span class="comment">//类型</span></span><br><span class="line">             .build();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">var</span> documentResult = jestClient.execute(index);</span><br><span class="line">         System.out.println(documentResult.getJsonString());<span class="comment">//打印响应的结果</span></span><br><span class="line">     &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面我唯一改变的地方就是将Article的示例用双括号语法创建，其他地方并没有做任何变化</p>
-<p>这个时候请求的响应结果就变成了如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;error&quot;</span>:&#123;</span><br><span class="line">        <span class="attr">&quot;root_cause&quot;</span>:[</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">&quot;type&quot;</span>:<span class="string">&quot;mapper_parsing_exception&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;reason&quot;</span>:<span class="string">&quot;failed to parse&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>:<span class="string">&quot;mapper_parsing_exception&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;reason&quot;</span>:<span class="string">&quot;failed to parse&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;caused_by&quot;</span>:&#123;</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>:<span class="string">&quot;not_x_content_exception&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;reason&quot;</span>:<span class="string">&quot;Compressor detection can only be called on some xcontent bytes or compressed xcontent bytes&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>:<span class="number">400</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>很匪夷所思，网上也查不到这个问题的原因</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/04/%E5%85%B3%E4%BA%8Eelasticsearch%E4%B8%8Ejest%E4%B8%AD%E5%8F%8C%E6%8B%AC%E5%8F%B7%E8%AF%AD%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
