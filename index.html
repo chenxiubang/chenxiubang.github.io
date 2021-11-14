@@ -156,6 +156,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-反向代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">反向代理</a>
+    </h1>
+  
+
+        
+        <a href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-11-14T12:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>反向代理这个词最多出现在nginx。</p>
+<p>也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。</p>
+<p>但刚学习的时候很多人不知道什么是反向代理。</p>
+<p>其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。</p>
+<p>比如张三要访问谷歌，但是在国内直接访问国外的域名非常困难。这时候就出现了一个中间代理服务器，用户就通过它，将请求转发给谷歌，实现成功获取资源。这个服务器对于用户是有感知的，用户通过它，访问到了想要的网站。</p>
+<p>而nginx的反向代理与此不同，它将真实的服务器藏在自己身后，自己对于用户而言，是一个服务器，用户并无法知道真正的服务器地址。用户将请求交给nginx，由nginx通过负载均衡策略，把请求分发给后台真实的服务集群。再将请求响应给用户。反向代理的nginx对应用户而言，更像一个真实的服务器。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringBootApplication注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -845,91 +913,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/24/javase%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MabatisPlus中使用AR模式操作数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/17/MabatisPlus%E4%B8%AD%E4%BD%BF%E7%94%A8AR%E6%A8%A1%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/">MabatisPlus中使用AR模式操作数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/17/MabatisPlus%E4%B8%AD%E4%BD%BF%E7%94%A8AR%E6%A8%A1%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2021-10-17T09:03:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>熟悉操作mybatis plus的人一般都习惯使用 BaseService 或者 BaseMapper中的已经封装好的方法对数据库进行操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> TestService testService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/hello&quot;, method = &#123;RequestMethod.GET&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R&lt;Long&gt; <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;num&quot;)</span> Long num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> R.ok(testService.list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如上 我的TestService继承了MP中的IService接口 ，实现类继承了ServiceImp类。我就可以很容直接调用接口的实现代理类的list(),getById()等等方法对数据库进行crud操作</p>
-<p>除此外mybatis还支持使用动态语言的ar操作（active record）。我在entity类中继承mybatis的一个Model类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEntity</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">TestEntity</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@TableId</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Model类是MP里的一个抽象类，早期版本需要实现其pkVal()方法，不过现在MP3中已经对所有方法都做了实现。</p>
-<p>这是这个类中的一部分</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ActiveRecord 模式 CRUD</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 必须存在对应的原始mapper并继承baseMapper并且可以使用的前提下</span></span><br><span class="line"><span class="comment"> * 才能使用此 AR 模式 !!!</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;?&gt;&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">transient</span> Log log = LogFactory.getLog(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入（字段选择插入）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insert</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> SqlHelper.retBool(sqlSession.insert(sqlStatement(SqlMethod.INSERT_ONE), <span class="keyword">this</span>));</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeSqlSession(sqlSession);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据 ID 查询</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id 主键ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">selectById</span><span class="params">(Serializable id)</span> </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sqlSession.selectOne(sqlStatement(SqlMethod.SELECT_BY_ID), id);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeSqlSession(sqlSession);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据主键查询</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">selectById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Assert.isFalse(StringUtils.checkValNull(pkVal()), <span class="string">&quot;selectById primaryKey is null.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> selectById(pkVal());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询总记录数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> queryWrapper 实体对象封装操作类（可以为 null）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">selectList</span><span class="params">(Wrapper&lt;T&gt; queryWrapper)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = CollectionUtils.newHashMapWithExpectedSize(<span class="number">1</span>);</span><br><span class="line">        map.put(Constants.WRAPPER, queryWrapper);</span><br><span class="line">        SqlSession sqlSession = sqlSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sqlSession.selectList(sqlStatement(SqlMethod.SELECT_LIST), map);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeSqlSession(sqlSession);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Serializable <span class="title">pkVal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Serializable) ReflectionKit.getFieldValue(<span class="keyword">this</span>, TableInfoHelper.getTableInfo(getClass()).getKeyProperty());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>可以看到继承这个类的实体可以同样拥有通过实例对象调用方法，实现和调用service或者mapper一样crud的能力。例如上图中的Insert()，selectById()方法等等。有兴趣的可以去试下，几乎是一样的，这里不再赘述。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis plus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/17/MabatisPlus%E4%B8%AD%E4%BD%BF%E7%94%A8AR%E6%A8%A1%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/">展开全文 >></a>
         </p>
       
 
