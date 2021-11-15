@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 陈修榜的博客</title>
+  <title>nginx配置文件 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈修榜的博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162worker_processes  1;events &amp;#123;	worker_connections  1024;&amp;#125;http &amp;#123;	include">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx配置文件">
+<meta property="og:url" content="http://example.com/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162worker_processes  1;events &amp;#123;	worker_connections  1024;&amp;#125;http &amp;#123;	include">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-15T11:09:26.000Z">
+<meta property="article:modified_time" content="2021-11-15T11:33:07.880Z">
 <meta property="article:author" content="omen">
 <meta name="twitter:card" content="summary">
   
@@ -154,295 +158,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-nginx配置文件" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      nginx配置文件
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
+
+        
+        <a href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
   	<time datetime="2021-11-15T11:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">nginx配置文件</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line"></span><br><span class="line">	worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	include		mime.types;</span><br><span class="line">	default_type	application/octet-stream;</span><br><span class="line">	sendfile	on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	error_page	404              /404.html; </span><br><span class="line">	error_page   	500 502 503 504  /50x.html;</span><br><span class="line">    </span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80;</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		charset utf-8;</span><br><span class="line">		rewrite ^(.*)$ https://$host$1;</span><br><span class="line">		</span><br><span class="line">		location / &#123;</span><br><span class="line">			root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    	server &#123;</span><br><span class="line">        </span><br><span class="line">		listen       443 ssl;       </span><br><span class="line">		server_name chenxiubang.top; </span><br><span class="line">		charset utf-8;	</span><br><span class="line">		ssl_certificate cert/6597067_chenxiubang.top.pem;  </span><br><span class="line">		ssl_certificate_key cert/6597067_chenxiubang.top.key; </span><br><span class="line">		ssl_session_timeout 5m;</span><br><span class="line">		ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">		ssl_protocols TLSv1.1 TLSv1.2; </span><br><span class="line">		ssl_prefer_server_ciphers on;</span><br><span class="line">       </span><br><span class="line">		location / &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">        	location = /404.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line"></span><br><span class="line">        	location = /50x.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line">		#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">		location ~/hello/ &#123;</span><br><span class="line">                        proxy_pass http://127.0.0.1:8080;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>nginx配置文件，nginx.conf。由三部分 头信息，events代码块，http代码块组成。</p>
+<p>最多配置均在http代码块，http代码块又有全局块和server块组成。</p>
+<p>全局块中比如上述的include，error_page等。</p>
+<p>include，引入其他的配置文件，在配置文件过大或划分比较明确，可以将配置拆分，再用这个引入</p>
+<p>比如 include my_conf/*.conf;</p>
+<p>error_page ,这个应该是定义异常页面，貌似是可以卸载全局块，也可以写在server块中，我这边写在外面。</p>
+<p>然后是最重要的server块，每个server块监听一个端口，我上图中监听了http的默认80和https的443</p>
+<p>在第一个server代码块，我用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rewrite ^(.*)$ https://$host$1;</span><br></pre></td></tr></table></figure>
 
+<p>讲所有http请求重定向到第二个server代码块</p>
+<p>所以第一个server块基本没有什么用</p>
+<p>第二个server块监听443，https的端口。server_name绑定我的域名，字符集utf-8，还配置了证书文件，加密等等。</p>
+<p>server块中的location块代表转发规则，上面几个简单的是配置首页映射，404映射，500页面映射等。</p>
+<p>最后一个</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">location ~/hello/ &#123;</span><br><span class="line">	proxy_pass http://127.0.0.1:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>~/hello/ 代表开启正则匹配路径中带hello的请求，</p>
+<p>转发到本地8080端口交给tomcat处理</p>
+<p>（ps: 此处除了用波浪号还可以用*号，~代表匹配区分小写，*代表不区分）</p>
+<p>这个proxy_pass 要几个特点</p>
+<ol>
+<li>完整的url的格式</li>
+<li>如果映射路径是本机，可以映射端口不用开放</li>
+<li>https不能访问类似于8080端口的场合，你可以用映射转发给他们，这样用https协议也能打开tomcat默认8080的应用。</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.JPG">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/" class="archive-article-date">
-  	<time datetime="2021-11-15T05:55:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tomcat配置用户</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/">tomcat配置用户</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-11-14T12:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">反向代理</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-11-10T14:39:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/">SpringBootApplication注解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/" class="archive-article-date">
-  	<time datetime="2021-11-09T15:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/">redis基本黑窗口命令1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-11-01T12:44:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/">mybaits中的provider写法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2021-10-30T15:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/">rabbitmq简单队列入门程序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-10-30T12:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">go语言入门（1）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-10-28T15:28:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/">用jul创建的一个工具类</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-10-26T15:11:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/">关于jdk1.5中的ManagementFactory类</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -466,8 +367,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

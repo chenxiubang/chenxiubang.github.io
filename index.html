@@ -156,6 +156,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-nginx配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">nginx配置文件</a>
+    </h1>
+  
+
+        
+        <a href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
+  	<time datetime="2021-11-15T11:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line"></span><br><span class="line">	worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	include		mime.types;</span><br><span class="line">	default_type	application/octet-stream;</span><br><span class="line">	sendfile	on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	error_page	404              /404.html; </span><br><span class="line">	error_page   	500 502 503 504  /50x.html;</span><br><span class="line">    </span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80;</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		charset utf-8;</span><br><span class="line">		rewrite ^(.*)$ https://$host$1;</span><br><span class="line">		</span><br><span class="line">		location / &#123;</span><br><span class="line">			root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    	server &#123;</span><br><span class="line">        </span><br><span class="line">		listen       443 ssl;       </span><br><span class="line">		server_name chenxiubang.top; </span><br><span class="line">		charset utf-8;	</span><br><span class="line">		ssl_certificate cert/6597067_chenxiubang.top.pem;  </span><br><span class="line">		ssl_certificate_key cert/6597067_chenxiubang.top.key; </span><br><span class="line">		ssl_session_timeout 5m;</span><br><span class="line">		ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">		ssl_protocols TLSv1.1 TLSv1.2; </span><br><span class="line">		ssl_prefer_server_ciphers on;</span><br><span class="line">       </span><br><span class="line">		location / &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">        	location = /404.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line"></span><br><span class="line">        	location = /50x.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line">		#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">		location ~/hello/ &#123;</span><br><span class="line">                        proxy_pass http://127.0.0.1:8080;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>nginx配置文件，nginx.conf。由三部分 头信息，events代码块，http代码块组成。</p>
+<p>最多配置均在http代码块，http代码块又有全局块和server块组成。</p>
+<p>全局块中比如上述的include，error_page等。</p>
+<p>include，引入其他的配置文件，在配置文件过大或划分比较明确，可以将配置拆分，再用这个引入</p>
+<p>比如 include my_conf/*.conf;</p>
+<p>error_page ,这个应该是定义异常页面，貌似是可以卸载全局块，也可以写在server块中，我这边写在外面。</p>
+<p>然后是最重要的server块，每个server块监听一个端口，我上图中监听了http的默认80和https的443</p>
+<p>在第一个server代码块，我用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rewrite ^(.*)$ https://$host$1;</span><br></pre></td></tr></table></figure>
+
+<p>讲所有http请求重定向到第二个server代码块</p>
+<p>所以第一个server块基本没有什么用</p>
+<p>第二个server块监听443，https的端口。server_name绑定我的域名，字符集utf-8，还配置了证书文件，加密等等。</p>
+<p>server块中的location块代表转发规则，上面几个简单的是配置首页映射，404映射，500页面映射等。</p>
+<p>最后一个</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">location ~/hello/ &#123;</span><br><span class="line">	proxy_pass http://127.0.0.1:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>~/hello/ 代表开启正则匹配路径中带hello的请求，</p>
+<p>转发到本地8080端口交给tomcat处理</p>
+<p>（ps: 此处除了用波浪号还可以用*号，~代表匹配区分小写，*代表不区分）</p>
+<p>这个proxy_pass 要几个特点</p>
+<ol>
+<li>完整的url的格式</li>
+<li>如果映射路径是本机，可以映射端口不用开放</li>
+<li>https不能访问类似于8080端口的场合，你可以用映射转发给他们，这样用https协议也能打开tomcat默认8080的应用。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-tomcat配置用户" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -841,94 +931,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-几个快捷命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/">几个快捷命令</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-10-24T16:26:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>讲几个比较好用的命令：</p>
-<p>一个是curl。我们经常搭建好项目后写一个测试用的接口，让后浏览器直接访问路径，打印一个hello world。我想基本大家都是这么干的。实际上像这种简单测试，用黑窗口的curl命令就可以代替，无论是linux或者windows都是可以使用。</p>
-<p>比如我的springboot项目搭建好了，测试接口路径是  /hello ，项目名my_project。默认808端口。</p>
-<p>以前我会打开chrome，输入<a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> ,然后屏幕打印一句话</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
-
-<p>这个就算是通了。</p>
-<p>现在我们可以直接打开黑窗口</p>
-<p>输入：curl  <a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> </p>
-<p>就会同样的在下一行打印</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>另一个是tree命令，这个windows自带。如果是linux里面需要使用 yum install tree 安装一下</p>
-<p>在某个文件夹输入tree命令后，就会在窗口里树状展示整个文件夹的树状图（可能会比较长）</p>
-<p>在linux中，tree命令还有许多参数 ，比如tree -h 等，这里不多做介绍</p>
-<p>下面是一个文件夹的树状图例子</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">卷 Windows 的文件夹 PATH 列表</span><br><span class="line">卷序列号为 642E-B870</span><br><span class="line">C:.</span><br><span class="line">├─pkg</span><br><span class="line">│  └─mod</span><br><span class="line">│      └─cache</span><br><span class="line">└─src</span><br><span class="line">    └─go_code</span><br><span class="line">        └─tmp_go_study</span><br><span class="line">            ├─main</span><br><span class="line">            └─package</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/">展开全文 >></a>
         </p>
       
 

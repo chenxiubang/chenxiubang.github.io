@@ -156,6 +156,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-几个快捷命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/">几个快捷命令</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2021-10-24T16:26:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>讲几个比较好用的命令：</p>
+<p>一个是curl。我们经常搭建好项目后写一个测试用的接口，让后浏览器直接访问路径，打印一个hello world。我想基本大家都是这么干的。实际上像这种简单测试，用黑窗口的curl命令就可以代替，无论是linux或者windows都是可以使用。</p>
+<p>比如我的springboot项目搭建好了，测试接口路径是  /hello ，项目名my_project。默认808端口。</p>
+<p>以前我会打开chrome，输入<a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> ,然后屏幕打印一句话</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+<p>这个就算是通了。</p>
+<p>现在我们可以直接打开黑窗口</p>
+<p>输入：curl  <a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> </p>
+<p>就会同样的在下一行打印</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>另一个是tree命令，这个windows自带。如果是linux里面需要使用 yum install tree 安装一下</p>
+<p>在某个文件夹输入tree命令后，就会在窗口里树状展示整个文件夹的树状图（可能会比较长）</p>
+<p>在linux中，tree命令还有许多参数 ，比如tree -h 等，这里不多做介绍</p>
+<p>下面是一个文件夹的树状图例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">卷 Windows 的文件夹 PATH 列表</span><br><span class="line">卷序列号为 642E-B870</span><br><span class="line">C:.</span><br><span class="line">├─pkg</span><br><span class="line">│  └─mod</span><br><span class="line">│      └─cache</span><br><span class="line">└─src</span><br><span class="line">    └─go_code</span><br><span class="line">        └─tmp_go_study</span><br><span class="line">            ├─main</span><br><span class="line">            └─package</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-javase基础知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
