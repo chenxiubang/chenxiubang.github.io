@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>陈修榜的博客</title>
+  <title>tomcat配置用户 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈修榜的博客">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="tomcat首页也就是常规localhost:8080，在学习期间常常遇到的页面。 在这个页面除了一堆tomcat的介绍，还会有右侧几个管理界面入口：server status， manage app，host mananger等等。但是这些是需要用tomcat管理账号才能进入的。这么配置在tomcat conf目录的tomcat-user s的xml配置。 1234567891011121314">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tomcat配置用户">
+<meta property="og:url" content="http://example.com/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
+<meta property="og:description" content="tomcat首页也就是常规localhost:8080，在学习期间常常遇到的页面。 在这个页面除了一堆tomcat的介绍，还会有右侧几个管理界面入口：server status， manage app，host mananger等等。但是这些是需要用tomcat管理账号才能进入的。这么配置在tomcat conf目录的tomcat-user s的xml配置。 1234567891011121314">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-15T05:55:36.000Z">
+<meta property="article:modified_time" content="2021-11-15T06:09:12.523Z">
 <meta property="article:author" content="omen">
 <meta name="twitter:card" content="summary">
   
@@ -154,16 +158,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-tomcat配置用户" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-tomcat配置用户" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/">tomcat配置用户</a>
+    <h1 class="article-title" itemprop="name">
+      tomcat配置用户
     </h1>
   
 
@@ -188,6 +190,37 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.JPG">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -195,16 +228,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/11/15/tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">反向代理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -224,744 +316,14 @@
 
 
 
-
-  
-    <article id="post-反向代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">反向代理</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-11-14T12:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>反向代理这个词最多出现在nginx。</p>
-<p>也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。</p>
-<p>但刚学习的时候很多人不知道什么是反向代理。</p>
-<p>其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。</p>
-<p>比如张三要访问谷歌，但是在国内直接访问国外的域名非常困难。这时候就出现了一个中间代理服务器，用户就通过它，将请求转发给谷歌，实现成功获取资源。这个服务器对于用户是有感知的，用户通过它，访问到了想要的网站。</p>
-<p>而nginx的反向代理与此不同，它将真实的服务器藏在自己身后，自己对于用户而言，是一个服务器，用户并无法知道真正的服务器地址。用户将请求交给nginx，由nginx通过负载均衡策略，把请求分发给后台真实的服务集群。再将请求响应给用户。反向代理的nginx对应用户而言，更像一个真实的服务器。</p>
-<p>补充一点nginx常用命令</p>
-<p>在nginx的目录（linux默认情况）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin</span><br></pre></td></tr></table></figure>
-
-<p>会有一个nginx文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -V</span><br></pre></td></tr></table></figure>
-
-<p>查看nginx版本号</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure>
-
-<p>启动nginx</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s stop</span><br></pre></td></tr></table></figure>
-
-<p>关闭nginx</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
-
-<p>重新加载nginx （并不是重新启动，而是重新加载修改后的nginx.conf文件）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringBootApplication注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/">SpringBootApplication注解</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-11-10T14:39:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Springboot的引导类，程序入口上添加的spring核心注解：@SpringBootApplication。</p>
-<p>点入源码后如图</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是2.2.6.RELEASE的，不同发行版可能会有差异</p>
-<p>上图中除去元注解Target，Retention，Documented，Inherited，首先第一个注解：springbootConfiguration。</p>
-<p>从名字就可以得知，这是springboot配置，点入后</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Configuration</span><br><span class="line">public @interface SpringBootConfiguration &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>他也只是个普通带有Configuration的配置类，某种程度上SpringbootApplication和Configuration是没有差别。</p>
-<p>一个隶属boot，一个是Spring的。</p>
-<p>第二个注解@EnableAutoConfiguration，翻译过来开启自动配置，点击进入</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY = <span class="string">&quot;spring.boot.enableautoconfiguration&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>里面核心注解有</p>
-<p>@AutoConfigurationPackage</p>
-<p>@Import({AutoConfigurationImportSelector.class})</p>
-<p>第一个点击</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看出来@AutoConfigurationPackage是个标记注解，其中核心的是一个@Import注解（与外层相通），这也是一个Spring的注解。</p>
-<p>它代表导入一个组件，在这个例子中就是导入Registrar.class类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Registrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">DeterminableImports</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">		register(registry, <span class="keyword">new</span> PackageImport(metadata).getPackageName());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Object&gt; <span class="title">determineImports</span><span class="params">(AnnotationMetadata metadata)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Collections.singleton(<span class="keyword">new</span> PackageImport(metadata));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>实际上这个Registar又是一个静态内部类，它是AutoConfigurationPackages这个抽象类的静态内部类。同时实现了接口ImportBeanDefinitionRegistrar，DeterminableImports的方法。</p>
-<p>如果你在registerBeanDefinitions的register这一行打过断点，就可以看到入参metadata（注解元数据，包含当前注解放置位置等信息），然后利用idea的calculate功能计算下new PackageImport(metadata).getPackageName()的结果，你就会的到一个包路径字符串，这个就是你引导类的包名：例如io.spring等等。</p>
-<p>回到@EnableAutoConfiguration，这个注解的作用就是将该类同级和子包下的所有组件注入进ioc中</p>
-<p>这是非常重要的一个注解</p>
-<p>此外别忘了@EnableAutoConfiguration  注解中还有一个</p>
-<p>@Import(AutoConfigurationImportSelector.class)</p>
-<p>它导入的类点开,有个实现方法selectImports</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">	<span class="keyword">if</span> (!isEnabled(annotationMetadata)) &#123;</span><br><span class="line">		<span class="keyword">return</span> NO_IMPORTS;</span><br><span class="line">	&#125;</span><br><span class="line">	AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader</span><br><span class="line">			.loadMetadata(<span class="keyword">this</span>.beanClassLoader);</span><br><span class="line">	AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(autoConfigurationMetadata,</span><br><span class="line">			annotationMetadata);</span><br><span class="line">	<span class="keyword">return</span> StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在boot2中，该类重新实现了，在早期版本只有上述方法。</p>
-<p>早期版本将要注入的组件以全类名的形式构建为一个数据返回</p>
-<p>但新版本实现似乎不采用该方法了。</p>
-<p>先写这么多好了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis基本黑窗口命令1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/">redis基本黑窗口命令1</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/" class="archive-article-date">
-  	<time datetime="2021-11-09T15:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>redis中常用命令：</p>
-<ol>
-<li>keys  * （查看当前库所有key）</li>
-<li>exists （key） （查看是否存在当前名字的key，存在返回1，否则0）</li>
-<li>type （key） （查看当前名字key的数据类型，例如返回：string）</li>
-<li>del （key) （删除该名字的key，同步，阻塞）</li>
-<li>unlink （key）（发送指令后，异步删除该key，系统会提示已经删除）（tip：unlink是解除链接的意思）</li>
-<li>select  （no)   （选择redis的0-15中其中一个数据库）</li>
-<li>flashdb （清空当前库所有key）</li>
-<li>flushall （删除redis16个库所有的key）</li>
-<li>expire  （key）（time） （给某个key设置过期时间）</li>
-<li>ttl （key)  （可以查看该key的剩余过期时间，返回秒，返回-1说明永不过期，返回-2 说明已经过期）</li>
-<li>dbsize  （返回当前选择库的key的数量）   </li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mybaits中的provider写法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/">mybaits中的provider写法</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-11-01T12:44:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>早在学习初期解除mybatis框架的时候，我学习的是将sql写在xml中，这样做到了代码和sql分离。随着工作后，我又见到各种五花八门的写法。比较靠谱一点的就是这样的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StuTalentUserAuditDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">StuTalentUserAuditEo</span>&gt;</span>&#123;</span><br><span class="line">    <span class="meta">@Select(&quot;select * from audit where id_card=#&#123;idCard&#125;&quot;)</span></span><br><span class="line">    <span class="function">Eo <span class="title">select</span><span class="params">(<span class="meta">@Param(&quot;idCard&quot;)</span> String idCard)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from audit where id_card=#&#123;idCard&#125; and status=#&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function">Eo <span class="title">select1</span><span class="params">(<span class="meta">@Param(&quot;idCard&quot;)</span> String idCard,<span class="meta">@Param(&quot;status&quot;)</span> String status)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>再dao中的方法脑袋上写sql’语句。</p>
-<p>还有过分点的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HotelDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">HotelEo</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据经纬度获取酒店列表, 按照距离远近排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dto</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Select(&quot;SELECT &quot; +</span></span><br><span class="line"><span class="meta">            &quot; id, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; hotel_name AS hotelName, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; hotel_name_eng AS hotelNameEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; discount_desc AS discountDesc, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; discount_desc AS discountDescEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; addr, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; addr_eng AS addrEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; img, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; mobile,&quot; +</span></span><br><span class="line"><span class="meta">            &quot; round(ST_Distance_Sphere (point(longitude,latitude),point( #&#123;dto.lon&#125;, #&#123;dto.lat&#125;))) as distance &quot; +</span></span><br><span class="line"><span class="meta">            &quot;FROM &quot; +</span></span><br><span class="line"><span class="meta">            &quot; front_hotel &quot; +</span></span><br><span class="line"><span class="meta">            &quot;where status = 1 &quot; +</span></span><br><span class="line"><span class="meta">            &quot;order by distance asc&quot;)</span></span><br><span class="line">    <span class="function">List&lt;HotelDto&gt; <span class="title">getHotelListByLocation</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> LocationDto dto)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这种长度的sql你写在脑袋上真的恶心，配个xml会死吗？代码和sql完美黏在一起</p>
-<p>今天我又见到另一种写法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApartmentChangeDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">ApartmentChangeEo</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@SelectProvider(type = MyProvider.class, method = &quot;changeLeftJoinTalent&quot;)</span></span><br><span class="line">    <span class="function">List&lt;ApartmentChangePageDto&gt; <span class="title">info</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> ApartmentChangeQueryDto dto)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是dao，不过脑袋上是selectProvider注解，这里指定了两个属性，一个是自定义类，另一个是他的方法名</p>
-<p>然后到那个MyProvider里面看看</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">changeLeftJoinTalent</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> ApartmentChangeQueryDto dto)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String sql = <span class="keyword">new</span> SQL() &#123;&#123;</span><br><span class="line">            SELECT(<span class="string">&quot;t1.`id` ,t1.`id_card`,t1.`mobile`,t1.`name`,t1.`status`,t1.`create_time` ,t1.change_type,t2.status AS tstatus&quot;</span>);</span><br><span class="line"></span><br><span class="line">            FROM(<span class="string">&quot;apartment_change t1&quot;</span>);</span><br><span class="line">            LEFT_OUTER_JOIN(<span class="string">&quot;apartment_talent t2 ON t1.`apartment_id` = t2.`id`&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNumeric(dto.getKeyword())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.mobile LIKE CONCAT(&#x27;%&#x27;,#&#123;dto.keyword&#125;,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dto.getKeyword()) &amp;&amp; !StringUtils.isNumeric(dto.getKeyword())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.name LIKE CONCAT(&#x27;%&#x27;,#&#123;dto.keyword&#125;,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dto.getStartTime() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.create_time&gt;=#&#123;dto.startTime&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dto.getEndTime() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.create_time&lt;=#&#123;dto.endTime&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dto.getIdcard())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.id_card = #&#123;dto.idcard&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getNeStatus())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t2.status &lt;&gt; #&#123;dto.neStatus&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getStatus()) &amp;&amp;</span><br><span class="line">                    StringUtils.equalsAny(dto.getStatus(), ApartmentChangeEnum.HUMAN_WAIT.name(),</span><br><span class="line">                            ApartmentChangeEnum.HUMAN_FAIL.name(), ApartmentChangeEnum.CITY_WAIT.name(),</span><br><span class="line">                            ApartmentChangeEnum.lotteryWait.name())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.status = #&#123;dto.status&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getStatus())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t2.status = #&#123;dto.status&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ORDER_BY(<span class="string">&quot;t1.id DESC&quot;</span>);</span><br><span class="line">        &#125;&#125;.toString();</span><br><span class="line">        <span class="keyword">return</span> sql;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这个类中其实就是就是在该方法种用双括号语法创建一个SQL对象，然后toString，return出去。</p>
-<p>如果了解双括号语法，对上面应该不会陌生，</p>
-<p>这里的SELECT ,FROM ,等等都是方法名全部大写的的方法，他们有返回值，但是这里没有使用而已。</p>
-<p>SELECT ,FORM ,WHERE等方法执行实际上最终就是不停地拼接，最后的toString打印完整地sql</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-rabbitmq简单队列入门程序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/">rabbitmq简单队列入门程序</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2021-10-30T15:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- rabbitmq 的客户端工具 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.rabbitmq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>amqp-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.13.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- apache操作流的的依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>rabbitmq是中小企业经常使用的消息中间件，作为四大中间件之一。karfa统治大数据领域，alibaba的rocketmq在大型应用很受欢迎，activemq作为元老级的mq虽然已经病入膏肓，但还是偶尔能听到。说到activemq，他的官网现在居然都还是http的，这是不打算玩了看来。</p>
-<p>上面是我在maven项目引入的rabbitmq客户端和一个apache操作流的工具</p>
-<p>我在云服务器搭建了一个rabbitmq示例（建议用docker创建，传统方式还需要安装Erlang语言环境等等，过于繁琐，而且Erlang和rabbitmq版本要相较对应，否则又会出问题），写了两个junit测试类，模范简单队列的生产/消费。</p>
-<p>均使用java语言实现</p>
-<p>下面是生产</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">&quot;hello_world_queue&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;47.96.156.22&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String USER_NAME = <span class="string">&quot;xxxxx&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PASSWORD = <span class="string">&quot;xxxxx&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@SneakyThrows</span></span><br><span class="line"><span class="meta">@DisplayName(&quot;第一个rabbitmq测试(生产者)&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> connectionFactory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line"></span><br><span class="line">    connectionFactory.setHost(HOST);<span class="comment">//我的轻量ip</span></span><br><span class="line">    connectionFactory.setUsername(USER_NAME);</span><br><span class="line">    connectionFactory.setPassword(PASSWORD);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//工厂创建连接</span></span><br><span class="line">    <span class="keyword">var</span> connection = connectionFactory.newConnection();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接获取信道</span></span><br><span class="line">    <span class="keyword">var</span> channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法签名参见源码</span></span><br><span class="line">    <span class="keyword">var</span> declareOk = channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    channel.basicPublish(<span class="string">&quot;&quot;</span>, QUEUE_NAME, <span class="keyword">null</span>, <span class="string">&quot;hello world&quot;</span>.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">    System.out.println(<span class="string">&quot;=================&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>定义几个ip，账号密码常量（端口如果不设置，就是默认的5672）</p>
-<p>首先创建连接工厂，工厂创建连接，连接船舰信道，信道通过basicPublish发布内容</p>
-<p>【一些方法签名是属于后面高级内容】</p>
-<p>然后登录rabbitmq的控制台就可以看到接收到的消息了</p>
-<p>然后是消费方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@SneakyThrows</span></span><br><span class="line"><span class="meta">@DisplayName(&quot;消费&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> connectionFactory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line">    connectionFactory.setHost(HOST);</span><br><span class="line">    connectionFactory.setPassword(USER_NAME);</span><br><span class="line">    connectionFactory.setUsername(PASSWORD); <span class="comment">//ctrl + shift + u 批量大小写转换</span></span><br><span class="line">    <span class="keyword">var</span> connection = connectionFactory.newConnection();</span><br><span class="line">    <span class="keyword">var</span> channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//众多重载的其中一个</span></span><br><span class="line">    <span class="comment">//第三个参数 DeliverCallBack 传送回调</span></span><br><span class="line">    <span class="comment">//第四个参数 CancelCallBack 取消回调</span></span><br><span class="line"></span><br><span class="line">    channel.basicConsume(</span><br><span class="line">            QUEUE_NAME,</span><br><span class="line">            <span class="keyword">true</span>,</span><br><span class="line">            (consumerTag, message) -&gt; System.out.println(<span class="keyword">new</span> String(message.getBody())),</span><br><span class="line">            consumerTag -&gt; System.out.println(<span class="string">&quot;~~~~&quot;</span>)</span><br><span class="line">    );</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>创建信道之前均是一样，利用信道的basicConsume方法接收（这是一个很多个重载的方法，我是用的是其中一个）。主要是第三个和第四个参数，上述已经说明。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-go语言入门（1）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">go语言入门（1）</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-10-30T12:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这段时间稍微解除了golang，写了几个helloworld，笔记了几个go基础语法的点。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>首先go是编译型的语言，用go build命令生成编译后的文件（window下默认是文件名+.exe后缀）</p>
-<p>可以通过 go build -o 文件名.后缀  自定义指定生成编译后的文件</p>
-<p>此外可以用go run 命令 直接合并编译+运行操作</p>
-<p>tips：我现在写go是用vscode，一些操作命令和jetbrains产品有点不同。</p>
-<p>比如： vscode的快捷键 alt + shift + ↓ 相当与idea里面的 ctrl + d 向下复制</p>
-<p>golang语言提倡简介：导入的包可声明的变量必须要有使用，否则会编译报错</p>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\go3.go:3:2: imported and not used: &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">.\go3.go:10:2: a declared but not used</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-用jul创建的一个工具类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/">用jul创建的一个工具类</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-10-28T15:28:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hzsmk.common.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.experimental.UtilityClass;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chenxiubang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0 2021-10-28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@UtilityClass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据类路径创建logger对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(<span class="string">&quot;com.hzsmk.common.util.LogUtil&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//不沿用父logger的处理器</span></span><br><span class="line">        logger.setUseParentHandlers(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建输出处理器，控制台的ConsoleHandler，文件的FileHandler</span></span><br><span class="line">        ConsoleHandler consoleHandler = <span class="keyword">new</span> ConsoleHandler();</span><br><span class="line">        SimpleFormatter simpleFormatter = <span class="keyword">new</span> SimpleFormatter();</span><br><span class="line">        FileHandler fileHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//该处项目启动后必然会有该目录和文件，所以通常不会出现io异常</span></span><br><span class="line">            fileHandler = <span class="keyword">new</span> FileHandler(<span class="string">&quot;logs\\smk_yhqrcode.log&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> fileHandler != <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        fileHandler.setFormatter(simpleFormatter);</span><br><span class="line">        consoleHandler.setFormatter(simpleFormatter);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//logger和处理器都需要设置自定义级别</span></span><br><span class="line">        logger.setLevel(Level.ALL);</span><br><span class="line">        consoleHandler.setLevel(Level.ALL);</span><br><span class="line">        fileHandler.setLevel(Level.INFO);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为logger添加多个handler</span></span><br><span class="line">        logger.addHandler(consoleHandler);</span><br><span class="line">        logger.addHandler(fileHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logAll</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.ALL, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFinest</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINEST, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFiner</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINER, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFine</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logConfig</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.CONFIG, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logInfo</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.INFO, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logWarning</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.WARNING, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logServer</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.SEVERE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logOff</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.OFF, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>上面是我今天学了一些jul知识后再springboot项目中创建的一个工具类</p>
-<p>首先是根据静态常量创建一个本工具类类路径的logger对象</p>
-<p>紧接着由于默认的logger对象沿用的是父类的日志handler，</p>
-<p>先禁用父类handler，然后创建一个ConsoleHandler对象和一个FileHandler对象，分别是让日志控制台输入，和文件持久化的。</p>
-<p>这里要注意一点的是，文件持久化的FileHandler对象要指定路径，这里会有一个受检异常，如果路径不对文件不存在会引发io错误。</p>
-<p>两个Handler都要有一个SimpleFormat对象，这个也是jul下的（别和SimpleDateFormat对象弄混了）</p>
-<p>再接着我们为logger和两个Handler对象设置日志级别即可，你可以为两个Handler设置不同的日志级别，但一定要设置。</p>
-<p>最后用addHandler方法将处理器设置给logger，整个过程在静态代码块中处理。</p>
-<p>下面就是一些工具方法，因为刚写没想到什么好想法，就都是传一个Object对象，然后打印。</p>
-<p>其实jul的东西远不止此，这里只是写皮毛。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于jdk1-5中的ManagementFactory类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/">关于jdk1.5中的ManagementFactory类</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-10-26T15:11:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天看了下一个在jdk1.5引入的类：ManagementFactory</p>
-<p>这个类归属于lang包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.management;</span><br></pre></td></tr></table></figure>
-
-<p>所以这个类无需导包就可以直接引入</p>
-<p>这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息；</p>
-<p>如图一下实例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> threadCount = ManagementFactory.getThreadMXBean().getThreadCount();</span><br><span class="line"><span class="keyword">long</span> max = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax();</span><br><span class="line"><span class="keyword">long</span> used =ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();</span><br><span class="line">log.info(<span class="string">&quot;当前的线程数目为&#123;&#125;&quot;</span>, threadCount);</span><br><span class="line">log.info(<span class="string">&quot;当前堆内存最大值为&#123;&#125;,已使用&#123;&#125;&quot;</span>, max, used);</span><br></pre></td></tr></table></figure>
-
-<p>如有机会可以多使用下。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-几个快捷命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/">几个快捷命令</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-10-24T16:26:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>讲几个比较好用的命令：</p>
-<p>一个是curl。我们经常搭建好项目后写一个测试用的接口，让后浏览器直接访问路径，打印一个hello world。我想基本大家都是这么干的。实际上像这种简单测试，用黑窗口的curl命令就可以代替，无论是linux或者windows都是可以使用。</p>
-<p>比如我的springboot项目搭建好了，测试接口路径是  /hello ，项目名my_project。默认808端口。</p>
-<p>以前我会打开chrome，输入<a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> ,然后屏幕打印一句话</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
-
-<p>这个就算是通了。</p>
-<p>现在我们可以直接打开黑窗口</p>
-<p>输入：curl  <a target="_blank" rel="noopener" href="http://localhost:8080/my_project/hello">http://localhost:8080/my_project/hello</a> </p>
-<p>就会同样的在下一行打印</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>另一个是tree命令，这个windows自带。如果是linux里面需要使用 yum install tree 安装一下</p>
-<p>在某个文件夹输入tree命令后，就会在窗口里树状展示整个文件夹的树状图（可能会比较长）</p>
-<p>在linux中，tree命令还有许多参数 ，比如tree -h 等，这里不多做介绍</p>
-<p>下面是一个文件夹的树状图例子</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">卷 Windows 的文件夹 PATH 列表</span><br><span class="line">卷序列号为 642E-B870</span><br><span class="line">C:.</span><br><span class="line">├─pkg</span><br><span class="line">│  └─mod</span><br><span class="line">│      └─cache</span><br><span class="line">└─src</span><br><span class="line">    └─go_code</span><br><span class="line">        └─tmp_go_study</span><br><span class="line">            ├─main</span><br><span class="line">            └─package</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -984,8 +346,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
