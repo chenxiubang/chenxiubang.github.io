@@ -156,6 +156,78 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-关于jdk1-5中的ManagementFactory类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/">关于jdk1.5中的ManagementFactory类</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" class="archive-article-date">
+  	<time datetime="2021-10-26T15:11:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天看了下一个在jdk1.5引入的类：ManagementFactory</p>
+<p>这个类归属于lang包下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.management;</span><br></pre></td></tr></table></figure>
+
+<p>所以这个类无需导包就可以直接引入</p>
+<p>这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息；</p>
+<p>如图一下实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> threadCount = ManagementFactory.getThreadMXBean().getThreadCount();</span><br><span class="line"><span class="keyword">long</span> max = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax();</span><br><span class="line"><span class="keyword">long</span> used =ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();</span><br><span class="line">log.info(<span class="string">&quot;当前的线程数目为&#123;&#125;&quot;</span>, threadCount);</span><br><span class="line">log.info(<span class="string">&quot;当前堆内存最大值为&#123;&#125;,已使用&#123;&#125;&quot;</span>, max, used);</span><br></pre></td></tr></table></figure>
+
+<p>如有机会可以多使用下。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-几个快捷命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
