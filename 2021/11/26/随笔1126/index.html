@@ -16,8 +16,9 @@
 <meta property="og:description" content="使用linux 的shell脚本实现一些自动化部署操作，比如cpu到80%的时候，去调用一些aliyun的api实现服务器的扩容&#x3D;&#x3D;  :apple:苹果的名字叫apple  redis setnx 命令 set key if not exist？？？  redis strlen命令 ： strlen k1 ，可以查看redis :key:的长度  redis append命令：append">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-25T16:16:21.000Z">
-<meta property="article:modified_time" content="2021-11-25T16:24:52.374Z">
+<meta property="article:modified_time" content="2021-11-27T15:55:04.612Z">
 <meta property="article:author" content="omen">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="陈修榜的博客" type="application/atom+xml">
@@ -184,7 +185,10 @@
 <li><input disabled="" type="checkbox"> redis setnx 命令 set key if not exist？？？</li>
 <li><input disabled="" type="checkbox"> redis strlen命令 ： strlen k1 ，可以查看redis :key:的长度</li>
 <li><input disabled="" type="checkbox"> redis append命令：append :key: value, 返回增加后的value长度，如果:key:不存在，就创建</li>
+<li><input disabled="" type="checkbox"> redis 中string数据类型的value值最大可以512M</li>
+<li><input disabled="" type="checkbox"> redis string数据类型的 incr ， dect命令。（increment decrement）对一个数字类的key每次加1或者减去1。ps：只能输数字类型的value。</li>
 </ul>
+<p>​    如果想设置自定义步长：incrby（decrby）:key: 步长数字。。例子decrby k1 5 (每次操作减去5)</p>
 
       
 
@@ -224,6 +228,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -426,6 +441,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis plus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>
