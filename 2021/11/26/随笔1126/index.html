@@ -16,7 +16,7 @@
 <meta property="og:description" content="使用linux 的shell脚本实现一些自动化部署操作，比如cpu到80%的时候，去调用一些aliyun的api实现服务器的扩容&#x3D;&#x3D;  :apple:苹果的名字叫apple  redis setnx 命令 set key if not exist？？？  redis strlen命令 ： strlen k1 ，可以查看redis :key:的长度  redis append命令：append">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-25T16:16:21.000Z">
-<meta property="article:modified_time" content="2021-11-27T15:55:04.612Z">
+<meta property="article:modified_time" content="2021-11-28T12:41:07.396Z">
 <meta property="article:author" content="omen">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -189,6 +189,13 @@
 <li><input disabled="" type="checkbox"> redis string数据类型的 incr ， dect命令。（increment decrement）对一个数字类的key每次加1或者减去1。ps：只能输数字类型的value。</li>
 </ul>
 <p>​    如果想设置自定义步长：incrby（decrby）:key: 步长数字。。例子decrby k1 5 (每次操作减去5)</p>
+<ul>
+<li><input disabled="" type="checkbox"> mset ,mget 不知道是什么的缩写。比如mset，可以一次设置多个值，mset k1 10 k2 20这样的格式，还有mget k1 k2。可以一次批量设置和获取值。同理有msetnx，这个像上面的setnx，只不过又是批量操作。这里要注意msetnx，只要设置的多个值，有一个因为已经存在key而失败，所有设置均失败。（原子操作，一个失败，全部失败）</li>
+<li><input disabled="" type="checkbox"> redis命令：getset k1 v1 。这个有点像java中Map的put方法，set成功后会写入新的value值，返回之前被覆盖的值。</li>
+<li><input disabled="" type="checkbox"> getrange :key: 索引起始 索引结束 ：例子 getrange k1 0 2。redis中已经存在k1=chenxiubang。用上述命令可以获取并截取字符串的，类似于java中的substring，不过这个包含索引左侧和右侧。（包左也包右），最终获取的是che。</li>
+<li><input disabled="" type="checkbox"> 同理还有setrange。格式是setrange :key: 索引下标  value值。例如redis中已经存在k1=chenxiubang。用上述命令，setrange k1 2 qqqq，这样这个命令就会从第三个字符，用qqqq覆盖原有的字符，结果是chqqqqubang。设置成功后会返回，最终字符串的长度。</li>
+<li><input disabled="" type="checkbox"> 之前有个设置:key:的过期时间expire命令，现在可以使用setex，set expire的缩写吧，直接在set值得时候就设置过期时间。格式：set k1  过期时间 value值。</li>
+</ul>
 
       
 
