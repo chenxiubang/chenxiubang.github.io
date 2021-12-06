@@ -260,6 +260,7 @@
 <li><input disabled="" type="checkbox"> getrange :key: 索引起始 索引结束 ：例子 getrange k1 0 2。redis中已经存在k1=chenxiubang。用上述命令可以获取并截取字符串的，类似于java中的substring，不过这个包含索引左侧和右侧。（包左也包右），最终获取的是che。</li>
 <li><input disabled="" type="checkbox"> 同理还有setrange。格式是setrange :key: 索引下标  value值。例如redis中已经存在k1=chenxiubang。用上述命令，setrange k1 2 qqqq，这样这个命令就会从第三个字符，用qqqq覆盖原有的字符，结果是chqqqqubang。设置成功后会返回，最终字符串的长度。</li>
 <li><input disabled="" type="checkbox"> 之前有个设置:key:的过期时间expire命令，现在可以使用setex，set expire的缩写吧，直接在set值得时候就设置过期时间。格式：set k1  过期时间 value值。</li>
+<li><input disabled="" type="checkbox"> redis启动使用命令redis-server 配置文件路径来指定某个配置文件来进行启动，如果是要停止redis，比较简单除暴的方法是使用kill -9 直接强行杀死进程，或是使用redis-cli shutdown命令来给redis发送一个停止的命令（或者使用redis-cli连接上redis，然后使用shutdown，也是一样的），这种方式比起杀死进程，可以避免内存数据丢失。</li>
 </ul>
 
       
