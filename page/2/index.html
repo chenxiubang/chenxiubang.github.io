@@ -156,6 +156,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-go语言入门（1）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">go语言入门（1）</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2021-10-30T12:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这段时间稍微解除了golang，写了几个helloworld，笔记了几个go基础语法的点。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>首先go是编译型的语言，用go build命令生成编译后的文件（window下默认是文件名+.exe后缀）</p>
+<p>可以通过 go build -o 文件名.后缀  自定义指定生成编译后的文件</p>
+<p>此外可以用go run 命令 直接合并编译+运行操作</p>
+<p>tips：我现在写go是用vscode，一些操作命令和jetbrains产品有点不同。</p>
+<p>比如： vscode的快捷键 alt + shift + ↓ 相当与idea里面的 ctrl + d 向下复制</p>
+<p>golang语言提倡简介：导入的包可声明的变量必须要有使用，否则会编译报错</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\go3.go:3:2: imported and not used: &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">.\go3.go:10:2: a declared but not used</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-用jul创建的一个工具类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -814,6 +892,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring-boot</a>
               </li>
             
             <div class="clearfix"></div>
