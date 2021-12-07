@@ -198,6 +198,23 @@
 <p>首先说明，如果主动调用dog（）方法，返回的对象呢日哦内容地址是否会一直？</p>
 <p>答案是：如果默认情况下，是一致的。也是就是当proxyBeanMethod=true的时间，也就是这个类是代理类的时候，这个是时候每次调用被@Bean标记的方法的时候，首先会检查容器从中，是或否存在这个类的实例，如果没有择入，如果有，则取容器中的Bean对象。</p>
 <p>所以说，如果现在在有了proxyBeanMethods属性后，如果把值设置为flase，每次调用方法，就可以不用取检查容器，而是直接创建对象，这样的好处就是启动也迅速，！。也是就我们说的轻量默认模式（LIte），这也是为了什么，这个配置的类需要时代理类的缘故，因为只有是代理类，才可以在调用发发前，检查做判断。</p>
+<h4 id="import"><a href="#import" class="headerlink" title="@import"></a>@import</h4><p>@import注解是导入主键组件的一个注解。</p>
+<p>！！~~~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123;</span><br><span class="line">    Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>z这个注解是spring的原生注解，存在于context宝中</p>
+<p>首先第一点，这个注解只能标注于类上，而且<code>必须啊是spring组件的类</code>。</p>
+<p>第二点，这个注解比可以宝指定的类do导入spring容器，看源码可知，它只有一个vlaue数据属性，是一个Class数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(&#123;Cat.class&#125;)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>r如图这个配置类中，我没有写其他方法，只是为了给@InImport注解使用，作为一个组件给其承载。</p>
+<p>@import组件二注解指定了Cat的Class。于是把Cat注入容器。</p>
+<p>PS：这个地方它会调用Cat类的无参构造器9(w无论是否私有，因为此处是通过反射)，实例化让弄然后注入容器中！所以午餐狗赞其是费差个重要的。</p>
+<p>第三点这个方针屎，注入容器的组件（上述屎cat，它在容器中的名字不是cat，而是全类型！）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.example.domain.Cat</span><br></pre></td></tr></table></figure>
+
+<p>它不想@Bean用方法名作为bean的名字，而是全类型。</p>
+<p>最后：如果有用过最早Spring配置文件配置的年代就会明白。这里的Spring中的@Iport的注解其实就是以前applicationContext.xml的<beans></beans>标间中的<import>标签，它在那个年代是为了解决配置文件过多的问题，在一个配置文件中导入另外一个配置文件，其实换到Springboot中，注解化后其实作用也差别不是很大，依然是需要依附于一个组件（配置文件）来使用，导入Bean（配置文件）。</p>
 
       
 
