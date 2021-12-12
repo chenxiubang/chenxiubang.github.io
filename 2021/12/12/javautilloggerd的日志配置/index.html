@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>SpringBootApplication注解 | 陈修榜的博客</title>
+  <title>javautilloggerd的日志配置 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Springboot的引导类，程序入口上添加的spring核心注解：@SpringBootApplication。 点入源码后如图 12345678910111213141516171819@Target(&amp;#123;ElementType.TYPE&amp;#125;)@Retention(RetentionPolicy.RUNTIME)@Documented@Inherited@SpringBootC">
+  <meta name="description" content="在java.util包下用Logger.getLogger(“包全类名”)创建的logger我们称之为根logger，或者是父logger。 这个logger的配置其实是java安装文件中有配置文件，进行配置。 其中jdk1.8和8之后，由于包结构发生改变（9之后jre和jdk合并），配置文件位置也不通了。 这里用1.8为例； 1234@Testpublic void test() &amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBootApplication注解">
-<meta property="og:url" content="http://example.com/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:title" content="javautilloggerd的日志配置">
+<meta property="og:url" content="http://example.com/2021/12/12/javautilloggerd%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
-<meta property="og:description" content="Springboot的引导类，程序入口上添加的spring核心注解：@SpringBootApplication。 点入源码后如图 12345678910111213141516171819@Target(&amp;#123;ElementType.TYPE&amp;#125;)@Retention(RetentionPolicy.RUNTIME)@Documented@Inherited@SpringBootC">
+<meta property="og:description" content="在java.util包下用Logger.getLogger(“包全类名”)创建的logger我们称之为根logger，或者是父logger。 这个logger的配置其实是java安装文件中有配置文件，进行配置。 其中jdk1.8和8之后，由于包结构发生改变（9之后jre和jdk合并），配置文件位置也不通了。 这里用1.8为例； 1234@Testpublic void test() &amp;#123;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-11-10T14:39:31.000Z">
-<meta property="article:modified_time" content="2021-11-10T15:28:09.603Z">
+<meta property="article:published_time" content="2021-12-12T10:25:14.000Z">
+<meta property="article:modified_time" content="2021-12-12T10:56:21.243Z">
 <meta property="article:author" content="omen">
+<meta property="article:tag" content="java日志">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="陈修榜的博客" type="application/atom+xml">
@@ -158,63 +159,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SpringBootApplication注解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-javautilloggerd的日志配置" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SpringBootApplication注解
+      javautilloggerd的日志配置
     </h1>
   
 
         
-        <a href="/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-11-10T14:39:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-10</time>
+        <a href="/2021/12/12/javautilloggerd%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+  	<time datetime="2021-12-12T10:25:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Springboot的引导类，程序入口上添加的spring核心注解：@SpringBootApplication。</p>
-<p>点入源码后如图</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <p>在java.util包下用Logger.getLogger(“包全类名”)创建的logger我们称之为根logger，或者是父logger。</p>
+<p>这个logger的配置其实是java安装文件中有配置文件，进行配置。</p>
+<p>其中jdk1.8和8之后，由于包结构发生改变（9之后jre和jdk合并），配置文件位置也不通了。</p>
+<p>这里用1.8为例；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Logger logger = Logger.getLogger(<span class="string">&quot;com.example.tmpjavastudy.jul.Jul&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这是2.2.6.RELEASE的，不同发行版可能会有差异</p>
-<p>上图中除去元注解Target，Retention，Documented，Inherited，首先第一个注解：springbootConfiguration。</p>
-<p>从名字就可以得知，这是springboot配置，点入后</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Configuration</span><br><span class="line">public @interface SpringBootConfiguration &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击Logger.getLogger,沿着方法继续点击，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Logger <span class="title">demandLogger</span><span class="params">(String xx, String xx, Class&lt;?&gt; xx)</span> </span>&#123;</span><br><span class="line">    LogManager manager = LogManager.getLogManager();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>他也只是个普通带有Configuration的配置类，某种程度上SpringbootApplication和Configuration是没有差别。</p>
-<p>一个隶属boot，一个是Spring的。</p>
-<p>第二个注解@EnableAutoConfiguration，翻译过来开启自动配置，点击进入</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY = <span class="string">&quot;spring.boot.enableautoconfiguration&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Logger类的demandLogger，这里有个重要的 LogManager，继续点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">ensureLogManagerInitialized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">    owner.readPrimordialConfiguration();</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>里面核心注解有</p>
-<p>@AutoConfigurationPackage</p>
-<p>@Import({AutoConfigurationImportSelector.class})</p>
-<p>第一个点击</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法中有一个readPrimordialConfiguration方法。是属于读取配置的，继续点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readPrimordialConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...    </span><br><span class="line">  readConfiguration();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>看出来@AutoConfigurationPackage是个标记注解，其中核心的是一个@Import注解（与外层相通），这也是一个Spring的注解。</p>
-<p>它代表导入一个组件，在这个例子中就是导入Registrar.class类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Registrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">DeterminableImports</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">		register(registry, <span class="keyword">new</span> PackageImport(metadata).getPackageName());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Object&gt; <span class="title">determineImports</span><span class="params">(AnnotationMetadata metadata)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Collections.singleton(<span class="keyword">new</span> PackageImport(metadata));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>readConfiguration读取配置，继续点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readConfiguration</span><span class="params">()</span> <span class="keyword">throws</span> IOException, SecurityException </span>&#123;</span><br><span class="line">		...</span><br><span class="line">        ...</span><br><span class="line">        String fname = System.getProperty(<span class="string">&quot;java.util.logging.config.file&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (fname == <span class="keyword">null</span>) &#123;</span><br><span class="line">            fname = System.getProperty(<span class="string">&quot;java.home&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (fname == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">&quot;Can&#x27;t find java.home ??&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            File f = <span class="keyword">new</span> File(fname, <span class="string">&quot;lib&quot;</span>);</span><br><span class="line">            f = <span class="keyword">new</span> File(f, <span class="string">&quot;logging.properties&quot;</span>);</span><br><span class="line">            fname = f.getCanonicalPath();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> (<span class="keyword">final</span> InputStream in = <span class="keyword">new</span> FileInputStream(fname)) &#123;</span><br><span class="line">            <span class="keyword">final</span> BufferedInputStream bin = <span class="keyword">new</span> BufferedInputStream(in);</span><br><span class="line">            readConfiguration(bin);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>实际上这个Registar又是一个静态内部类，它是AutoConfigurationPackages这个抽象类的静态内部类。同时实现了接口ImportBeanDefinitionRegistrar，DeterminableImports的方法。</p>
-<p>如果你在registerBeanDefinitions的register这一行打过断点，就可以看到入参metadata（注解元数据，包含当前注解放置位置等信息），然后利用idea的calculate功能计算下new PackageImport(metadata).getPackageName()的结果，你就会的到一个包路径字符串，这个就是你引导类的包名：例如io.spring等等。</p>
-<p>回到@EnableAutoConfiguration，这个注解的作用就是将该类同级和子包下的所有组件注入进ioc中</p>
-<p>这是非常重要的一个注解</p>
-<p>此外别忘了@EnableAutoConfiguration  注解中还有一个</p>
-<p>@Import(AutoConfigurationImportSelector.class)</p>
-<p>它导入的类点开,有个实现方法selectImports</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">	<span class="keyword">if</span> (!isEnabled(annotationMetadata)) &#123;</span><br><span class="line">		<span class="keyword">return</span> NO_IMPORTS;</span><br><span class="line">	&#125;</span><br><span class="line">	AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader</span><br><span class="line">			.loadMetadata(<span class="keyword">this</span>.beanClassLoader);</span><br><span class="line">	AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(autoConfigurationMetadata,</span><br><span class="line">			annotationMetadata);</span><br><span class="line">	<span class="keyword">return</span> StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到会检查javahome然后找到jre目录下的lib包的loggging.properties文件，将它转换为流调用readConfiguration（xxx）的重载方法    </p>
+<p>下面是我在1.8 jre/lib/logging.propertie复制的</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">handlers</span> = <span class="string">java.util.logging.ConsoleHandler</span></span><br><span class="line"><span class="meta">.level</span> = <span class="string">CONFIG</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.pattern</span> = <span class="string">%h/java%u.log</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.limit</span> = <span class="string">50000</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.count</span> = <span class="string">1</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.formatter</span> = <span class="string">java.util.logging.XMLFormatter</span></span><br><span class="line"><span class="meta">java.util.logging.ConsoleHandler.level</span> = <span class="string">CONFIG</span></span><br><span class="line"><span class="meta">java.util.logging.ConsoleHandler.formatter</span> = <span class="string">java.util.logging.SimpleFormatter</span></span><br><span class="line"><span class="meta">com.xyz.foo.level</span> = <span class="string">SEVERE</span></span><br></pre></td></tr></table></figure>
 
-<p>在boot2中，该类重新实现了，在早期版本只有上述方法。</p>
-<p>早期版本将要注入的组件以全类名的形式构建为一个数据返回</p>
-<p>但新版本实现似乎不采用该方法了。</p>
-<p>先写这么多好了</p>
+<p>上述我修改了.level,java.util.logging.ConsoleHandler.level 为CONFIG（默认为INFO）</p>
+<p>这样一来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myLogConfigTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="keyword">var</span> fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;C:\\Users\\86138\\Desktop\\mylog.properties&quot;</span>))&#123;</span><br><span class="line">        <span class="keyword">var</span> logManager = LogManager.getLogManager();</span><br><span class="line">        logManager.readConfiguration(fileInputStream);</span><br><span class="line">        <span class="keyword">var</span> logger = Logger.getLogger(<span class="string">&quot;com.example.tmpjavastudy.jul.Jul&quot;</span>);</span><br><span class="line">        logger.log(Level.CONFIG,<span class="string">&quot;你好&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我写个测试类，将复制的配置文件放在桌面，用流读取，然后用logManager取读取这个流，很显然，现在打印</p>
+<p>CONFIG级别的日志就成功了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12月 12, 2021 6:20:24 下午 com.example.tmpjavastudy.jul.Jul myLogConfigTest</span><br><span class="line">配置: 你好</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -254,6 +248,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java日志</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -304,7 +309,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/11/10/SpringBootApplication%E6%B3%A8%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/12/12/javautilloggerd%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -318,18 +323,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          反向代理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">redis基本黑窗口命令1</div>
+    <a href="/2021/12/07/springboot%E7%9A%84%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">springboot的学习</div>
       <i class="icon-circle-right"></i>
     </a>
   

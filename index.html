@@ -156,6 +156,109 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-javautilloggerd的日志配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/12/javautilloggerd%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/">javautilloggerd的日志配置</a>
+    </h1>
+  
+
+        
+        <a href="/2021/12/12/javautilloggerd%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+  	<time datetime="2021-12-12T10:25:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在java.util包下用Logger.getLogger(“包全类名”)创建的logger我们称之为根logger，或者是父logger。</p>
+<p>这个logger的配置其实是java安装文件中有配置文件，进行配置。</p>
+<p>其中jdk1.8和8之后，由于包结构发生改变（9之后jre和jdk合并），配置文件位置也不通了。</p>
+<p>这里用1.8为例；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Logger logger = Logger.getLogger(<span class="string">&quot;com.example.tmpjavastudy.jul.Jul&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>点击Logger.getLogger,沿着方法继续点击，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Logger <span class="title">demandLogger</span><span class="params">(String xx, String xx, Class&lt;?&gt; xx)</span> </span>&#123;</span><br><span class="line">    LogManager manager = LogManager.getLogManager();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Logger类的demandLogger，这里有个重要的 LogManager，继续点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">ensureLogManagerInitialized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">    owner.readPrimordialConfiguration();</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个方法中有一个readPrimordialConfiguration方法。是属于读取配置的，继续点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readPrimordialConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...    </span><br><span class="line">  readConfiguration();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>readConfiguration读取配置，继续点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readConfiguration</span><span class="params">()</span> <span class="keyword">throws</span> IOException, SecurityException </span>&#123;</span><br><span class="line">		...</span><br><span class="line">        ...</span><br><span class="line">        String fname = System.getProperty(<span class="string">&quot;java.util.logging.config.file&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (fname == <span class="keyword">null</span>) &#123;</span><br><span class="line">            fname = System.getProperty(<span class="string">&quot;java.home&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (fname == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">&quot;Can&#x27;t find java.home ??&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            File f = <span class="keyword">new</span> File(fname, <span class="string">&quot;lib&quot;</span>);</span><br><span class="line">            f = <span class="keyword">new</span> File(f, <span class="string">&quot;logging.properties&quot;</span>);</span><br><span class="line">            fname = f.getCanonicalPath();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> (<span class="keyword">final</span> InputStream in = <span class="keyword">new</span> FileInputStream(fname)) &#123;</span><br><span class="line">            <span class="keyword">final</span> BufferedInputStream bin = <span class="keyword">new</span> BufferedInputStream(in);</span><br><span class="line">            readConfiguration(bin);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到会检查javahome然后找到jre目录下的lib包的loggging.properties文件，将它转换为流调用readConfiguration（xxx）的重载方法    </p>
+<p>下面是我在1.8 jre/lib/logging.propertie复制的</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">handlers</span> = <span class="string">java.util.logging.ConsoleHandler</span></span><br><span class="line"><span class="meta">.level</span> = <span class="string">CONFIG</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.pattern</span> = <span class="string">%h/java%u.log</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.limit</span> = <span class="string">50000</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.count</span> = <span class="string">1</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.formatter</span> = <span class="string">java.util.logging.XMLFormatter</span></span><br><span class="line"><span class="meta">java.util.logging.ConsoleHandler.level</span> = <span class="string">CONFIG</span></span><br><span class="line"><span class="meta">java.util.logging.ConsoleHandler.formatter</span> = <span class="string">java.util.logging.SimpleFormatter</span></span><br><span class="line"><span class="meta">com.xyz.foo.level</span> = <span class="string">SEVERE</span></span><br></pre></td></tr></table></figure>
+
+<p>上述我修改了.level,java.util.logging.ConsoleHandler.level 为CONFIG（默认为INFO）</p>
+<p>这样一来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myLogConfigTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="keyword">var</span> fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;C:\\Users\\86138\\Desktop\\mylog.properties&quot;</span>))&#123;</span><br><span class="line">        <span class="keyword">var</span> logManager = LogManager.getLogManager();</span><br><span class="line">        logManager.readConfiguration(fileInputStream);</span><br><span class="line">        <span class="keyword">var</span> logger = Logger.getLogger(<span class="string">&quot;com.example.tmpjavastudy.jul.Jul&quot;</span>);</span><br><span class="line">        logger.log(Level.CONFIG,<span class="string">&quot;你好&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我写个测试类，将复制的配置文件放在桌面，用流读取，然后用logManager取读取这个流，很显然，现在打印</p>
+<p>CONFIG级别的日志就成功了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12月 12, 2021 6:20:24 下午 com.example.tmpjavastudy.jul.Jul myLogConfigTest</span><br><span class="line">配置: 你好</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java日志</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/12/12/javautilloggerd%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-springboot的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -942,85 +1045,6 @@
 
 
   
-    <article id="post-rabbitmq简单队列入门程序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/">rabbitmq简单队列入门程序</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2021-10-30T15:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- rabbitmq 的客户端工具 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.rabbitmq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>amqp-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.13.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- apache操作流的的依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>rabbitmq是中小企业经常使用的消息中间件，作为四大中间件之一。karfa统治大数据领域，alibaba的rocketmq在大型应用很受欢迎，activemq作为元老级的mq虽然已经病入膏肓，但还是偶尔能听到。说到activemq，他的官网现在居然都还是http的，这是不打算玩了看来。</p>
-<p>上面是我在maven项目引入的rabbitmq客户端和一个apache操作流的工具</p>
-<p>我在云服务器搭建了一个rabbitmq示例（建议用docker创建，传统方式还需要安装Erlang语言环境等等，过于繁琐，而且Erlang和rabbitmq版本要相较对应，否则又会出问题），写了两个junit测试类，模范简单队列的生产/消费。</p>
-<p>均使用java语言实现</p>
-<p>下面是生产</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">&quot;hello_world_queue&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;47.96.156.22&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String USER_NAME = <span class="string">&quot;xxxxx&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PASSWORD = <span class="string">&quot;xxxxx&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@SneakyThrows</span></span><br><span class="line"><span class="meta">@DisplayName(&quot;第一个rabbitmq测试(生产者)&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> connectionFactory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line"></span><br><span class="line">    connectionFactory.setHost(HOST);<span class="comment">//我的轻量ip</span></span><br><span class="line">    connectionFactory.setUsername(USER_NAME);</span><br><span class="line">    connectionFactory.setPassword(PASSWORD);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//工厂创建连接</span></span><br><span class="line">    <span class="keyword">var</span> connection = connectionFactory.newConnection();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接获取信道</span></span><br><span class="line">    <span class="keyword">var</span> channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法签名参见源码</span></span><br><span class="line">    <span class="keyword">var</span> declareOk = channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    channel.basicPublish(<span class="string">&quot;&quot;</span>, QUEUE_NAME, <span class="keyword">null</span>, <span class="string">&quot;hello world&quot;</span>.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">    System.out.println(<span class="string">&quot;=================&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>定义几个ip，账号密码常量（端口如果不设置，就是默认的5672）</p>
-<p>首先创建连接工厂，工厂创建连接，连接船舰信道，信道通过basicPublish发布内容</p>
-<p>【一些方法签名是属于后面高级内容】</p>
-<p>然后登录rabbitmq的控制台就可以看到接收到的消息了</p>
-<p>然后是消费方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@SneakyThrows</span></span><br><span class="line"><span class="meta">@DisplayName(&quot;消费&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> connectionFactory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line">    connectionFactory.setHost(HOST);</span><br><span class="line">    connectionFactory.setPassword(USER_NAME);</span><br><span class="line">    connectionFactory.setUsername(PASSWORD); <span class="comment">//ctrl + shift + u 批量大小写转换</span></span><br><span class="line">    <span class="keyword">var</span> connection = connectionFactory.newConnection();</span><br><span class="line">    <span class="keyword">var</span> channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//众多重载的其中一个</span></span><br><span class="line">    <span class="comment">//第三个参数 DeliverCallBack 传送回调</span></span><br><span class="line">    <span class="comment">//第四个参数 CancelCallBack 取消回调</span></span><br><span class="line"></span><br><span class="line">    channel.basicConsume(</span><br><span class="line">            QUEUE_NAME,</span><br><span class="line">            <span class="keyword">true</span>,</span><br><span class="line">            (consumerTag, message) -&gt; System.out.println(<span class="keyword">new</span> String(message.getBody())),</span><br><span class="line">            consumerTag -&gt; System.out.println(<span class="string">&quot;~~~~&quot;</span>)</span><br><span class="line">    );</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>创建信道之前均是一样，利用信道的basicConsume方法接收（这是一个很多个重载的方法，我是用的是其中一个）。主要是第三个和第四个参数，上述已经说明。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1127,6 +1151,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring-boot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java日志</a>
               </li>
             
             <div class="clearfix"></div>
