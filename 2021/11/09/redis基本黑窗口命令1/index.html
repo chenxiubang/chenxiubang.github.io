@@ -16,7 +16,7 @@
 <meta property="og:description" content="redis中常用命令：  keys  * （查看当前库所有key） exists （key） （查看是否存在当前名字的key，存在返回1，否则0） type （key） （查看当前名字key的数据类型，例如返回：string） del （key) （删除该名字的key，同步，阻塞） unlink （key）（发送指令后，异步删除该key，系统会提示已经删除）（tip：unlink是解除链接的意思）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-09T15:27:07.000Z">
-<meta property="article:modified_time" content="2021-11-09T15:37:54.838Z">
+<meta property="article:modified_time" content="2022-01-01T12:58:43.380Z">
 <meta property="article:author" content="omen">
 <meta name="twitter:card" content="summary">
   
@@ -192,6 +192,22 @@
 <li>ttl （key)  （可以查看该key的剩余过期时间，返回秒，返回-1说明永不过期，返回-2 说明已经过期）</li>
 <li>dbsize  （返回当前选择库的key的数量）   </li>
 </ol>
+<h4 id="redis-关于list的操作命令"><a href="#redis-关于list的操作命令" class="headerlink" title="redis 关于list的操作命令"></a>redis 关于list的操作命令</h4><p>lpop（rpop）:key: :可以从左边或者右边，将一个list的key取出第一个元素，返回这个key的value值，如果操作后没有一个值的，这个:key:就会被删除。</p>
+<p>tips: lop（rpop）k1 count 后面还可以跟一个数字表示弹出元素个数，不过不加具体数目，默认为1</p>
+<p>rpoplpush：这个命令是 rpoplpush k1 k2，会将k1（source）的右侧第一个元素移出，从左侧放入k2列表中，</p>
+<p>整个过程只在一个操作中完成，虽然不知道有什么用</p>
+<p>既然是一个是列表类型的:key:,就一定会有根据下表索引获取元素的命令。</p>
+<p>lindex：lindex :key: 下标</p>
+<p>如果把lrange比作substring（），那lindex就是charAt（）。</p>
+<p>同理还有获取列表长度的命令 llen :key: , 返回列表长度</p>
+<p>此外既然是列表，当然还会有在列表当中插入或者是删除元素的命令</p>
+<p>的确这样记非常枯燥</p>
+<p>分别是linsert 和 </p>
+<p><code>linsert</code>：linsert :key: after|before  <code>&lt;value&gt;</code> <code>&lt;new value&gt;</code></p>
+<p>在某个list的键的某个值的前面（或者后面）加入新的值</p>
+<p>lrem：lrem :key: count element </p>
+<p>lrem这个命令是某个list:key:当中某个value的元素，由于list是可以重复的，比方说我删除 v2，会有多个，这个的count就表示我从list的左边开始数的几个v2会被删除。</p>
+<p>然后还有一个lset，lset k1 index v1 将某个索引下标的值改变成心的值</p>
 
       
 
@@ -349,7 +365,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 omen
+    		&copy; 2022 omen
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
