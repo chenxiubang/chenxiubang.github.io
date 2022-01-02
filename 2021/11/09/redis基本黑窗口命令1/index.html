@@ -16,7 +16,7 @@
 <meta property="og:description" content="redis中常用命令：  keys  * （查看当前库所有key） exists （key） （查看是否存在当前名字的key，存在返回1，否则0） type （key） （查看当前名字key的数据类型，例如返回：string） del （key) （删除该名字的key，同步，阻塞） unlink （key）（发送指令后，异步删除该key，系统会提示已经删除）（tip：unlink是解除链接的意思）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-09T15:27:07.000Z">
-<meta property="article:modified_time" content="2022-01-02T14:24:28.510Z">
+<meta property="article:modified_time" content="2022-01-02T15:26:32.140Z">
 <meta property="article:author" content="omen">
 <meta name="twitter:card" content="summary">
   
@@ -244,6 +244,16 @@
 <li><p>差集命令：sdiff :key: […] 第一个key的集合中，之后k2，k3 ,k4 中都不包含的元素</p>
 </li>
 </ul>
+<h4 id="redis中操作hash类型（适合存放对象的类型）"><a href="#redis中操作hash类型（适合存放对象的类型）" class="headerlink" title="redis中操作hash类型（适合存放对象的类型）"></a>redis中操作hash类型（适合存放对象的类型）</h4><ol>
+<li><p>hset k field value [… ]</p>
+<p>hset现在已经可以像hmset一样对:key:同时放入任意对k v键值对。通过hset成功创建:key:则会返回1。也可以通过hset对已经存在的:key:进行覆盖操作。不过返回值会是0</p>
+</li>
+<li><p>hget hmget ：hmget 相对于hget 可以一次获取多个field的值，格式 hmget :key: field1 field2 …。然后返回多个值。我觉得能用hmget就没有hget的必要了</p>
+</li>
+<li><p>hkeys hvals hgetall  这几个的命令都是一样格式：都是命令+:key:</p>
+<p>区别：hkeys获取返回这个k的所有域，hvals获取这个k的所有值，而hgetall返回所有键值对。这个非常像java中hashmap的keyset（），values(),方法</p>
+</li>
+</ol>
 
       
 
