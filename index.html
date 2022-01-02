@@ -1031,6 +1031,42 @@
 <p>lrem：lrem :key: count element </p>
 <p>lrem这个命令是某个list:key:当中某个value的元素，由于list是可以重复的，比方说我删除 v2，会有多个，这个的count就表示我从list的左边开始数的几个v2会被删除。</p>
 <p>然后还有一个lset，lset k1 index v1 将某个索引下标的值改变成心的值</p>
+<h4 id="redis中关于set（集合）的命令"><a href="#redis中关于set（集合）的命令" class="headerlink" title="redis中关于set（集合）的命令"></a>redis中关于set（集合）的命令</h4><p>redis中集合的命令都是以s开头的，集合这种数据接口是无序（没有下标），元素不能重复的数据接口。类似于java中的HashSet。</p>
+<ul>
+<li><p>首先是创建/添加的命令：sadd :key: values[…]</p>
+<p>这个是向集合中添加任意数目的元素，返回添加成功的元素个数，（元素不能重复）</p>
+</li>
+<li><p>集合并集命令：sunion :key:[…]</p>
+<p>这个命令是指定任一个:key:,将它们所有的value组合成一个集合，返回。很简单，类似于mysql的union关键字，命令页非常好记</p>
+</li>
+<li><p>smembers：s+members 用于展示某个：key所有的values值。格式为smembers :key:</p>
+</li>
+<li><p>sismember: s+is+member 。格式 sismember :key: value</p>
+<p>用于判断 某个value值是否属于 该:key:,如果是，就返回1 不是返回0</p>
+<p>注意：sismember命令结尾没有s。</p>
+</li>
+<li><p>spop命令。格式spop :key: count 。用于随机弹出:key:中个数为count的value。这个操作是随机的，所以可以用来抽奖，用count来控制一次弹出的个数</p>
+</li>
+<li><p>scard命令。格式：scard :key: 用来显示某个key的包含的value个数。（其实card在这里翻译的意思很奇怪）</p>
+</li>
+<li><p>srem命令也是用来删除的，不过和spop随机删不一样，srem格式是srem :key: value […]。指定某个key的任意个数的value，将其删除，然后返回成功删除的个数。由于set是没有下标（索引）的，如果想指定删除也的确只有这种指定名字的方式，当然你可以 srem :key: fa!? -&gt;fa 输入一堆没有的value，也不会报错，只不过最后就删除个数返回0，什么也没有删除罢了</p>
+</li>
+<li><p>此外set的随机命令还有一个就是<code>srandmember</code>可以从集合中取出n个值，但不会像spop一样弹出后就删除</p>
+<p>格式为srandmember :key: count 注意这个地方count是有±的。</p>
+<p>比方说现在的集合是k1:1 2 3 4 5 6</p>
+<p>如果是srandmember k1 2  -&gt; 随机摇出2个是不会重复的-&gt; 1 2 /  1 3 /  2 5</p>
+<p>但如果是srandmember k1 -2 -&gt;随机摇出的2个可能是会重复的 -&gt; 1 1 / 2 2 / 2 5</p>
+<p>如果你说我用<code>srandmember k1 20000</code>这样呢，如果你的count为正数而且远远大于scard k的大小，最后也只会全部返回，不会返回20000个的</p>
+</li>
+<li><p>smove ：将一个集合的一个成员移动到另一个集合当中。格式是smove source destination member</p>
+<p>将source中的member移动到destination中。这个命令倒是不难</p>
+</li>
+<li><p>集合取交集命令sinter：s + inter.此处inter是交集的缩写。格式很简单</p>
+<p>sinter :key:[…]。会返回所输入集合中的每个集合都存在的元素，然后一起返回</p>
+</li>
+<li><p>差集命令：sdiff :key: […] 第一个key的集合中，之后k2，k3 ,k4 中都不包含的元素</p>
+</li>
+</ul>
 
       
 
