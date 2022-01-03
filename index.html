@@ -1076,6 +1076,16 @@
 <li><p>hkeys hvals hgetall  这几个的命令都是一样格式：都是命令+:key:</p>
 <p>区别：hkeys获取返回这个k的所有域，hvals获取这个k的所有值，而hgetall返回所有键值对。这个非常像java中hashmap的keyset（），values(),方法</p>
 </li>
+<li><p>hlen命令，格式 hlen :key: 返回指定key的的hash长度，可以结合strlen来记忆</p>
+</li>
+<li><p>我们判断一个key是否存在用的是exists命令，在hash类型的key中，怎么判断某个域是否存在。用的是hexists。格式hexist :key: field。如果这个域存在返回1，否则返回0.</p>
+</li>
+<li><p>在string类型的key中我们学过incr incrby命令用于自增数字类型的字符串,在hash类型中同样有类似的命令.</p>
+<p>针对某个域如果是数字类型的格式我们可以用hincrby 或者 hincrbyfloat.两个分别是自增减整型和浮点型的域.</p>
+<p>格式: hincrby(float) :key: field increment   增量可以为正数或者是负数</p>
+</li>
+<li><p>在字符串set命令中有一个setnx 用于当某个key is not exists时候才会set成功.在hash类型中有个hsetnx针对hash类型某个域,当这个域已经存在,就不会再set成功导致覆盖这个域.格式hsetnx :key: field value</p>
+</li>
 </ol>
 
       
