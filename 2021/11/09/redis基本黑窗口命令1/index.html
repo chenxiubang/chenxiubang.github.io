@@ -16,7 +16,7 @@
 <meta property="og:description" content="redis中常用命令：  keys  * （查看当前库所有key） exists （key） （查看是否存在当前名字的key，存在返回1，否则0） type （key） （查看当前名字key的数据类型，例如返回：string） del （key) （删除该名字的key，同步，阻塞） unlink （key）（发送指令后，异步删除该key，系统会提示已经删除）（tip：unlink是解除链接的意思）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-09T15:27:07.000Z">
-<meta property="article:modified_time" content="2022-01-03T08:47:33.299Z">
+<meta property="article:modified_time" content="2022-01-09T10:06:05.641Z">
 <meta property="article:author" content="omen">
 <meta name="twitter:card" content="summary">
   
@@ -264,6 +264,34 @@
 <li><p>在字符串set命令中有一个setnx 用于当某个key is not exists时候才会set成功.在hash类型中有个hsetnx针对hash类型某个域,当这个域已经存在,就不会再set成功导致覆盖这个域.格式hsetnx :key: field value</p>
 </li>
 </ol>
+<h4 id="redis操作Sorted-Set（有序集合）的相关"><a href="#redis操作Sorted-Set（有序集合）的相关" class="headerlink" title="redis操作Sorted Set（有序集合）的相关"></a>redis操作Sorted Set（有序集合）的相关</h4><p>有序集合又叫做zset，他和集合（set）类似，都是属于不可重复的，命令也很相似。不过这种数据结构维护了一种叫做分数（score）的属性，是的这个数据结构有类似于java中TreeSet的自然排序。</p>
+<p>下面是一些常见的命令。</p>
+<ul>
+<li><p>zadd :key: score member【scores member …】: 和集合添加命令类似，不过开头前缀是z开头的。此外还多维护了一个score的分数属性。返回值是一次成功新添加的元素个数（不包含覆盖）</p>
+</li>
+<li><p>zrange :key: start end [withscores]  ，zrevrange :key: start end [withscores]</p>
+<p>先说第一个 ，因为有序集合是有自然顺序的，可以想列表一样更具下标获取范围内的元素。后面的选项参数withscores是可以在显示元素的基础上再显示每个元素的分数。</p>
+<p>有序集合很多命令都有带-rev格式的，其实就是reverse（反转）的缩写，常规命令都是正序的，带rev的都是倒序的。但是实际上有序集合获取范围的命令这个并不是很多，因为这种数据结构更多是为了某个分数区间的，比如下个命令</p>
+</li>
+<li><p>zrangebyscore :key: min max [withscores] 顾名思义，这个就是根据分数区间获取的</p>
+</li>
+<li><p>zscore :key: member  获取具体某个成员在这个有序集合中的分数</p>
+</li>
+<li><p>zcard :key: 有序集合个数</p>
+</li>
+<li><p>zcount :key: min max</p>
+<p>有时候我们不一定想要知道全班的个数，而是想知道某个区间，比如80-90分之间的人数，像这种有序集合获得区间内个数的命令需要用到zcount.</p>
+</li>
+<li><p>zrank :key: member / zrevrank :key: member</p>
+<p>zrank 命令是返回某个成员在有序集合中的下标（这里的下标是从0开始）</p>
+</li>
+<li><p>zrem :key: member [ …]</p>
+<p>又是和zrem 非常像的命令，还是换了个马甲s,返回成功删除的个数</p>
+</li>
+<li><p>zincrby :key: incrememt member :这个是zset命令里的递增命令，可以用在排行版里阅读量的增加。</p>
+<p>递增量可以是正数也可以是负数，也可以是浮点数（不建议，会精度丢失）</p>
+</li>
+</ul>
 
       
 
