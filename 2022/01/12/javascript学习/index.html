@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>关于jdk1.5中的ManagementFactory类 | 陈修榜的博客</title>
+  <title>javascript学习 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天看了下一个在jdk1.5引入的类：ManagementFactory 这个类归属于lang包下 1package java.lang.management;  所以这个类无需导包就可以直接引入 这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息； 如图一下实例 12345int th">
+  <meta name="description" content="js内置函数isNaN();isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？ 例子：isNaN(“123”) 如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病 12console.log(isNaN(&quot;123&quot;)); &#x2F;&#x2F;falseconsole.log(isNaN(&quot;123ddd&quot;)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于jdk1.5中的ManagementFactory类">
-<meta property="og:url" content="http://example.com/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/index.html">
+<meta property="og:title" content="javascript学习">
+<meta property="og:url" content="http://example.com/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
-<meta property="og:description" content="今天看了下一个在jdk1.5引入的类：ManagementFactory 这个类归属于lang包下 1package java.lang.management;  所以这个类无需导包就可以直接引入 这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息； 如图一下实例 12345int th">
+<meta property="og:description" content="js内置函数isNaN();isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？ 例子：isNaN(“123”) 如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病 12console.log(isNaN(&quot;123&quot;)); &#x2F;&#x2F;falseconsole.log(isNaN(&quot;123ddd&quot;)">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-26T15:11:10.000Z">
-<meta property="article:modified_time" content="2021-10-26T15:22:55.585Z">
+<meta property="article:published_time" content="2022-01-12T02:50:05.000Z">
+<meta property="article:modified_time" content="2022-01-12T06:58:38.781Z">
 <meta property="article:author" content="omen">
+<meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="陈修榜的博客" type="application/atom+xml">
@@ -158,36 +159,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-关于jdk1-5中的ManagementFactory类" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-javascript学习" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于jdk1.5中的ManagementFactory类
+      javascript学习
     </h1>
   
 
         
-        <a href="/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-10-26T15:11:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-26</time>
+        <a href="/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2022-01-12T02:50:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天看了下一个在jdk1.5引入的类：ManagementFactory</p>
-<p>这个类归属于lang包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.management;</span><br></pre></td></tr></table></figure>
+        <h4 id="js内置函数"><a href="#js内置函数" class="headerlink" title="js内置函数"></a>js内置函数</h4><h6 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN();"></a>isNaN();</h6><p>isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？</p>
+<p>例子：isNaN(“123”)</p>
+<p>如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123ddd&quot;</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 
-<p>所以这个类无需导包就可以直接引入</p>
-<p>这是一个描述jvm的各种信息的累，提供了大量的静态工厂方法，可以获得线程，堆内存之类的相关的名字中带MXBean的类，并调用MXBean类的实例方法，获取各种信息；</p>
-<p>如图一下实例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> threadCount = ManagementFactory.getThreadMXBean().getThreadCount();</span><br><span class="line"><span class="keyword">long</span> max = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax();</span><br><span class="line"><span class="keyword">long</span> used =ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();</span><br><span class="line">log.info(<span class="string">&quot;当前的线程数目为&#123;&#125;&quot;</span>, threadCount);</span><br><span class="line">log.info(<span class="string">&quot;当前堆内存最大值为&#123;&#125;,已使用&#123;&#125;&quot;</span>, max, used);</span><br></pre></td></tr></table></figure>
-
-<p>如有机会可以多使用下。</p>
+<p>传入的如果是underfined，对象，非数字字符串，就会返回true，</p>
+<p>反之传入数字，数字字符串，就会打印false，</p>
+<p>【特例】此外传入null ，空串，也会返回false</p>
 
       
 
@@ -227,6 +226,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -277,7 +287,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/26/%E5%85%B3%E4%BA%8Ejdk1-5%E4%B8%AD%E7%9A%84ManagementFactory%E7%B1%BB/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -291,18 +301,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/10/28/%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          用jul创建的一个工具类
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/25/%E5%87%A0%E4%B8%AA%E5%BF%AB%E6%8D%B7%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">几个快捷命令</div>
+    <a href="/2022/01/08/javaBean%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">javaBean建造者模式</div>
       <i class="icon-circle-right"></i>
     </a>
   
