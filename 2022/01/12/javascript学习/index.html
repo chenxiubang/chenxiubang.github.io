@@ -16,7 +16,7 @@
 <meta property="og:description" content="js内置函数isNaN();isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？ 例子：isNaN(“123”) 如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病 12console.log(isNaN(&quot;123&quot;)); &#x2F;&#x2F;falseconsole.log(isNaN(&quot;123ddd&quot;)">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-12T02:50:05.000Z">
-<meta property="article:modified_time" content="2022-01-12T06:58:38.781Z">
+<meta property="article:modified_time" content="2022-01-12T07:19:49.928Z">
 <meta property="article:author" content="omen">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
@@ -187,6 +187,12 @@
 <p>传入的如果是underfined，对象，非数字字符串，就会返回true，</p>
 <p>反之传入数字，数字字符串，就会打印false，</p>
 <p>【特例】此外传入null ，空串，也会返回false</p>
+<h6 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt();"></a>parseInt();</h6><p>parseInt()函数是可以把入参转化为一个整数，</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">// 数字字符串转化为数字 123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.3&quot;</span>)); <span class="comment">// 小数字符串转化为 123（取整，抹去后面的）</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;-123.3&quot;</span>)); <span class="comment">// 负数同理，保留符号，其他不变</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.33d&quot;</span>)); <span class="comment">//数字字符串 后面带了奇怪的东西 ，会去掉d，然后取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;ssss“)); //无法转化成整数的，像非数字字符串，undefined，对象，会转化成一个NaN【非数字】</span></span><br><span class="line"><span class="string">                     </span></span><br><span class="line"><span class="string">parseFloat();和它大同小异</span></span><br><span class="line"><span class="string">此外parseInt还可以通过parseInt(string, radix)，传入两个参数指定转化整数进制等。</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+
+
+
 
       
 
