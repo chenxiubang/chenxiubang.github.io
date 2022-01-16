@@ -16,7 +16,7 @@
 <meta property="og:description" content="reids的两种持久化策略RDBrdb应该就是redis database bak的缩写（应该），这种持久话策略是属于满足某些条件下，就会触发持久化。 redis配置文件默认的持久化策略可见通过查看redis.conf看到，如下 123# save 3600 1# save 300 100# save 60 10000  上图默认注释：格式：save second times 表示满足上述某个条件">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-16T11:53:12.000Z">
-<meta property="article:modified_time" content="2022-01-16T12:31:50.321Z">
+<meta property="article:modified_time" content="2022-01-16T13:01:37.482Z">
 <meta property="article:author" content="omen">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -195,6 +195,21 @@
 <p>持久化的文件以<code>.rdb</code>结尾，默认名字是dump。（我记得可以修改）</p>
 <p><strong>但是rdb这种方式，毕竟有可能不会全部持久化所有内容，所有有了AOF</strong></p>
 <h4 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h4><p>修改配置文件中的appendony   为yes ，就会开启aof，所有redis的操作命令都会被记录（读的redis命令不记录），不过这样会非常消耗性能，除非redis中存储的数据非常重要。这种持久化策略的本质就是人海战术，一旦redis宕机，可以将日志里面的写操纵重新拿出来，来重新还原redis的数据。</p>
+<h3 id="redis的订阅和发布"><a href="#redis的订阅和发布" class="headerlink" title="redis的订阅和发布"></a>redis的订阅和发布</h3><p>虽然消息通知有MQ，实际开发中我们不可能用redis做消息中间件，但还是有必要掌握下redis这个功能，毕竟官方提供了已经。</p>
+<p>首先命令非常简单</p>
+<p>订阅：<code>subscribe  xxx </code>  <code>psubscribe xxx</code></p>
+<p>发布 <code>publish xxx</code> 内容</p>
+<p>首先在一个redis客户端中执行订阅某个（或者多个）的subscribe命令，该客户端就会变成肉鸡，用来接口订阅主题的工具。这个时候在另外的客户端，使用publish命令，向xxx频道，发布莫某内容，这时候订阅了xxx频道的肉鸡们都会收到来自频道的消息。</p>
+<p><strong>上述psubscribe命令和subscribe命令的不同不单单是多了一个单词，而是前者支持使用通配符的方法</strong></p>
+<p>比如<code>psubscribe hello.*</code> ,这样我就订阅了所有hello开头的频道</p>
+<h3 id="redis事务"><a href="#redis事务" class="headerlink" title="redis事务"></a>redis事务</h3><p><strong>redis事务是属于比较鸡肋的功能</strong></p>
+<p><strong>特点1</strong> redis事务不一定全部保证原子性</p>
+<p>redis事务其实就是一组命令的组合，将一组命令序列化进入一个队列，然后整个队列为一个事务。</p>
+<p>但你将命令压入队列就出错:比如 seta  k1 1,这是典型的语法问题。这样这个事务执行并且发生报错，就会保证原子性。</p>
+<p><strong>但是</strong> 如果你所有输入队列中，命令语法格式没有错，执行时候报错，那就不能保证原子型。比如get k1,但是k1是一个hash类型，这个命令压入队列时是没有问题的，但是执行时出席那问题。只会这个命令报错，其他命令仍然继续执行。</p>
+<p><strong>开启事务</strong> <code>multi</code> ，非常反人类命名 </p>
+<p><strong>执行提交事务</strong> <code>exec</code> ,redis开发人脑子有病</p>
+<h4 id="redis里面不存在回滚事务，但存在放弃事务"><a href="#redis里面不存在回滚事务，但存在放弃事务" class="headerlink" title="redis里面不存在回滚事务，但存在放弃事务"></a>redis里面不存在回滚事务，但存在放弃事务</h4><p>如果你已经使用脑残的<code>multi</code>命令开启了事务，你可以使用<code>discard</code>命令，中文名字：丢弃，来放弃这个事务。</p>
 
       
 
