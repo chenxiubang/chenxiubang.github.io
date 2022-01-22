@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>redis主从复制 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通过info命令查看redis状态设从不设主 slaveof ip port 它就变成它的从机 然后主机保存的东西自动同步到从机 全量复制 一旦主从关系确定，首先会复制所有数据 增量复制 之后主库每次增加数据，都会同步到从库 读写分离 如果在从库执行写命令，会报错 主机宕机从机状态还是从机，不过显示主机状态宕机了，【从机原地待命】 读依然没有问题，但是数据不会再更新了 如果主机这时候恢复了，从机状">
+  <meta name="description" content="主从复制通过info命令查看redis状态设从不设主 slaveof ip port 在某个redis实例中执行这个命令，就可以让这个实例成为一个redis实例的从机 然后主机保存的东西自动同步到从机 全量复制 一旦主从关系确定，首先会复制主机所有数据 增量复制 之后主库每次增加数据，都会同步到从库 读写分离 如果在从库执行写命令，会报错。从机不能进行写操作，只能进行读操作。而主机两者都可以，但m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis主从复制">
 <meta property="og:url" content="http://example.com/2022/01/22/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
-<meta property="og:description" content="通过info命令查看redis状态设从不设主 slaveof ip port 它就变成它的从机 然后主机保存的东西自动同步到从机 全量复制 一旦主从关系确定，首先会复制所有数据 增量复制 之后主库每次增加数据，都会同步到从库 读写分离 如果在从库执行写命令，会报错 主机宕机从机状态还是从机，不过显示主机状态宕机了，【从机原地待命】 读依然没有问题，但是数据不会再更新了 如果主机这时候恢复了，从机状">
+<meta property="og:description" content="主从复制通过info命令查看redis状态设从不设主 slaveof ip port 在某个redis实例中执行这个命令，就可以让这个实例成为一个redis实例的从机 然后主机保存的东西自动同步到从机 全量复制 一旦主从关系确定，首先会复制主机所有数据 增量复制 之后主库每次增加数据，都会同步到从库 读写分离 如果在从库执行写命令，会报错。从机不能进行写操作，只能进行读操作。而主机两者都可以，但m">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-22T11:18:18.000Z">
-<meta property="article:modified_time" content="2022-01-22T15:43:53.566Z">
+<meta property="article:modified_time" content="2022-01-22T16:21:48.377Z">
 <meta property="article:author" content="omen">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -179,18 +179,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="通过info命令查看redis状态"><a href="#通过info命令查看redis状态" class="headerlink" title="通过info命令查看redis状态"></a>通过info命令查看redis状态</h5><p>设从不设主</p>
+        <h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><h5 id="通过info命令查看redis状态"><a href="#通过info命令查看redis状态" class="headerlink" title="通过info命令查看redis状态"></a>通过info命令查看redis状态</h5><p>设从不设主</p>
 <p><code>slaveof ip port</code></p>
-<p>它就变成它的从机</p>
+<p>在某个<code>redis</code>实例中执行这个命令，就可以让这个实例成为一个<code>redis</code>实例的从机</p>
 <p>然后主机保存的东西自动同步到从机</p>
 <p><code>全量复制</code></p>
-<p>一旦主从关系确定，首先会复制所有数据</p>
+<p>一旦主从关系确定，首先会复制主机所有数据</p>
 <p><code>增量复制</code></p>
 <p>之后主库每次增加数据，都会同步到从库</p>
 <p><code>读写分离</code></p>
-<p>如果在从库执行写命令，会报错</p>
-<h4 id="主机宕机"><a href="#主机宕机" class="headerlink" title="主机宕机"></a>主机宕机</h4><p>从机状态还是从机，不过显示主机状态宕机了，【从机原地待命】</p>
-<p>读依然没有问题，但是数据不会再更新了</p>
+<p>如果在从库执行写命令，会报错。从机不能进行写操作，只能进行读操作。而主机两者都可以，但master一般只进行写。</p>
+<h4 id="主机宕机"><a href="#主机宕机" class="headerlink" title="主机宕机"></a>主机宕机</h4><p>如果集群主机挂了，从机的info信息会显示主机挂了，集群不能进行写操作了，但还是可以从从机读取数据，从机原地待命</p>
 <p>如果主机这时候恢复了，从机状态就会显示主机状态又为上线</p>
 <h4 id="从机宕机"><a href="#从机宕机" class="headerlink" title="从机宕机"></a>从机宕机</h4><p>如果从机宕机，主机状态就会显示从机少了一个</p>
 <p>如果还有其他从机，其他从机不变</p>
@@ -216,6 +215,20 @@
 <p><strong>启动哨兵程序</strong></p>
 <p><code>redis-sentinel 配置文件目录</code></p>
 <p>该程序也占用一个端口</p>
+<p>也可以配置多个哨兵，每个哨兵监控一台机器</p>
+<p><strong>如果之前宕机的主机恢复了</strong></p>
+<p>采用了哨兵模式后，会让恢复的机器也可以变成一台从机，而不是像之前游离于整个程序之外</p>
+<h3 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h3><p>redis客户端这里以jedis为例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
 
       
 
