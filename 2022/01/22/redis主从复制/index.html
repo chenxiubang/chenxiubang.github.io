@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>陈修榜的博客</title>
+  <title>redis主从复制 | 陈修榜的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈修榜的博客">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="通过info命令查看redis状态设从不设主 slaveof ip 端口 它就变成它的从机 然后主机保存的东西自动同步到从机 一旦主从关系确定，首先会复制所有数据 全量复制 之后主库每次增加数据，都会同步到从库 增量复制 如果在从库执行写命令，会报错 读写分离 主机宕机从机状态还是从机，不过显示主机状态宕机了，【从机原地待命】 读依然没有问题，但是数据不会再更新了 如果主机这时候恢复了，从机状态就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis主从复制">
+<meta property="og:url" content="http://example.com/2022/01/22/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
+<meta property="og:description" content="通过info命令查看redis状态设从不设主 slaveof ip 端口 它就变成它的从机 然后主机保存的东西自动同步到从机 一旦主从关系确定，首先会复制所有数据 全量复制 之后主库每次增加数据，都会同步到从库 增量复制 如果在从库执行写命令，会报错 读写分离 主机宕机从机状态还是从机，不过显示主机状态宕机了，【从机原地待命】 读依然没有问题，但是数据不会再更新了 如果主机这时候恢复了，从机状态就">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-22T11:18:18.000Z">
+<meta property="article:modified_time" content="2022-01-22T15:18:04.530Z">
 <meta property="article:author" content="omen">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="陈修榜的博客" type="application/atom+xml">
@@ -154,16 +159,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-redis主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-redis主从复制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/22/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">redis主从复制</a>
+    <h1 class="article-title" itemprop="name">
+      redis主从复制
     </h1>
   
 
@@ -203,119 +206,36 @@
       
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/22/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.JPG">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis配置与特性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/16/redis%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%89%B9%E6%80%A7/">redis配置与特性</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/16/redis%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%89%B9%E6%80%A7/" class="archive-article-date">
-  	<time datetime="2022-01-16T11:53:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="reids的两种持久化策略"><a href="#reids的两种持久化策略" class="headerlink" title="reids的两种持久化策略"></a>reids的两种持久化策略</h3><h4 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h4><p>rdb应该就是redis database bak的缩写（应该），这种持久话策略是属于满足某些条件下，就会触发持久化。</p>
-<p>redis配置文件默认的持久化策略可见通过查看redis.conf看到，如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># save 3600 1</span><br><span class="line"># save 300 100</span><br><span class="line"># save 60 10000</span><br></pre></td></tr></table></figure>
-
-<p>上图默认注释：格式：save second times</p>
-<p>表示满足上述某个条件时就可以保存，在多少（second）时间内，有多少:key:发生了变化（修改，保存），就会触发持久化</p>
-<p>上述：</p>
-<ul>
-<li>一个小时发生1次</li>
-<li>五分钟发生100次</li>
-<li>一分钟发生10000次</li>
-</ul>
-<p><strong>tips</strong> ：要注意的时save保存时是阻塞的，相同的还有一个叫<code>bgsave</code>,可以后台异步保存持久化内容，同时不影响响应客户端的请求。（不过我没有用过）。</p>
-<p>持久化的文件以<code>.rdb</code>结尾，默认名字是dump。（我记得可以修改）</p>
-<p><strong>但是rdb这种方式，毕竟有可能不会全部持久化所有内容，所有有了AOF</strong></p>
-<h4 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h4><p>修改配置文件中的appendony   为yes ，就会开启aof，所有redis的操作命令都会被记录（读的redis命令不记录），不过这样会非常消耗性能，除非redis中存储的数据非常重要。这种持久化策略的本质就是人海战术，一旦redis宕机，可以将日志里面的写操纵重新拿出来，来重新还原redis的数据。</p>
-<h3 id="redis的订阅和发布"><a href="#redis的订阅和发布" class="headerlink" title="redis的订阅和发布"></a>redis的订阅和发布</h3><p>虽然消息通知有MQ，实际开发中我们不可能用redis做消息中间件，但还是有必要掌握下redis这个功能，毕竟官方提供了已经。</p>
-<p>首先命令非常简单</p>
-<p>订阅：<code>subscribe  xxx </code>  <code>psubscribe xxx</code></p>
-<p>发布 <code>publish xxx</code> 内容</p>
-<p>首先在一个redis客户端中执行订阅某个（或者多个）的subscribe命令，该客户端就会变成肉鸡，用来接口订阅主题的工具。这个时候在另外的客户端，使用publish命令，向xxx频道，发布莫某内容，这时候订阅了xxx频道的肉鸡们都会收到来自频道的消息。</p>
-<p><strong>上述psubscribe命令和subscribe命令的不同不单单是多了一个单词，而是前者支持使用通配符的方法</strong></p>
-<p>比如<code>psubscribe hello.*</code> ,这样我就订阅了所有hello开头的频道</p>
-<h3 id="redis事务"><a href="#redis事务" class="headerlink" title="redis事务"></a>redis事务</h3><p><strong>redis事务是属于比较鸡肋的功能</strong></p>
-<p><strong>特点1</strong> redis事务不一定全部保证原子性</p>
-<p>redis事务其实就是一组命令的组合，将一组命令序列化进入一个队列，然后整个队列为一个事务。</p>
-<p>但你将命令压入队列就出错:比如 seta  k1 1,这是典型的语法问题。这样这个事务执行并且发生报错，就会保证原子性。</p>
-<p><strong>但是</strong> 如果你所有输入队列中，命令语法格式没有错，执行时候报错，那就不能保证原子型。比如get k1,但是k1是一个hash类型，这个命令压入队列时是没有问题的，但是执行时出席那问题。只会这个命令报错，其他命令仍然继续执行。</p>
-<p><strong>开启事务</strong> <code>multi</code> ，非常反人类命名 </p>
-<p><strong>执行提交事务</strong> <code>exec</code> ,redis开发人脑子有病</p>
-<h4 id="redis里面不存在回滚事务，但存在放弃事务"><a href="#redis里面不存在回滚事务，但存在放弃事务" class="headerlink" title="redis里面不存在回滚事务，但存在放弃事务"></a>redis里面不存在回滚事务，但存在放弃事务</h4><p>如果你已经使用脑残的<code>multi</code>命令开启了事务，你可以使用<code>discard</code>命令，中文名字：丢弃，来放弃这个事务。</p>
-<p>**你可以理解为：从使用<code>multi</code>到你执行discard命令中间所有的操作不管对的错的，都当没有发生过。</p>
-<h4 id="关系型数据库的乐观锁version和redis的watch命令"><a href="#关系型数据库的乐观锁version和redis的watch命令" class="headerlink" title="关系型数据库的乐观锁version和redis的watch命令"></a>关系型数据库的乐观锁version和redis的watch命令</h4><p>很多情况下，我们会使用mysql的乐观锁字段为数据添加版本号，来实现事务的统一。</p>
-<p>比如甲和乙同时操作版本号为0的一条数据，他们首先查询出来，如果他们同时更新这条数据，就会发生一个人讲另一个人的数据覆盖，尤其是在涉及金额的操作如果不做处理就会发生一个人将另一个人的数据覆盖。</p>
-<p>这个时候就需要更新世在where子条件加上版本号version= 0，这样一来后面更新的人就会失败。处理重要业务往往会使用乐观锁解决方案</p>
-<p>:strawberry:</p>
-<p><strong>如果是我的话，我会用抓包软件拦截后面一个请求，将版本号减去1</strong></p>
-<p><strong>redis在开启一个事务之前，使用watch 命令监听一个k（也可以多个 空格分开）</strong></p>
-<p>接下来你再开启事务：multi，如果再事务还没结束之前，watch监听的值发生变化（有一个发生改变就算），那么这次事务就会在下次exec时候不生效。你可以理解为版本号已经被人动过了。</p>
-<p><strong>注意，不是开始事务的的客户端动了监听的值，会导致上述结果，自己动没事</strong></p>
-<p>此外你想在事务中放弃监听，你可以使用unwatch命令。这个是放弃所有的监听，并非某个</p>
-
-      
-
       
     </div>
     <div class="article-info article-info-index">
@@ -335,16 +255,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/16/redis%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%89%B9%E6%80%A7/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/22/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/01/16/redis%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%89%B9%E6%80%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis配置与特性</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -364,745 +343,14 @@
 
 
 
-
-  
-    <article id="post-javascript学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/">javascript学习</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2022-01-12T02:50:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="js内置函数"><a href="#js内置函数" class="headerlink" title="js内置函数"></a>js内置函数</h4><h6 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN();"></a>isNaN();</h6><p>isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？</p>
-<p>例子：isNaN(“123”)</p>
-<p>如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123ddd&quot;</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-
-<p>传入的如果是underfined，对象，非数字字符串，就会返回true，</p>
-<p>反之传入数字，数字字符串，就会打印false，</p>
-<p>【特例】此外传入null ，空串，也会返回false</p>
-<h6 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt();"></a>parseInt();</h6><p>parseInt()函数是可以把入参转化为一个整数，</p>
-<p>例如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">// 数字字符串转化为数字 123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.3&quot;</span>)); <span class="comment">// 小数字符串转化为 123（取整，抹去后面的）</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;-123.3&quot;</span>)); <span class="comment">// 负数同理，保留符号，其他不变</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.33d&quot;</span>)); <span class="comment">//数字字符串 后面带了奇怪的东西 ，会去掉d，然后取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;ssss“)); //无法转化成整数的，像非数字字符串，undefined，对象，会转化成一个NaN【非数字】</span></span><br><span class="line"><span class="string">                     </span></span><br><span class="line"><span class="string">parseFloat();和它大同小异</span></span><br><span class="line"><span class="string">此外parseInt还可以通过parseInt(string, radix)，传入两个参数指定转化整数进制等。</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-javaBean建造者模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/08/javaBean%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">javaBean建造者模式</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/08/javaBean%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2022-01-08T10:48:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tmpjavastudy.se;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chenxiubang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0 2022-01-08</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 若完全符合建造者模式不可变类理念，外部类域用final修饰，外部类实例产生后不能通过set方法改变不可变类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Double weight;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Dog</span><span class="params">()</span> <span class="keyword">throws</span> IllegalStateException </span>&#123;</span><br><span class="line">        <span class="comment">//若完全符合建造者模式不可变类理念，final的域必须在构造器初始化，此处可以省去空参构造器</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;该类不能通过无参构造器初始化&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 全参构造器公私有区别不大</span></span><br><span class="line"><span class="comment">     * 直接调用全参构造器好处是省区建造者的过程，坏处是方法签名参数多的情况，使用者容易传参错误</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Dog</span><span class="params">(String name, Double weight, Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.weight = weight;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * JavaBean得静态工厂方法，代替显示调用构造器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Dog.<span class="function">Builder <span class="title">builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Dog.Builder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 内部类用public修饰</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 内部类的公私有无区别，都可以被外部类访问</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 和外部类的属性一一相对</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">        <span class="keyword">private</span> Double weight;</span><br><span class="line">        <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 构建</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">name</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">weight</span><span class="params">(Double weight)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.weight = weight;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">age</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.age = age;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用全参构造器返回不可变类</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Dog <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">//方法一</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Dog(<span class="keyword">this</span>.name, <span class="keyword">this</span>.weight, <span class="keyword">this</span>.age);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//方法二</span></span><br><span class="line">            <span class="comment">//return new Dog(this);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法二</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Dog</span><span class="params">(Builder builder)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//外部类可以直接方法内部类的私有域</span></span><br><span class="line">        <span class="keyword">this</span>.name = builder.name;</span><br><span class="line">        <span class="keyword">this</span>.age = builder.age;</span><br><span class="line">        <span class="keyword">this</span>.weight = builder.weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Dog&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, weight=&quot;</span> + weight +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 总而言之，建造者模式的的思想就是通过静态内部类来构建javaBean模型，再通过类全参构造器（或者传入构建者的构造器）方法一次性实例化不可变类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/08/javaBean%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-docker随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/26/docker%E9%9A%8F%E7%AC%94/">docker随笔</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/26/docker%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2021-12-26T11:54:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>docker大多数人会将它设置为开机自启，但尽管如此，很多运行的docker容器在服务器重启后，示例是不会重启的。这是因为你在运行docker的时候少加上了一个参数。</p>
-<p>首先执行docker run –help命令查看下命令列表</p>
-<p>东西非常多，我们看到一个如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--restart string     Restart policy to apply when a container exits (default &quot;no&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>我们在运行docker run可以后面跟上–restart添加重启策略（默认是no）</p>
-<p>所以我们需要如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always</span><br></pre></td></tr></table></figure>
-
-<p>这样一来我们的docker示例在服务器重启后也会是安然无恙，继续自动重启运行了</p>
-<p>如果你的docker示例已经运行了，是要杀掉重新用上面的命令改成自动重启吗？其实也是不用</p>
-<p>我们可以用docker update 更新容器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage:	docker update [OPTIONS] CONTAINER [CONTAINER...]</span><br><span class="line"></span><br><span class="line">Update configuration of one or more containers</span><br></pre></td></tr></table></figure>
-
-<p>这是help中关于docker update的说明</p>
-<p>比方说我又一个容器id为<code>a8f2b2b0fa9b </code>的运行中的容器，</p>
-<p>我就可以执行如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker update a8f2 --restart=always</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以很轻松的为这个容器增加自动重启的策略（容器id不一样需要输入全，系统可以自动区分即可）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/26/docker%E9%9A%8F%E7%AC%94/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-jul的日志配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/12/jul%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/">jul的日志配置</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/12/jul%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2021-12-12T10:25:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在java.util包下用Logger.getLogger(“包全类名”)创建的logger我们称之为根logger，或者是父logger。</p>
-<p>这个logger的配置其实是java安装文件中有配置文件，进行配置。</p>
-<p>其中jdk1.8和8之后，由于包结构发生改变（9之后jre和jdk合并），配置文件位置也不通了。</p>
-<p>这里用1.8为例；</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Logger logger = Logger.getLogger(<span class="string">&quot;com.example.tmpjavastudy.jul.Jul&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>点击Logger.getLogger,沿着方法继续点击，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Logger <span class="title">demandLogger</span><span class="params">(String xx, String xx, Class&lt;?&gt; xx)</span> </span>&#123;</span><br><span class="line">    LogManager manager = LogManager.getLogManager();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Logger类的demandLogger，这里有个重要的 LogManager，继续点击</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">ensureLogManagerInitialized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">    owner.readPrimordialConfiguration();</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个方法中有一个readPrimordialConfiguration方法。是属于读取配置的，继续点击</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readPrimordialConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...    </span><br><span class="line">  readConfiguration();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>readConfiguration读取配置，继续点击</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readConfiguration</span><span class="params">()</span> <span class="keyword">throws</span> IOException, SecurityException </span>&#123;</span><br><span class="line">		...</span><br><span class="line">        ...</span><br><span class="line">        String fname = System.getProperty(<span class="string">&quot;java.util.logging.config.file&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (fname == <span class="keyword">null</span>) &#123;</span><br><span class="line">            fname = System.getProperty(<span class="string">&quot;java.home&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (fname == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">&quot;Can&#x27;t find java.home ??&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            File f = <span class="keyword">new</span> File(fname, <span class="string">&quot;lib&quot;</span>);</span><br><span class="line">            f = <span class="keyword">new</span> File(f, <span class="string">&quot;logging.properties&quot;</span>);</span><br><span class="line">            fname = f.getCanonicalPath();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> (<span class="keyword">final</span> InputStream in = <span class="keyword">new</span> FileInputStream(fname)) &#123;</span><br><span class="line">            <span class="keyword">final</span> BufferedInputStream bin = <span class="keyword">new</span> BufferedInputStream(in);</span><br><span class="line">            readConfiguration(bin);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到会检查javahome然后找到jre目录下的lib包的loggging.properties文件，将它转换为流调用readConfiguration（xxx）的重载方法    </p>
-<p>下面是我在1.8 jre/lib/logging.propertie复制的</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">handlers</span> = <span class="string">java.util.logging.ConsoleHandler</span></span><br><span class="line"><span class="meta">.level</span> = <span class="string">CONFIG</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.pattern</span> = <span class="string">%h/java%u.log</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.limit</span> = <span class="string">50000</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.count</span> = <span class="string">1</span></span><br><span class="line"><span class="meta">java.util.logging.FileHandler.formatter</span> = <span class="string">java.util.logging.XMLFormatter</span></span><br><span class="line"><span class="meta">java.util.logging.ConsoleHandler.level</span> = <span class="string">CONFIG</span></span><br><span class="line"><span class="meta">java.util.logging.ConsoleHandler.formatter</span> = <span class="string">java.util.logging.SimpleFormatter</span></span><br><span class="line"><span class="meta">com.xyz.foo.level</span> = <span class="string">SEVERE</span></span><br></pre></td></tr></table></figure>
-
-<p>上述我修改了.level,java.util.logging.ConsoleHandler.level 为CONFIG（默认为INFO）</p>
-<p>这样一来</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myLogConfigTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (<span class="keyword">var</span> fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;C:\\Users\\86138\\Desktop\\mylog.properties&quot;</span>))&#123;</span><br><span class="line">        <span class="keyword">var</span> logManager = LogManager.getLogManager();</span><br><span class="line">        logManager.readConfiguration(fileInputStream);</span><br><span class="line">        <span class="keyword">var</span> logger = Logger.getLogger(<span class="string">&quot;com.example.tmpjavastudy.jul.Jul&quot;</span>);</span><br><span class="line">        logger.log(Level.CONFIG,<span class="string">&quot;你好&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我写个测试类，将复制的配置文件放在桌面，用流读取，然后用logManager取读取这个流，很显然，现在打印</p>
-<p>CONFIG级别的日志就成功了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12月 12, 2021 6:20:24 下午 com.example.tmpjavastudy.jul.Jul myLogConfigTest</span><br><span class="line">配置: 你好</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java日志</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/12/jul%E7%9A%84%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-springboot的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/07/springboot%E7%9A%84%E5%AD%A6%E4%B9%A0/">springboot的学习</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/07/springboot%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-07T11:52:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Configuraiton注解"><a href="#Configuraiton注解" class="headerlink" title="@Configuraiton注解"></a>@Configuraiton注解</h4><p>在spring中被该注解标注的类是一个配置类，它属于spring底层注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration &#123;</span><br><span class="line">    <span class="meta">@AliasFor(</span></span><br><span class="line"><span class="meta">        annotation = Component.class</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">proxyBeanMethods</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这是spring5中，confiuration注解的内容，其中有一个proxyBeanMethods属性，默认true</p>
-<p>这里注意</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">confiuration：</span><br><span class="line">proxyBeanMethods=true	默认 全量配置（Full）</span><br><span class="line">proxyBeanMethods=false		轻量配置（Lite）</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean(&quot;dog&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dog <span class="title">dog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Dog();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面是我一个配置类，通过打印容器中的，被标记的@Configuration注解的类，可以看到</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxyBeanMethods=false</span><br><span class="line">com.example.config.MyConfig@307cf964</span><br><span class="line"></span><br><span class="line">proxyBeanMethods=true</span><br><span class="line">com.example.config.MyConfig$$EnhancerBySpringCGLIB$$9d14a21c@7761e342</span><br></pre></td></tr></table></figure>
-
-
-
-<p>co从上述看出，默认情况（true），这个配置类实际是一个用Cglib代理的类。配置类的作用往往是用来注入bean的，例如上述方法中的dog（）方法，往容器中注入了Dog的实例。</p>
-<p>首先说明，如果主动调用dog（）方法，返回的对象呢日哦内容地址是否会一直？</p>
-<p>答案是：如果默认情况下，是一致的。也是就是当proxyBeanMethod=true的时间，也就是这个类是代理类的时候，这个是时候每次调用被@Bean标记的方法的时候，首先会检查容器从中，是或否存在这个类的实例，如果没有择入，如果有，则取容器中的Bean对象。</p>
-<p>所以说，如果现在在有了proxyBeanMethods属性后，如果把值设置为flase，每次调用方法，就可以不用取检查容器，而是直接创建对象，这样的好处就是启动也迅速，！。也是就我们说的轻量默认模式（LIte），这也是为了什么，这个配置的类需要时代理类的缘故，因为只有是代理类，才可以在调用发发前，检查做判断。</p>
-<h4 id="import"><a href="#import" class="headerlink" title="@import"></a>@import</h4><p>@import注解是导入主键组件的一个注解。</p>
-<p>！！~~~</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123;</span><br><span class="line">    Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>z这个注解是spring的原生注解，存在于context宝中</p>
-<p>首先第一点，这个注解只能标注于类上，而且<code>必须啊是spring组件的类</code>。</p>
-<p>第二点，这个注解比可以宝指定的类do导入spring容器，看源码可知，它只有一个vlaue数据属性，是一个Class数组。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(&#123;Cat.class&#125;)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>r如图这个配置类中，我没有写其他方法，只是为了给@InImport注解使用，作为一个组件给其承载。</p>
-<p>@import组件二注解指定了Cat的Class。于是把Cat注入容器。</p>
-<p>PS：这个地方它会调用Cat类的无参构造器9(w无论是否私有，因为此处是通过反射)，实例化让弄然后注入容器中！所以午餐狗赞其是费差个重要的。</p>
-<p>第三点这个方针屎，注入容器的组件（上述屎cat，它在容器中的名字不是cat，而是全类型！）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.example.domain.Cat</span><br></pre></td></tr></table></figure>
-
-<p>它不想@Bean用方法名作为bean的名字，而是全类型。</p>
-<p>最后：如果有用过最早Spring配置文件配置的年代就会明白。这里的Spring中的@Iport的注解其实就是以前applicationContext.xml的<beans></beans>标间中的<import>标签，它在那个年代是为了解决配置文件过多的问题，在一个配置文件中导入另外一个配置文件，其实换到Springboot中，注解化后其实作用也差别不是很大，依然是需要依附于一个组件（配置文件）来使用，导入Bean（配置文件）。</p>
-<h4 id="configurationProperties的使用"><a href="#configurationProperties的使用" class="headerlink" title="configurationProperties的使用"></a>configurationProperties的使用</h4><p>在java中一个实体（前提是spring的组件）如果在启动就是要为其付值属性，可以天机添加上述注解，</p>
-<p>如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;omen.cat&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OmenCat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> BigDecimal height;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OmenCat&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&quot;, height=&quot;</span> + height +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是一个普通的javabean，他有三个属性，而且是spring的组件。</p>
-<p>我们在yml或者properties配置文件中配置了相关配置，一下用yml示例</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">omen:</span></span><br><span class="line">  <span class="attr">cat:</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">tom</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">12.1</span></span><br></pre></td></tr></table></figure>
-
-<p>yu于是！@ConfigurationProperties注解的prefix属性就起到了关联作用。将浅醉前缀是omen.cat的配置文件衍射到java bean</p>
-<p>打印bean得到如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OmenCat&#123;name=&#x27;tom&#x27;, age=2, height=12.1&#125;</span><br></pre></td></tr></table></figure>
-
-<p>za在世家，在实际开发中，一些经常使用的对象，比如AliPayClent，往往会经常服用复用的对象，我们会配置成spring组件，然后用配置文件统一配置appId，publicKey,sercetkey等。等到要使用的时候，从容器中过去出取出。</p>
-<p>还有一点要注意，这个组件一定要有set方法，如果没有set方法，无法为其衍射复制，打印的属性就都会是null。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring-boot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/07/springboot%E7%9A%84%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-typora正式发布了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/27/typora%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E4%BA%86/">typora正式发布了</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/27/typora%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E4%BA%86/" class="archive-article-date">
-  	<time datetime="2021-11-27T05:33:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>typroa今天更新发现正式发布1版本，我更新后显示试用15天，点开官网后显示收费14刀。</p>
-<p>没办法，都已经更新了，只好卸载找之前旧版本。</p>
-<p><a target="_blank" rel="noopener" href="https://typora.io/windows/dev_release.html">https://typora.io/windows/dev_release.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://typora.io/dev_release.html">https://typora.io/dev_release.html</a></p>
-<p>上面的链接是官网的，包含旧版本的下载地址（含win）。我选了个最新的旧版，安装发现typora的默认安装地址现在不能选了，直接安装c盘。之前的typora安装了太久了，不过我记得也是官网下载的，不过那个时候官网还很破烂。不知道为什么现在安装位置不让选了，难道还是我记错了。</p>
-<p>说明：typora如果已经在你电脑安装，又安装typora，就会选原来的位置覆盖安装。如果真的不想安装C盘，你可以下个csdn之类地方别人提供的typora（可以选路径那种），安装后，再安装官方的exe文件，只不过麻烦亿点。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/27/typora%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E4%BA%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-随笔1126" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/26/%E9%9A%8F%E7%AC%941126/">随笔1126</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/26/%E9%9A%8F%E7%AC%941126/" class="archive-article-date">
-  	<time datetime="2021-11-25T16:16:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><input disabled="" type="checkbox"> 使用linux 的shell脚本实现一些自动化部署操作，比如cpu到80%的时候，去调用一些aliyun的api实现服务器的扩容==</li>
-<li><input disabled="" type="checkbox"> :apple:苹果的名字叫apple</li>
-<li><input disabled="" type="checkbox"> redis setnx 命令 set key if not exist？？？</li>
-<li><input disabled="" type="checkbox"> redis strlen命令 ： strlen k1 ，可以查看redis :key:的长度</li>
-<li><input disabled="" type="checkbox"> redis append命令：append :key: value, 返回增加后的value长度，如果:key:不存在，就创建</li>
-<li><input disabled="" type="checkbox"> redis 中string数据类型的value值最大可以512M</li>
-<li><input disabled="" type="checkbox"> redis string数据类型的 incr ， dect命令。（increment decrement）对一个数字类的key每次加1或者减去1。ps：只能输数字类型的value。</li>
-</ul>
-<p>​    如果想设置自定义步长：incrby（decrby）:key: 步长数字。。例子decrby k1 5 (每次操作减去5)</p>
-<ul>
-<li><input disabled="" type="checkbox"> mset ,mget 不知道是什么的缩写。比如mset，可以一次设置多个值，mset k1 10 k2 20这样的格式，还有mget k1 k2。可以一次批量设置和获取值。同理有msetnx，这个像上面的setnx，只不过又是批量操作。这里要注意msetnx，只要设置的多个值，有一个因为已经存在key而失败，所有设置均失败。（原子操作，一个失败，全部失败）</li>
-<li><input disabled="" type="checkbox"> redis命令：getset k1 v1 。这个有点像java中Map的put方法，set成功后会写入新的value值，返回之前被覆盖的值。</li>
-<li><input disabled="" type="checkbox"> getrange :key: 索引起始 索引结束 ：例子 getrange k1 0 2。redis中已经存在k1=chenxiubang。用上述命令可以获取并截取字符串的，类似于java中的substring，不过这个包含索引左侧和右侧。（包左也包右），最终获取的是che。</li>
-<li><input disabled="" type="checkbox"> 同理还有setrange。格式是setrange :key: 索引下标  value值。例如redis中已经存在k1=chenxiubang。用上述命令，setrange k1 2 qqqq，这样这个命令就会从第三个字符，用qqqq覆盖原有的字符，结果是chqqqqubang。设置成功后会返回，最终字符串的长度。</li>
-<li><input disabled="" type="checkbox"> 之前有个设置:key:的过期时间expire命令，现在可以使用setex，set expire的缩写吧，直接在set值得时候就设置过期时间。格式：set k1  过期时间 value值。</li>
-<li><input disabled="" type="checkbox"> redis启动使用命令redis-server 配置文件路径来指定某个配置文件来进行启动，如果是要停止redis，比较简单除暴的方法是使用kill -9 直接强行杀死进程，或是使用redis-cli shutdown命令来给redis发送一个停止的命令（或者使用redis-cli连接上redis，然后使用shutdown，也是一样的），这种方式比起杀死进程，可以避免内存数据丢失。</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/26/%E9%9A%8F%E7%AC%941126/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nginx配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">nginx配置文件</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2021-11-15T11:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line"></span><br><span class="line">	worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	include		mime.types;</span><br><span class="line">	default_type	application/octet-stream;</span><br><span class="line">	sendfile	on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	error_page	404              /404.html; </span><br><span class="line">	error_page   	500 502 503 504  /50x.html;</span><br><span class="line">    </span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80;</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		charset utf-8;</span><br><span class="line">		rewrite ^(.*)$ https://$host$1;</span><br><span class="line">		</span><br><span class="line">		location / &#123;</span><br><span class="line">			root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    	server &#123;</span><br><span class="line">        </span><br><span class="line">		listen       443 ssl;       </span><br><span class="line">		server_name chenxiubang.top; </span><br><span class="line">		charset utf-8;	</span><br><span class="line">		ssl_certificate cert/6597067_chenxiubang.top.pem;  </span><br><span class="line">		ssl_certificate_key cert/6597067_chenxiubang.top.key; </span><br><span class="line">		ssl_session_timeout 5m;</span><br><span class="line">		ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">		ssl_protocols TLSv1.1 TLSv1.2; </span><br><span class="line">		ssl_prefer_server_ciphers on;</span><br><span class="line">       </span><br><span class="line">		location / &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">        	location = /404.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line"></span><br><span class="line">        	location = /50x.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line">		#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">		location ~/hello/ &#123;</span><br><span class="line">                        proxy_pass http://127.0.0.1:8080;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>nginx配置文件，nginx.conf。由三部分 头信息，events代码块，http代码块组成。</p>
-<p>最多配置均在http代码块，http代码块又有全局块和server块组成。</p>
-<p>全局块中比如上述的include，error_page等。</p>
-<p>include，引入其他的配置文件，在配置文件过大或划分比较明确，可以将配置拆分，再用这个引入</p>
-<p>比如 include my_conf/*.conf;</p>
-<p>error_page ,这个应该是定义异常页面，貌似是可以卸载全局块，也可以写在server块中，我这边写在外面。</p>
-<p>然后是最重要的server块，每个server块监听一个端口，我上图中监听了http的默认80和https的443</p>
-<p>在第一个server代码块，我用</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rewrite ^(.*)$ https://$host$1;</span><br></pre></td></tr></table></figure>
-
-<p>讲所有http请求重定向到第二个server代码块</p>
-<p>所以第一个server块基本没有什么用</p>
-<p>第二个server块监听443，https的端口。server_name绑定我的域名，字符集utf-8，还配置了证书文件，加密等等。</p>
-<p>server块中的location块代表转发规则，上面几个简单的是配置首页映射，404映射，500页面映射等。</p>
-<p>最后一个</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">location ~/hello/ &#123;</span><br><span class="line">	proxy_pass http://127.0.0.1:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>~/hello/ 代表开启正则匹配路径中带hello的请求，</p>
-<p>转发到本地8080端口交给tomcat处理</p>
-<p>（ps: 此处除了用波浪号还可以用*号，~代表匹配区分小写，*代表不区分）</p>
-<p>这个proxy_pass 要几个特点</p>
-<ol>
-<li>完整的url的格式</li>
-<li>如果映射路径是本机，可以映射端口不用开放</li>
-<li>https不能访问类似于8080端口的场合，你可以用映射转发给他们，这样用https协议也能打开tomcat默认8080的应用。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1125,8 +373,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
