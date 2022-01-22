@@ -177,15 +177,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h5 id="通过info命令查看redis状态"><a href="#通过info命令查看redis状态" class="headerlink" title="通过info命令查看redis状态"></a>通过info命令查看redis状态</h5><p>设从不设主</p>
-<p>slaveof ip 端口</p>
+<p><code>slaveof ip port</code></p>
 <p>它就变成它的从机</p>
 <p>然后主机保存的东西自动同步到从机</p>
+<p><code>全量复制</code></p>
 <p>一旦主从关系确定，首先会复制所有数据</p>
-<p>全量复制</p>
+<p><code>增量复制</code></p>
 <p>之后主库每次增加数据，都会同步到从库</p>
-<p>增量复制</p>
+<p><code>读写分离</code></p>
 <p>如果在从库执行写命令，会报错</p>
-<p>读写分离</p>
 <h4 id="主机宕机"><a href="#主机宕机" class="headerlink" title="主机宕机"></a>主机宕机</h4><p>从机状态还是从机，不过显示主机状态宕机了，【从机原地待命】</p>
 <p>读依然没有问题，但是数据不会再更新了</p>
 <p>如果主机这时候恢复了，从机状态就会显示主机状态又为上线</p>
@@ -199,7 +199,21 @@
 <h4 id="主机恢复，但是从机已经从属别人了"><a href="#主机恢复，但是从机已经从属别人了" class="headerlink" title="主机恢复，但是从机已经从属别人了"></a>主机恢复，但是从机已经从属别人了</h4><p>主机这时候已经变成空头司令，这个时候一般将他变成从机，加入新的主从关系</p>
 <p><strong>一台从机只能从一台主机，从机也可以有从机，构成树状结构</strong></p>
 <p><strong>分担压力的同时，也增加了集群之间通信的时间</strong></p>
-<h4 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h4>
+<h4 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h4><p>redis 提供的功能，不停的扫描主机，如果主机挂了，按照规则，选举出一个主机，然后将剩下的从机成为它的从机。</p>
+<p>提供一个哨兵配置文件</p>
+<p>默认的：<code>sentinel.conf</code></p>
+<p>例如：我创建<code>redis_sentinel.conf</code></p>
+<p>编辑<code>sentinel monitor dc-redis 127.0.0.1 6379 1</code></p>
+<p>sentinel 表示哨兵配置</p>
+<p>monitor 表示监控</p>
+<p>dc-redis 哨兵名字，任意</p>
+<p>127.0.0.1 ip</p>
+<p>6379 端口</p>
+<p>1 表示得到哨兵的投票数为1（当哨兵投票数大于或者等于该数字时候切换主从关系，此处哪一个从机最新达到1即可成为主机）</p>
+<p><strong>启动哨兵程序</strong></p>
+<p><code>redis-sentinel 配置文件目录</code></p>
+<p>该程序也占用一个端口</p>
+
       
 
       
