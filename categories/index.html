@@ -127,7 +127,7 @@
 
 
 
-  <title>mybaits中的provider写法 | 陈修榜的博客</title>
+  <title>分类 | 陈修榜的博客</title>
   
 
 
@@ -277,187 +277,40 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="陈修榜的博客">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">mybaits中的provider写法</h1>
-        
+	<h1 class="post-title" itemprop="name headline">分类</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-01T20:44:23+08:00">2021-11-01</time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <p>早在学习初期解除mybatis框架的时候，我学习的是将sql写在xml中，这样做到了代码和sql分离。随着工作后，我又见到各种五花八门的写法。比较靠谱一点的就是这样的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StuTalentUserAuditDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">StuTalentUserAuditEo</span>&gt;</span>&#123;</span><br><span class="line">    <span class="meta">@Select(&quot;select * from audit where id_card=#&#123;idCard&#125;&quot;)</span></span><br><span class="line">    <span class="function">Eo <span class="title">select</span><span class="params">(<span class="meta">@Param(&quot;idCard&quot;)</span> String idCard)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from audit where id_card=#&#123;idCard&#125; and status=#&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function">Eo <span class="title">select1</span><span class="params">(<span class="meta">@Param(&quot;idCard&quot;)</span> String idCard,<span class="meta">@Param(&quot;status&quot;)</span> String status)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>再dao中的方法脑袋上写sql’语句。</p>
-<p>还有过分点的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HotelDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">HotelEo</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据经纬度获取酒店列表, 按照距离远近排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dto</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Select(&quot;SELECT &quot; +</span></span><br><span class="line"><span class="meta">            &quot; id, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; hotel_name AS hotelName, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; hotel_name_eng AS hotelNameEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; discount_desc AS discountDesc, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; discount_desc AS discountDescEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; addr, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; addr_eng AS addrEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; img, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; mobile,&quot; +</span></span><br><span class="line"><span class="meta">            &quot; round(ST_Distance_Sphere (point(longitude,latitude),point( #&#123;dto.lon&#125;, #&#123;dto.lat&#125;))) as distance &quot; +</span></span><br><span class="line"><span class="meta">            &quot;FROM &quot; +</span></span><br><span class="line"><span class="meta">            &quot; front_hotel &quot; +</span></span><br><span class="line"><span class="meta">            &quot;where status = 1 &quot; +</span></span><br><span class="line"><span class="meta">            &quot;order by distance asc&quot;)</span></span><br><span class="line">    <span class="function">List&lt;HotelDto&gt; <span class="title">getHotelListByLocation</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> LocationDto dto)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这种长度的sql你写在脑袋上真的恶心，配个xml会死吗？代码和sql完美黏在一起</p>
-<p>今天我又见到另一种写法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApartmentChangeDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">ApartmentChangeEo</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@SelectProvider(type = MyProvider.class, method = &quot;changeLeftJoinTalent&quot;)</span></span><br><span class="line">    <span class="function">List&lt;ApartmentChangePageDto&gt; <span class="title">info</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> ApartmentChangeQueryDto dto)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是dao，不过脑袋上是selectProvider注解，这里指定了两个属性，一个是自定义类，另一个是他的方法名</p>
-<p>然后到那个MyProvider里面看看</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">changeLeftJoinTalent</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> ApartmentChangeQueryDto dto)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String sql = <span class="keyword">new</span> SQL() &#123;&#123;</span><br><span class="line">            SELECT(<span class="string">&quot;t1.`id` ,t1.`id_card`,t1.`mobile`,t1.`name`,t1.`status`,t1.`create_time` ,t1.change_type,t2.status AS tstatus&quot;</span>);</span><br><span class="line"></span><br><span class="line">            FROM(<span class="string">&quot;apartment_change t1&quot;</span>);</span><br><span class="line">            LEFT_OUTER_JOIN(<span class="string">&quot;apartment_talent t2 ON t1.`apartment_id` = t2.`id`&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNumeric(dto.getKeyword())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.mobile LIKE CONCAT(&#x27;%&#x27;,#&#123;dto.keyword&#125;,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dto.getKeyword()) &amp;&amp; !StringUtils.isNumeric(dto.getKeyword())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.name LIKE CONCAT(&#x27;%&#x27;,#&#123;dto.keyword&#125;,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dto.getStartTime() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.create_time&gt;=#&#123;dto.startTime&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dto.getEndTime() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.create_time&lt;=#&#123;dto.endTime&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dto.getIdcard())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.id_card = #&#123;dto.idcard&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getNeStatus())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t2.status &lt;&gt; #&#123;dto.neStatus&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getStatus()) &amp;&amp;</span><br><span class="line">                    StringUtils.equalsAny(dto.getStatus(), ApartmentChangeEnum.HUMAN_WAIT.name(),</span><br><span class="line">                            ApartmentChangeEnum.HUMAN_FAIL.name(), ApartmentChangeEnum.CITY_WAIT.name(),</span><br><span class="line">                            ApartmentChangeEnum.lotteryWait.name())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.status = #&#123;dto.status&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getStatus())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t2.status = #&#123;dto.status&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ORDER_BY(<span class="string">&quot;t1.id DESC&quot;</span>);</span><br><span class="line">        &#125;&#125;.toString();</span><br><span class="line">        <span class="keyword">return</span> sql;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这个类中其实就是就是在该方法种用双括号语法创建一个SQL对象，然后toString，return出去。</p>
-<p>如果了解双括号语法，对上面应该不会陌生，</p>
-<p>这里的SELECT ,FROM ,等等都是方法名全部大写的的方法，他们有返回值，但是这里没有使用而已。</p>
-<p>SELECT ,FORM ,WHERE等方法执行实际上最终就是不停地拼接，最后的toString打印完整地sql</p>
-
+      <div class="post-body">
+        
+        
+          <div class="category-all-page">
+            <div class="category-all-title">
+                2 categories in total
+            </div>
+            <div class="category-all">
+              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><span class="category-list-count">2</span></li></ul>
+            </div>
+          </div>
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>Donate</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/weixin.JPG" alt=" WeChat Pay"/>
-        <p>WeChat Pay</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.JPG" alt=" Alipay"/>
-        <p>Alipay</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/" rel="next" title="rabbitmq简单队列入门程序">
-                <i class="fa fa-chevron-left"></i> rabbitmq简单队列入门程序
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/" rel="prev" title="redis基本黑窗口命令1">
-                redis基本黑窗口命令1 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
