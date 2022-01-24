@@ -156,6 +156,115 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-elasticsearch安装简述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/24/elasticsearch%E5%AE%89%E8%A3%85%E7%AE%80%E8%BF%B0/">elasticsearch安装简述</a>
+    </h1>
+  
+
+        
+        <a href="/2022/01/24/elasticsearch%E5%AE%89%E8%A3%85%E7%AE%80%E8%BF%B0/" class="archive-article-date">
+  	<time datetime="2022-01-24T06:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>领导让安装es做日志分析，参照他的博客，我安装的也是es6.2.2</p>
+<p>es不允许root启动，所以新建用户和组</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">groupadd es</span><br><span class="line">useradd es</span><br><span class="line">passwd es # 修改用户密码</span><br><span class="line">usermod -G es es #添加到组</span><br></pre></td></tr></table></figure>
+
+<p>然后visudo修改用户可执行命令(不知道什么用)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Allow root to run any commonds anywhere</span></span></span><br><span class="line">root	ALL=(ALL)	ALL</span><br><span class="line">es		ALL=(ALL)	ALL</span><br></pre></td></tr></table></figure>
+
+<p>切换es用户 su es</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">这里是es具体的安装文件夹</span></span><br><span class="line">sudo chown -R es:es elasticsearch-6.2.2/</span><br></pre></td></tr></table></figure>
+
+<p>这是我现在的配置,其他没用暂时都删了</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#集群名称</span></span><br><span class="line"><span class="attr">cluster.name:</span> <span class="string">ymt_es</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#该节点名称，不同节点配置不同名称</span></span><br><span class="line"><span class="attr">node.name:</span> <span class="string">node-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据目录</span></span><br><span class="line"><span class="attr">path.data:</span> <span class="string">/disk/elasticsearchdata/data</span></span><br><span class="line"></span><br><span class="line"><span class="attr">path.logs:</span> <span class="string">/disk/elasticsearchdata/logs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#内存锁</span></span><br><span class="line"><span class="attr">bootstrap.memory_lock:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#服务器当前ip</span></span><br><span class="line"><span class="attr">network.host:</span> <span class="number">10.32</span><span class="number">.185</span><span class="number">.78</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#端口</span></span><br><span class="line"><span class="attr">http.port:</span> <span class="number">9200</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#其他节点</span></span><br><span class="line"><span class="attr">discovery.zen.ping.unicast.hosts:</span> [<span class="string">&quot;10.32.185.78&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#最大master节点</span></span><br><span class="line"><span class="attr">discovery.zen.minimum_master_nodes:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>进入到es的bin目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> -d是后台启动，可以不带-d启动测试观察</span></span><br><span class="line">./elastucsearch -d</span><br></pre></td></tr></table></figure>
+
+<p>如果启动失败遇到memery大小之类的</p>
+<p>还要配置如下</p>
+<ol>
+<li><p>vim /etc/security/limits.conf</p>
+<p>这个是我配置好的，仅作参考，不行百度</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root soft nofile 65535</span><br><span class="line">root hard nofile 65535</span><br><span class="line">* soft nofile 65536</span><br><span class="line">* hard nofile 131072</span><br><span class="line">* soft memlock unlimited</span><br><span class="line">* hard memlock unlimited</span><br><span class="line">* hard nproc 4096</span><br><span class="line">* soft nproc 4096</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>vi /etc/sysctl.conf (这个也是已经改好的，把vm取出来粘贴，具体百度)</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br><span class="line">vm.swappiness=1</span><br></pre></td></tr></table></figure>
+
+<p>​    第二点执行完后要用 <code>sysctl -p</code> 生效</p>
+<h3 id="提词器"><a href="#提词器" class="headerlink" title="提词器"></a>提词器</h3><p>github搜索<code>elasticsearch-analysis-ik</code>找到对应相同es的提词器版本，下载即可。</p>
+<p>注意：要下载zip压缩包</p>
+<p>解压后刷到es 的plugins文件夹下即可。注意这两个新加上的插件也要<code>sudo chown -R es:es elasticsearch-6.2.2/</code>再来一下。</p>
+<p>这个时候启动就会看到插件被装载。</p>
+<p>提词器用法还不清楚，以后再说</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">elasticsearch</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/24/elasticsearch%E5%AE%89%E8%A3%85%E7%AE%80%E8%BF%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-redis主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1056,96 +1165,6 @@
 
 
   
-    <article id="post-nginx配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">nginx配置文件</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2021-11-15T11:09:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line"></span><br><span class="line">	worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	include		mime.types;</span><br><span class="line">	default_type	application/octet-stream;</span><br><span class="line">	sendfile	on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	error_page	404              /404.html; </span><br><span class="line">	error_page   	500 502 503 504  /50x.html;</span><br><span class="line">    </span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80;</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		charset utf-8;</span><br><span class="line">		rewrite ^(.*)$ https://$host$1;</span><br><span class="line">		</span><br><span class="line">		location / &#123;</span><br><span class="line">			root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    	server &#123;</span><br><span class="line">        </span><br><span class="line">		listen       443 ssl;       </span><br><span class="line">		server_name chenxiubang.top; </span><br><span class="line">		charset utf-8;	</span><br><span class="line">		ssl_certificate cert/6597067_chenxiubang.top.pem;  </span><br><span class="line">		ssl_certificate_key cert/6597067_chenxiubang.top.key; </span><br><span class="line">		ssl_session_timeout 5m;</span><br><span class="line">		ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">		ssl_protocols TLSv1.1 TLSv1.2; </span><br><span class="line">		ssl_prefer_server_ciphers on;</span><br><span class="line">       </span><br><span class="line">		location / &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">        	location = /404.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line"></span><br><span class="line">        	location = /50x.html &#123;</span><br><span class="line">            		root   html;</span><br><span class="line">        	&#125;</span><br><span class="line">		</span><br><span class="line">		#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">		location ~/hello/ &#123;</span><br><span class="line">                        proxy_pass http://127.0.0.1:8080;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>nginx配置文件，nginx.conf。由三部分 头信息，events代码块，http代码块组成。</p>
-<p>最多配置均在http代码块，http代码块又有全局块和server块组成。</p>
-<p>全局块中比如上述的include，error_page等。</p>
-<p>include，引入其他的配置文件，在配置文件过大或划分比较明确，可以将配置拆分，再用这个引入</p>
-<p>比如 include my_conf/*.conf;</p>
-<p>error_page ,这个应该是定义异常页面，貌似是可以卸载全局块，也可以写在server块中，我这边写在外面。</p>
-<p>然后是最重要的server块，每个server块监听一个端口，我上图中监听了http的默认80和https的443</p>
-<p>在第一个server代码块，我用</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rewrite ^(.*)$ https://$host$1;</span><br></pre></td></tr></table></figure>
-
-<p>讲所有http请求重定向到第二个server代码块</p>
-<p>所以第一个server块基本没有什么用</p>
-<p>第二个server块监听443，https的端口。server_name绑定我的域名，字符集utf-8，还配置了证书文件，加密等等。</p>
-<p>server块中的location块代表转发规则，上面几个简单的是配置首页映射，404映射，500页面映射等。</p>
-<p>最后一个</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#hello是tomcat的测试项目，路径带hello的转发到8080端口	</span><br><span class="line">location ~/hello/ &#123;</span><br><span class="line">	proxy_pass http://127.0.0.1:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>~/hello/ 代表开启正则匹配路径中带hello的请求，</p>
-<p>转发到本地8080端口交给tomcat处理</p>
-<p>（ps: 此处除了用波浪号还可以用*号，~代表匹配区分小写，*代表不区分）</p>
-<p>这个proxy_pass 要几个特点</p>
-<ol>
-<li>完整的url的格式</li>
-<li>如果映射路径是本机，可以映射端口不用开放</li>
-<li>https不能访问类似于8080端口的场合，你可以用映射转发给他们，这样用https协议也能打开tomcat默认8080的应用。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/15/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1268,6 +1287,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">elasticsearch</a>
               </li>
             
             <div class="clearfix"></div>
