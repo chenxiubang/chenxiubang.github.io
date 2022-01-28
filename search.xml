@@ -545,7 +545,18 @@
 <p><strong>tips</strong> ：要注意的时save保存时是阻塞的，相同的还有一个叫<code>bgsave</code>,可以后台异步保存持久化内容，同时不影响响应客户端的请求。（不过我没有用过）。</p>
 <p>持久化的文件以<code>.rdb</code>结尾，默认名字是dump。（我记得可以修改）</p>
 <p><strong>但是rdb这种方式，毕竟有可能不会全部持久化所有内容，所有有了AOF</strong></p>
-<h4 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h4><p>修改配置文件中的appendony   为yes ，就会开启aof，所有redis的操作命令都会被记录（读的redis命令不记录），不过这样会非常消耗性能，除非redis中存储的数据非常重要。这种持久化策略的本质就是人海战术，一旦redis宕机，可以将日志里面的写操纵重新拿出来，来重新还原redis的数据。</p>
+<h4 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h4><p>aof 是append on file的缩写</p>
+<p>修改配置文件中的appendony   为yes ，就会开启aof，所有redis的操作命令都会被记录（读的redis命令不记录），不过这样会非常消耗性能，除非redis中存储的数据非常重要。这种持久化策略的本质就是人海战术，一旦redis宕机，可以将日志里面的写操纵重新拿出来，来重新还原redis的数据。</p>
+<p>开启了aof后，redis会将每个写的命令加入到redis缓冲池，再根据redis的持久化策略来，来决定方式</p>
+<p>appendfsync  策略</p>
+<ol>
+<li> always 每个命令立即加入缓冲池</li>
+<li>everysec 每秒将命令加入缓冲池</li>
+<li>no 由系统调度</li>
+</ol>
+<p>我的redis6默认是everysec </p>
+<p><em>redis的修复命令</em></p>
+<p>redis-check-rdb  redis-check-aof是redis修复被损坏的rdb和aof文件的，有兴趣百度</p>
 <h3 id="redis的订阅和发布"><a href="#redis的订阅和发布" class="headerlink" title="redis的订阅和发布"></a>redis的订阅和发布</h3><p>虽然消息通知有MQ，实际开发中我们不可能用redis做消息中间件，但还是有必要掌握下redis这个功能，毕竟官方提供了已经。</p>
 <p>首先命令非常简单</p>
 <p>订阅：<code>subscribe  xxx </code>  <code>psubscribe xxx</code></p>
