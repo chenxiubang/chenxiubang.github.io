@@ -491,6 +491,21 @@
 <p>也可以配置多个哨兵，每个哨兵监控一台机器</p>
 <p><strong>如果之前宕机的主机恢复了</strong></p>
 <p>采用了哨兵模式后，会让恢复的机器也可以变成一台从机，而不是像之前游离于整个程序之外</p>
+<p><em>配置哨兵模式的规则</em></p>
+<p>首先，主机死亡选举从机作为master，这个地方是由配置规则的。</p>
+<p>优先级分别是</p>
+<ol>
+<li><p>比较从机优先级。优先级的权重再配置文件中修改。redis.conf  的slave-priority（再redis高版本叫做replica-priority）</p>
+<p>这个地方设置的权重越小，优先级越高。默认100</p>
+</li>
+<li><p> 比较偏移量。就是哪台redis的数据更加齐全。</p>
+</li>
+<li><p>比较runid。每台redis启动都会生成一串随机40位的runid。通过比较runid，来选举，其实就是随机看脸一样。</p>
+</li>
+</ol>
+<p><em>上面说命令slave-priority，在高版本变成replica-priority的原因是因为 slave这个词语过于敏感</em></p>
+<p><em>slave lifes matter</em>  – 黑人的命也是名</p>
+<p>所以几乎所有涉及到slave的命令和配置，不单单是redis，都尽可能地被改掉了。</p>
 <h3 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h3><p>redis客户端这里以jedis为例</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
