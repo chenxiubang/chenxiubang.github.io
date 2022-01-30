@@ -506,6 +506,16 @@
 <p><em>上面说命令slave-priority，在高版本变成replica-priority的原因是因为 slave这个词语过于敏感</em></p>
 <p><em>slave lifes matter</em>  – 黑人的命也是名</p>
 <p>所以几乎所有涉及到slave的命令和配置，不单单是redis，都尽可能地被改掉了。</p>
+<h3 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h3><p><em>注意集群不是主从复制</em></p>
+<p>redis集群传统集群：</p>
+<p>客户端——&gt;请求代理服务器（ngxin）——&gt;转发到不同的redis</p>
+<p>比如redis集群有3台，分别负责用户，订单，商品。一个用户的请求通过nginx转发的用户的redis。然后对应ngxin和redis可能会有集群和主从来确保高可用。</p>
+<p>redis3.0推出了去中心化配置，可以不再引入nginx代理服务器。依然是上面的例子，一个用户的请求请求到3台redis中，如果这台redis不是负责用户的，它会将请求再转发到其他redis，即是每台都是中心。</p>
+<p>例子：有3台主服务redis，分别对应用户，订单，商品。每台有一个从机，也是3台，一共6台。这6台就构成了一个redis集群。</p>
+<p>集群相关的配置（在redis配置文件中，默认注释）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6379.conf</span><br><span class="line">cluster-node-timeout 15000</span><br></pre></td></tr></table></figure>
+
+<p>集群启动后，配置文件指定的cluster-config-file文件，就会生成。</p>
 <h3 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h3><p>redis客户端这里以jedis为例</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
