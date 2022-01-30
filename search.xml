@@ -905,4 +905,47 @@
 <p>其实jul的东西远不止此，这里只是写皮毛。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>redis应用问题</title>
+    <url>/2022/01/30/redis%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>缓存穿透一般是因为数据库收到攻击，大量的无意义的请求，查询，每次都在redis中查不到数据，导致每次请求直接到数据库。</p>
+<p>导致：</p>
+<p>1）数据库压力徒增</p>
+<p>解决方案</p>
+<p>1）对空值缓存</p>
+<p>2）使用bitmaps做白名单</p>
+<p>3）布隆过滤器</p>
+<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>和缓存穿透名词非常类似</p>
+<p>1）某个时间段，数据库突然压力</p>
+<p>2）redis某个key过期（热点key），而不是大量key过期，大量请求通过这个key请求数据库</p>
+<p>解决方法：</p>
+<p>1）预先设置热门key，增长key过期时间</p>
+<p>2）实时调整key过期时间</p>
+<p>3）锁</p>
+<p>​    举例一种例子</p>
+<pre><code>1. 在缓存不存在数据时，不是立即去load db，
+1. 让其中一个线程查询数据库，将数据写回缓存
+1. 然后剩下的线程读写缓存的数据
+</code></pre>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p><code>redis</code>极少的时间大量key过期，请求突然直接打数据库，数据库压力依然徒增</p>
+<p>解决方案：</p>
+<ol>
+<li>redis的key设置随机过期时间</li>
+<li>构建多级缓存：nginx缓存，redis缓存，其他缓存</li>
+</ol>
+<h2 id="redis分布式锁"><a href="#redis分布式锁" class="headerlink" title="redis分布式锁"></a>redis分布式锁</h2><p>java分布式应用多个jvm无法保证多个系统中一个事务一致</p>
+<p><code>setnx</code></p>
+<p>这个命令只有在key不存在，才能保存成功，如果java程序中操作时setnx保存不成功，说明key存在，只能等待。</p>
+<p>这个存在的key就是锁，然后释放锁就是用del操作，这是redis分布式处理方案。</p>
+<p>如果锁一致没有释放：忘记释放，出异常没有释放等，用redis expire设置过期时间等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">setnx k1 v1</span><br><span class="line">expire k1 100</span><br><span class="line"># 这两个命令不是一个事务，为了避免执行第一个命令后，断电宕机，导致不能设置过期时间这种奇迹发生</span><br><span class="line"># redis提供了同事设置nx 和 ex的命令</span><br><span class="line">set k v nx ex second</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
 </search>
