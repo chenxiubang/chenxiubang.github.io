@@ -994,6 +994,22 @@
 <p>也可以将两个hyperloglog数据类型的:key:合并</p>
 <p>命令：pfmerge 目标key  来源key [ .. ]</p>
 <h2 id="geospatial"><a href="#geospatial" class="headerlink" title="geospatial"></a>geospatial</h2><p>英[ˈspeɪʃl]</p>
+<p>这个数据类型顾名思义，就是处理经纬度的数据类型</p>
+<p>还是用acl cat geo查看所有命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> 1) &quot;georadius&quot;</span><br><span class="line"> 2) &quot;georadius_ro&quot;</span><br><span class="line"> 3) &quot;geopos&quot;</span><br><span class="line"> 4) &quot;geosearchstore&quot;</span><br><span class="line"> 5) &quot;geosearch&quot;</span><br><span class="line"> 6) &quot;geohash&quot;</span><br><span class="line"> 7) &quot;georadiusbymember&quot;</span><br><span class="line"> 8) &quot;georadiusbymember_ro&quot;</span><br><span class="line"> 9) &quot;geoadd&quot;</span><br><span class="line">10) &quot;geodist&quot;</span><br></pre></td></tr></table></figure>
+
+<p>以添加命令</p>
+<p>geoadd  :key: 经度 维度 地点名字 [ lon log cityName …]</p>
+<p><em>tips: 有效经度-180到180 有效纬度-85.05112878-85.05112878</em></p>
+<p>另外已经添加的地点也是无法添加的，会覆写。</p>
+<p>获取命令</p>
+<p>geopos :key: 地点名</p>
+<p>获取的经纬度因为浮点数可能会有精度变化</p>
+<p>获取两个地点之间直线距离，根据经纬度计算</p>
+<p>geodist :key: 地点1 地点2  km|m|mi|ft</p>
+<p>如果不设置单位，默认米</p>
+<p>georadius命令，根据给出的经纬度为中心，显示当前这个key里面范围内的地点</p>
+<p>georadius :key: 经度 维度   distance  km|m|mi|ft</p>
 ]]></content>
       <categories>
         <category>后端</category>
