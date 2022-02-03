@@ -6,7 +6,7 @@
   <link href="https://chenxiubang.top/atom.xml" rel="self"/>
   
   <link href="https://chenxiubang.top/"/>
-  <updated>2022-02-02T04:20:29.563Z</updated>
+  <updated>2022-02-03T11:37:10.990Z</updated>
   <id>https://chenxiubang.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://chenxiubang.top/2022/02/03/mysql%E7%9A%84select%20..for,update/"/>
+    <id>https://chenxiubang.top/2022/02/03/mysql%E7%9A%84select%20..for,update/</id>
+    <published>2022-02-03T11:26:36.000Z</published>
+    <updated>2022-02-03T11:37:10.990Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="select-for-update"><a href="#select-for-update" class="headerlink" title="select .. for update"></a>select .. for update</h2><p>这个是mysql里的一种查询语句格式，翻译是：查找xxx为了更新。这条命令从字面看就是和select查询语句，后面多了一个update。</p><p>先说影响：加上了for update的语句的select语句，会在这个查询所在的事务中产生锁行或者是锁表（前提是你这个查询语句已经开启了事务）。</p><p>具体会是<strong>锁行</strong>还是<strong>锁表</strong>，要看该查询语句是否用到了索引。</p><ol><li>如果该查询用到了索引，这个查询语句只会锁住用到索引的行。比如我用了主键索引：select * from test where id =1 for update。这样我只会锁住id=1的行。</li><li>如果该查询没用到索引，或者索引失效引发的全表扫描，这次查询就会缩表。</li></ol><p><code>for update</code> 就是一个作用，锁。目前我知道的就这些，其他场景网上文章鱼龙混杂，不多赘述，不清楚乱写反而容易错。 </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;select-for-update&quot;&gt;&lt;a href=&quot;#select-for-update&quot; class=&quot;headerlink&quot; title=&quot;select .. for update&quot;&gt;&lt;/a&gt;select .. for update&lt;/h2&gt;&lt;p&gt;这个是m</summary>
+      
+    
+    
+    
+    <category term="数据库" scheme="https://chenxiubang.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="mysql" scheme="https://chenxiubang.top/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>redis的秒杀实现</title>
@@ -446,26 +470,6 @@
       
     <summary type="html">&lt;p&gt;早在学习初期解除mybatis框架的时候，我学习的是将sql写在xml中，这样做到了代码和sql分离。随着工作后，我又见到各种五花八门的写法。比较靠谱一点的就是这样的&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cla</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>rabbitmq简单队列入门程序</title>
-    <link href="https://chenxiubang.top/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/"/>
-    <id>https://chenxiubang.top/2021/10/30/rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/</id>
-    <published>2021-10-30T15:08:08.000Z</published>
-    <updated>2021-10-30T15:21:21.098Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- rabbitmq 的客户端工具 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.rabbitmq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>amqp-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.13.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- apache操作流的的依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><p>rabbitmq是中小企业经常使用的消息中间件，作为四大中间件之一。karfa统治大数据领域，alibaba的rocketmq在大型应用很受欢迎，activemq作为元老级的mq虽然已经病入膏肓，但还是偶尔能听到。说到activemq，他的官网现在居然都还是http的，这是不打算玩了看来。</p><p>上面是我在maven项目引入的rabbitmq客户端和一个apache操作流的工具</p><p>我在云服务器搭建了一个rabbitmq示例（建议用docker创建，传统方式还需要安装Erlang语言环境等等，过于繁琐，而且Erlang和rabbitmq版本要相较对应，否则又会出问题），写了两个junit测试类，模范简单队列的生产/消费。</p><p>均使用java语言实现</p><p>下面是生产</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">&quot;hello_world_queue&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;47.96.156.22&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String USER_NAME = <span class="string">&quot;xxxxx&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PASSWORD = <span class="string">&quot;xxxxx&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@SneakyThrows</span></span><br><span class="line"><span class="meta">@DisplayName(&quot;第一个rabbitmq测试(生产者)&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> connectionFactory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line"></span><br><span class="line">    connectionFactory.setHost(HOST);<span class="comment">//我的轻量ip</span></span><br><span class="line">    connectionFactory.setUsername(USER_NAME);</span><br><span class="line">    connectionFactory.setPassword(PASSWORD);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//工厂创建连接</span></span><br><span class="line">    <span class="keyword">var</span> connection = connectionFactory.newConnection();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接获取信道</span></span><br><span class="line">    <span class="keyword">var</span> channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法签名参见源码</span></span><br><span class="line">    <span class="keyword">var</span> declareOk = channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    channel.basicPublish(<span class="string">&quot;&quot;</span>, QUEUE_NAME, <span class="keyword">null</span>, <span class="string">&quot;hello world&quot;</span>.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">    System.out.println(<span class="string">&quot;=================&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>定义几个ip，账号密码常量（端口如果不设置，就是默认的5672）</p><p>首先创建连接工厂，工厂创建连接，连接船舰信道，信道通过basicPublish发布内容</p><p>【一些方法签名是属于后面高级内容】</p><p>然后登录rabbitmq的控制台就可以看到接收到的消息了</p><p>然后是消费方法</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@SneakyThrows</span></span><br><span class="line"><span class="meta">@DisplayName(&quot;消费&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> connectionFactory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line">    connectionFactory.setHost(HOST);</span><br><span class="line">    connectionFactory.setPassword(USER_NAME);</span><br><span class="line">    connectionFactory.setUsername(PASSWORD); <span class="comment">//ctrl + shift + u 批量大小写转换</span></span><br><span class="line">    <span class="keyword">var</span> connection = connectionFactory.newConnection();</span><br><span class="line">    <span class="keyword">var</span> channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//众多重载的其中一个</span></span><br><span class="line">    <span class="comment">//第三个参数 DeliverCallBack 传送回调</span></span><br><span class="line">    <span class="comment">//第四个参数 CancelCallBack 取消回调</span></span><br><span class="line"></span><br><span class="line">    channel.basicConsume(</span><br><span class="line">            QUEUE_NAME,</span><br><span class="line">            <span class="keyword">true</span>,</span><br><span class="line">            (consumerTag, message) -&gt; System.out.println(<span class="keyword">new</span> String(message.getBody())),</span><br><span class="line">            consumerTag -&gt; System.out.println(<span class="string">&quot;~~~~&quot;</span>)</span><br><span class="line">    );</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>创建信道之前均是一样，利用信道的basicConsume方法接收（这是一个很多个重载的方法，我是用的是其中一个）。主要是第三个和第四个参数，上述已经说明。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;</summary>
       
     
     
