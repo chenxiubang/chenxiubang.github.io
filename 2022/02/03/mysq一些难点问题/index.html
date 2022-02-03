@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2022/02/03/mysql%E7%9A%84select%20..for,update/">
+    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2022/02/03/mysq%E4%B8%80%E4%BA%9B%E9%9A%BE%E7%82%B9%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -377,7 +377,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">597</span>
+                <span title="Words count in article">1.6k</span>
               
 
               
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -419,6 +419,16 @@
 <li>如果该查询没用到索引，或者索引失效引发的全表扫描，这次查询就会缩表。</li>
 </ol>
 <p><code>for update</code> 就是一个作用，锁。目前我知道的就这些，其他场景网上文章鱼龙混杂，不多赘述，不清楚乱写反而容易错。 </p>
+<h2 id="mysql的局部索引"><a href="#mysql的局部索引" class="headerlink" title="mysql的局部索引"></a>mysql的局部索引</h2><p>常见的mysql数据库里手机号，身份证号，我们经常会简历索引。此外mysql还支持一种叫前缀索引，又叫做局部索引，能够对字段的一部分建立索引。</p>
+<p>以手机号为例：</p>
+<p>建立收集号前7位的局部索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> index 索引名字 <span class="keyword">on</span> 表名 (tel(<span class="number">7</span>)); </span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> index 索引名字 (tel(<span class="number">7</span>)) ;</span><br></pre></td></tr></table></figure>
+
+<p>上面和常规建立手机号索引基本一样，就是括号里加入了手机号的位数。</p>
+<ol>
+<li>建立局部索引最大的目的就是为了减少索引文件大小，如果手机号前7位区分度已经足够大，就可以用局部索引来代替，可以减少索引文件大小，让每个索引页保存更多的索引值，提高索引查询的速度。</li>
+<li>不过局部索引不能用于<code>order by</code> 和<code>group by</code> ，也不能用于覆盖索引，这是最大的弊端。</li>
+</ol>
 
       
     </div>
@@ -653,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li></ol></div>
             
 
           </div>
