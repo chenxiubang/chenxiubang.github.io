@@ -1104,6 +1104,19 @@
 <li>建立局部索引最大的目的就是为了减少索引文件大小，如果手机号前7位区分度已经足够大，就可以用局部索引来代替，可以减少索引文件大小，让每个索引页保存更多的索引值，提高索引查询的速度。</li>
 <li>不过局部索引不能用于<code>order by</code> 和<code>group by</code> ，也不能用于覆盖索引，这是最大的弊端。</li>
 </ol>
+<h2 id="Mysql千万级别数据分页查询的效率问题"><a href="#Mysql千万级别数据分页查询的效率问题" class="headerlink" title="Mysql千万级别数据分页查询的效率问题"></a>Mysql千万级别数据分页查询的效率问题</h2><p>如果一张log表有千万乃至亿级别的数据，常规的limit分页查询，容易遇到性能瓶颈。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> log limit <span class="number">350000</span>,<span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>我现在这张log表已经达到近40w数据，执行上述查询花费时间，我经过几次试验如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0.645s</span><br><span class="line">0.551s</span><br><span class="line">0.586s</span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们换一种写法，首先通过limit查询出需求数据id，再通过查询结果作为一张临时表，和原表联合查询</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.<span class="operator">*</span> <span class="keyword">FROM</span> log a,( <span class="keyword">SELECT</span> id <span class="keyword">FROM</span> log LIMIT <span class="number">350000</span>, <span class="number">10</span> ) tmp </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	a.id <span class="operator">=</span> tmp.id</span><br></pre></td></tr></table></figure>
+
+<p>这个时候我统计下查询效率</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4.120s</span><br><span class="line">0.447s</span><br><span class="line">0.343s</span><br></pre></td></tr></table></figure>
+
+<p>不知道为什么刚开始几次查询有时候4秒，有时候2秒多，居然翻车了，不过后来普遍都是4.5秒以下。总的来说这个写法比较复杂，再几十万的数据下效率不是特别明显，还有待验证。</p>
 ]]></content>
       <categories>
         <category>数据库</category>
