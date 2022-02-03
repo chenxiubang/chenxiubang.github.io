@@ -1084,7 +1084,7 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>mysql的selectforupdate</title>
     <url>/2022/02/03/mysql%E7%9A%84select%20..for,update/</url>
     <content><![CDATA[<h2 id="select-for-update"><a href="#select-for-update" class="headerlink" title="select .. for update"></a>select .. for update</h2><p>这个是mysql里的一种查询语句格式，翻译是：查找xxx为了更新。这条命令从字面看就是和select查询语句，后面多了一个update。</p>
 <p>先说影响：加上了for update的语句的select语句，会在这个查询所在的事务中产生锁行或者是锁表（前提是你这个查询语句已经开启了事务）。</p>

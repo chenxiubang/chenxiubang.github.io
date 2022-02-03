@@ -6,7 +6,7 @@
   <link href="https://chenxiubang.top/atom.xml" rel="self"/>
   
   <link href="https://chenxiubang.top/"/>
-  <updated>2022-02-03T11:37:10.990Z</updated>
+  <updated>2022-02-03T11:40:52.711Z</updated>
   <id>https://chenxiubang.top/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>mysql的selectforupdate</title>
     <link href="https://chenxiubang.top/2022/02/03/mysql%E7%9A%84select%20..for,update/"/>
     <id>https://chenxiubang.top/2022/02/03/mysql%E7%9A%84select%20..for,update/</id>
     <published>2022-02-03T11:26:36.000Z</published>
-    <updated>2022-02-03T11:37:10.990Z</updated>
+    <updated>2022-02-03T11:40:52.711Z</updated>
     
     <content type="html"><![CDATA[<h2 id="select-for-update"><a href="#select-for-update" class="headerlink" title="select .. for update"></a>select .. for update</h2><p>这个是mysql里的一种查询语句格式，翻译是：查找xxx为了更新。这条命令从字面看就是和select查询语句，后面多了一个update。</p><p>先说影响：加上了for update的语句的select语句，会在这个查询所在的事务中产生锁行或者是锁表（前提是你这个查询语句已经开启了事务）。</p><p>具体会是<strong>锁行</strong>还是<strong>锁表</strong>，要看该查询语句是否用到了索引。</p><ol><li>如果该查询用到了索引，这个查询语句只会锁住用到索引的行。比如我用了主键索引：select * from test where id =1 for update。这样我只会锁住id=1的行。</li><li>如果该查询没用到索引，或者索引失效引发的全表扫描，这次查询就会缩表。</li></ol><p><code>for update</code> 就是一个作用，锁。目前我知道的就这些，其他场景网上文章鱼龙混杂，不多赘述，不清楚乱写反而容易错。 </p>]]></content>
     
