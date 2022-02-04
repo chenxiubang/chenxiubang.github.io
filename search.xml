@@ -1117,6 +1117,18 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4.120s</span><br><span class="line">0.447s</span><br><span class="line">0.343s</span><br></pre></td></tr></table></figure>
 
 <p>不知道为什么刚开始几次查询有时候4秒，有时候2秒多，居然翻车了，不过后来普遍都是4.5秒以下。总的来说这个写法比较复杂，再几十万的数据下效率不是特别明显，还有待验证。</p>
+<h2 id="and和or语句优先级"><a href="#and和or语句优先级" class="headerlink" title="and和or语句优先级"></a>and和or语句优先级</h2><p>and or</p>
+<p>我之前一致以为在where条件的子句中，and 和or的优先级是相等的，现在才知道错了</p>
+<p><em><strong>and的优先级比or高</strong></em></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student <span class="keyword">where</span> name <span class="operator">=</span> <span class="string">&#x27;zhs&#x27;</span> <span class="keyword">and</span> height <span class="operator">&gt;</span> <span class="number">180</span> <span class="keyword">or</span> age <span class="operator">&gt;</span><span class="number">10</span> <span class="keyword">and</span> sex <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>上面这个sql中假设如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">where</span> <span class="literal">true</span> <span class="keyword">and</span> <span class="literal">true</span> <span class="keyword">or</span> <span class="literal">false</span> <span class="keyword">and</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>正确的结果应该是先执行and 然后or 最后结果是true。</p>
+<h2 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="literal">true</span> xor <span class="literal">false</span> <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">where</span> ... xor ...;</span><br></pre></td></tr></table></figure>
+
+<p>xor是个异或运算符，xor左右两侧不同时，结果为true。</p>
 ]]></content>
       <categories>
         <category>数据库</category>
