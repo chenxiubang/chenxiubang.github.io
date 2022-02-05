@@ -377,7 +377,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">5.8k</span>
+                <span title="Words count in article">8k</span>
               
 
               
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">8 mins.</span>
               
             </div>
           
@@ -454,6 +454,21 @@
 <h2 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="literal">true</span> xor <span class="literal">false</span> <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">where</span> ... xor ...;</span><br></pre></td></tr></table></figure>
 
 <p>xor是个异或运算符，xor左右两侧不同时，结果为true。</p>
+<h2 id="几个特殊的连表关键字"><a href="#几个特殊的连表关键字" class="headerlink" title="几个特殊的连表关键字"></a>几个特殊的连表关键字</h2><h3 id="natural-join"><a href="#natural-join" class="headerlink" title="natural join"></a>natural join</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">NATURAL</span> <span class="keyword">join</span> 表B</span><br></pre></td></tr></table></figure>
+
+<p> 像上述这种natural join连接我也是第一次看到，他和普通的join连接区别是，他会自动比较两张表中相同的字段，然后加上相同字段先等的条件。</p>
+<p>举例表A和表B都有name字段。</p>
+<p>上面这个就等于</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">where</span> 表A.name <span class="operator">=</span> 表B.name</span><br></pre></td></tr></table></figure>
+
+<p>同理，有多少字段相同，就会隐式加上多少相等，这个在实际生产不好用的原因是因为，生产每张表都会有id字段，这个操作他直接把id也拼上等于了。所以很不好用，也不推荐使用。</p>
+<h3 id="join-…-using"><a href="#join-…-using" class="headerlink" title="join … using()"></a>join … using()</h3><p>这是另外一种配合join的语法，using中也是填写两张表相等的字段</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">using</span>(`name`);</span><br></pre></td></tr></table></figure>
+
+<p>上述功能近似于</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">where</span> 表A.name <span class="operator">=</span> 表B.name</span><br></pre></td></tr></table></figure>
+
+<p>恐怕唯一的不同就是使用using，即便是select * 查出来的列只会有一个name的列，而第二个查出来因为name重复会被分成两列name。可以把它理解为一个natural join的手动版</p>
 
       
     </div>
@@ -692,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">Mysql千万级别数据分页查询的效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and%E5%92%8Cor%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">and和or语句优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XOR"><span class="nav-number">5.</span> <span class="nav-text">XOR</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">Mysql千万级别数据分页查询的效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and%E5%92%8Cor%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">and和or语句优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XOR"><span class="nav-number">5.</span> <span class="nav-text">XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%9A%84%E8%BF%9E%E8%A1%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">几个特殊的连表关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#natural-join"><span class="nav-number">6.1.</span> <span class="nav-text">natural join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E2%80%A6-using"><span class="nav-number">6.2.</span> <span class="nav-text">join … using()</span></a></li></ol></li></ol></div>
             
 
           </div>

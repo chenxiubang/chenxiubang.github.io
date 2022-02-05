@@ -1135,6 +1135,21 @@
 <h2 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="literal">true</span> xor <span class="literal">false</span> <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">where</span> ... xor ...;</span><br></pre></td></tr></table></figure>
 
 <p>xor是个异或运算符，xor左右两侧不同时，结果为true。</p>
+<h2 id="几个特殊的连表关键字"><a href="#几个特殊的连表关键字" class="headerlink" title="几个特殊的连表关键字"></a>几个特殊的连表关键字</h2><h3 id="natural-join"><a href="#natural-join" class="headerlink" title="natural join"></a>natural join</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">NATURAL</span> <span class="keyword">join</span> 表B</span><br></pre></td></tr></table></figure>
+
+<p> 像上述这种natural join连接我也是第一次看到，他和普通的join连接区别是，他会自动比较两张表中相同的字段，然后加上相同字段先等的条件。</p>
+<p>举例表A和表B都有name字段。</p>
+<p>上面这个就等于</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">where</span> 表A.name <span class="operator">=</span> 表B.name</span><br></pre></td></tr></table></figure>
+
+<p>同理，有多少字段相同，就会隐式加上多少相等，这个在实际生产不好用的原因是因为，生产每张表都会有id字段，这个操作他直接把id也拼上等于了。所以很不好用，也不推荐使用。</p>
+<h3 id="join-…-using"><a href="#join-…-using" class="headerlink" title="join … using()"></a>join … using()</h3><p>这是另外一种配合join的语法，using中也是填写两张表相等的字段</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">using</span>(`name`);</span><br></pre></td></tr></table></figure>
+
+<p>上述功能近似于</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">where</span> 表A.name <span class="operator">=</span> 表B.name</span><br></pre></td></tr></table></figure>
+
+<p>恐怕唯一的不同就是使用using，即便是select * 查出来的列只会有一个name的列，而第二个查出来因为name重复会被分成两列name。可以把它理解为一个natural join的手动版</p>
 ]]></content>
       <categories>
         <category>数据库</category>
