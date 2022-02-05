@@ -832,6 +832,12 @@
 
 <p>重新加载nginx （并不是重新启动，而是重新加载修改后的nginx.conf文件）</p>
 ]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>ngxin</tag>
+      </tags>
   </entry>
   <entry>
     <title>随笔1126</title>

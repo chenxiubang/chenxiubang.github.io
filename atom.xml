@@ -415,7 +415,7 @@
     <link href="https://chenxiubang.top/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
     <id>https://chenxiubang.top/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</id>
     <published>2021-11-14T12:36:43.000Z</published>
-    <updated>2021-11-14T13:06:51.073Z</updated>
+    <updated>2022-02-05T08:34:06.479Z</updated>
     
     <content type="html"><![CDATA[<p>反向代理这个词最多出现在nginx。</p><p>也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。</p><p>但刚学习的时候很多人不知道什么是反向代理。</p><p>其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。</p><p>比如张三要访问谷歌，但是在国内直接访问国外的域名非常困难。这时候就出现了一个中间代理服务器，用户就通过它，将请求转发给谷歌，实现成功获取资源。这个服务器对于用户是有感知的，用户通过它，访问到了想要的网站。</p><p>而nginx的反向代理与此不同，它将真实的服务器藏在自己身后，自己对于用户而言，是一个服务器，用户并无法知道真正的服务器地址。用户将请求交给nginx，由nginx通过负载均衡策略，把请求分发给后台真实的服务集群。再将请求响应给用户。反向代理的nginx对应用户而言，更像一个真实的服务器。</p><p>补充一点nginx常用命令</p><p>在nginx的目录（linux默认情况）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin</span><br></pre></td></tr></table></figure><p>会有一个nginx文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -V</span><br></pre></td></tr></table></figure><p>查看nginx版本号</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure><p>启动nginx</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s stop</span><br></pre></td></tr></table></figure><p>关闭nginx</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure><p>重新加载nginx （并不是重新启动，而是重新加载修改后的nginx.conf文件）</p>]]></content>
     
@@ -431,6 +431,10 @@
     
     
     
+    <category term="linux" scheme="https://chenxiubang.top/categories/linux/"/>
+    
+    
+    <category term="ngxin" scheme="https://chenxiubang.top/tags/ngxin/"/>
     
   </entry>
   
