@@ -377,7 +377,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">8k</span>
+                <span title="Words count in article">13k</span>
               
 
               
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">8 mins.</span>
+                <span title="Reading time">13 mins.</span>
               
             </div>
           
@@ -469,6 +469,41 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">where</span> 表A.name <span class="operator">=</span> 表B.name</span><br></pre></td></tr></table></figure>
 
 <p>恐怕唯一的不同就是使用using，即便是select * 查出来的列只会有一个name的列，而第二个查出来因为name重复会被分成两列name。可以把它理解为一个natural join的手动版</p>
+<h2 id="Mysql函数"><a href="#Mysql函数" class="headerlink" title="Mysql函数"></a>Mysql函数</h2><h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><ol>
+<li>char_length()</li>
+<li>length()</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> LENGTH(<span class="string">&#x27;陈修榜&#x27;</span>)<span class="keyword">from</span> dual;				   <span class="comment">-- 9</span></span><br><span class="line"><span class="keyword">select</span> LENGTH(<span class="string">&#x27;chenxiubang&#x27;</span>)<span class="keyword">from</span> dual;             <span class="comment">-- 11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;陈修榜&#x27;</span>)<span class="keyword">from</span> dual;				<span class="comment">-- 3</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">char_LENGTH</span>(<span class="string">&#x27;chenxiubang&#x27;</span>)<span class="keyword">from</span> dual;         <span class="comment">-- 11</span></span><br></pre></td></tr></table></figure>
+
+<p>总结： <strong>length() 存储的是字符串实际底层占用字节，char_length()存储的是字符数字</strong></p>
+<ol start="3">
+<li><p>concat()函数是最常用的字符串拼接函数，除此外还有concat_ws()函数。是以指定分隔符拼接字符串的。</p>
+<p>下面是例子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> concat_ws(<span class="string">&#x27;-&#x27;</span>,<span class="string">&#x27;chen&#x27;</span>,<span class="string">&#x27;xiu&#x27;</span>,<span class="string">&#x27;bang&#x27;</span>) <span class="keyword">from</span> dual;  <span class="comment">-- chen-xiu-bang</span></span><br></pre></td></tr></table></figure></li>
+<li><p>大小写变化函数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">upper</span>(<span class="string">&#x27;chenxiubang&#x27;</span>),<span class="built_in">lower</span>(<span class="string">&#x27;Hello&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- CHENXIUBANG  hello</span></span><br></pre></td></tr></table></figure></li>
+<li><p>左右函数 left() , right()  会保存字符串左侧或右侧n个字符</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">left</span>(<span class="string">&#x27;陈修榜&#x27;</span>,<span class="number">2</span>),<span class="keyword">right</span>(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">5</span>) <span class="keyword">from</span> dual;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>实现左右对齐的函数lpad(),rpad()</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 这里以lpad()函数为例子，这个可以实现右对齐</span><br><span class="line"># 这里字符串为 chenxiubang</span><br><span class="line"># lpad(str,len,pad) 有三个参数，会根据第二个长度len和实际长度比较，若不足则左边补充pad的符号</span><br><span class="line"><span class="keyword">select</span> lpad(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">15</span>,<span class="string">&#x27;*&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- ****chenxiubang</span></span><br><span class="line"><span class="keyword">select</span> lpad(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">16</span>,<span class="string">&#x27;*1&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- *1*1*chenxiubang</span></span><br><span class="line"># 如果len参数比实际小，则会右侧移除多余字符串</span><br><span class="line"><span class="keyword">select</span> lpad(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">5</span>,<span class="string">&#x27;*&#x27;</span>) <span class="keyword">from</span> dual;  <span class="comment">-- chenx</span></span><br><span class="line"></span><br><span class="line">#rpad() 反之</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>除去空格函数</li>
+</ol>
+<ul>
+<li>trim(str):去除字符串左右两侧的空格</li>
+<li>rtrim(str)：去除字符串右侧的空格，ltrim(str)为取出左侧的空格</li>
+<li>trim(s1 from str): 把str字符串中s1的字符都去除掉</li>
+<li>space(n):这个会返回n个空格</li>
+</ul>
+<ol start="10">
+<li>函数太多了，自己百度</li>
+</ol>
 
       
     </div>
@@ -707,7 +742,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">Mysql千万级别数据分页查询的效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and%E5%92%8Cor%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">and和or语句优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XOR"><span class="nav-number">5.</span> <span class="nav-text">XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%9A%84%E8%BF%9E%E8%A1%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">几个特殊的连表关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#natural-join"><span class="nav-number">6.1.</span> <span class="nav-text">natural join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E2%80%A6-using"><span class="nav-number">6.2.</span> <span class="nav-text">join … using()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">Mysql千万级别数据分页查询的效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and%E5%92%8Cor%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">and和or语句优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XOR"><span class="nav-number">5.</span> <span class="nav-text">XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%9A%84%E8%BF%9E%E8%A1%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">几个特殊的连表关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#natural-join"><span class="nav-number">6.1.</span> <span class="nav-text">natural join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E2%80%A6-using"><span class="nav-number">6.2.</span> <span class="nav-text">join … using()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">Mysql函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">7.1.</span> <span class="nav-text">字符串函数</span></a></li></ol></li></ol></div>
             
 
           </div>

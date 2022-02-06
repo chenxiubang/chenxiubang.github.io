@@ -1150,6 +1150,41 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表A <span class="keyword">join</span> 表B <span class="keyword">where</span> 表A.name <span class="operator">=</span> 表B.name</span><br></pre></td></tr></table></figure>
 
 <p>恐怕唯一的不同就是使用using，即便是select * 查出来的列只会有一个name的列，而第二个查出来因为name重复会被分成两列name。可以把它理解为一个natural join的手动版</p>
+<h2 id="Mysql函数"><a href="#Mysql函数" class="headerlink" title="Mysql函数"></a>Mysql函数</h2><h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><ol>
+<li>char_length()</li>
+<li>length()</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> LENGTH(<span class="string">&#x27;陈修榜&#x27;</span>)<span class="keyword">from</span> dual;				   <span class="comment">-- 9</span></span><br><span class="line"><span class="keyword">select</span> LENGTH(<span class="string">&#x27;chenxiubang&#x27;</span>)<span class="keyword">from</span> dual;             <span class="comment">-- 11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;陈修榜&#x27;</span>)<span class="keyword">from</span> dual;				<span class="comment">-- 3</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">char_LENGTH</span>(<span class="string">&#x27;chenxiubang&#x27;</span>)<span class="keyword">from</span> dual;         <span class="comment">-- 11</span></span><br></pre></td></tr></table></figure>
+
+<p>总结： <strong>length() 存储的是字符串实际底层占用字节，char_length()存储的是字符数字</strong></p>
+<ol start="3">
+<li><p>concat()函数是最常用的字符串拼接函数，除此外还有concat_ws()函数。是以指定分隔符拼接字符串的。</p>
+<p>下面是例子</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> concat_ws(<span class="string">&#x27;-&#x27;</span>,<span class="string">&#x27;chen&#x27;</span>,<span class="string">&#x27;xiu&#x27;</span>,<span class="string">&#x27;bang&#x27;</span>) <span class="keyword">from</span> dual;  <span class="comment">-- chen-xiu-bang</span></span><br></pre></td></tr></table></figure></li>
+<li><p>大小写变化函数</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">upper</span>(<span class="string">&#x27;chenxiubang&#x27;</span>),<span class="built_in">lower</span>(<span class="string">&#x27;Hello&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- CHENXIUBANG  hello</span></span><br></pre></td></tr></table></figure></li>
+<li><p>左右函数 left() , right()  会保存字符串左侧或右侧n个字符</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">left</span>(<span class="string">&#x27;陈修榜&#x27;</span>,<span class="number">2</span>),<span class="keyword">right</span>(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">5</span>) <span class="keyword">from</span> dual;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>实现左右对齐的函数lpad(),rpad()</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 这里以lpad()函数为例子，这个可以实现右对齐</span><br><span class="line"># 这里字符串为 chenxiubang</span><br><span class="line"># lpad(str,len,pad) 有三个参数，会根据第二个长度len和实际长度比较，若不足则左边补充pad的符号</span><br><span class="line"><span class="keyword">select</span> lpad(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">15</span>,<span class="string">&#x27;*&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- ****chenxiubang</span></span><br><span class="line"><span class="keyword">select</span> lpad(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">16</span>,<span class="string">&#x27;*1&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- *1*1*chenxiubang</span></span><br><span class="line"># 如果len参数比实际小，则会右侧移除多余字符串</span><br><span class="line"><span class="keyword">select</span> lpad(<span class="string">&#x27;chenxiubang&#x27;</span>,<span class="number">5</span>,<span class="string">&#x27;*&#x27;</span>) <span class="keyword">from</span> dual;  <span class="comment">-- chenx</span></span><br><span class="line"></span><br><span class="line">#rpad() 反之</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>除去空格函数</li>
+</ol>
+<ul>
+<li>trim(str):去除字符串左右两侧的空格</li>
+<li>rtrim(str)：去除字符串右侧的空格，ltrim(str)为取出左侧的空格</li>
+<li>trim(s1 from str): 把str字符串中s1的字符都去除掉</li>
+<li>space(n):这个会返回n个空格</li>
+</ul>
+<ol start="10">
+<li>函数太多了，自己百度</li>
+</ol>
 ]]></content>
       <categories>
         <category>数据库</category>
