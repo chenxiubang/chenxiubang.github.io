@@ -92,6 +92,12 @@
 <p>但新版本实现似乎不采用该方法了。</p>
 <p>先写这么多好了</p>
 ]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
   </entry>
   <entry>
     <title>elasticsearch安装简述</title>
