@@ -134,7 +134,7 @@
 
 
 
-  <title>关于spring定时器QuartzJobBean的不执行问题 | 陈修榜的博客</title>
+  <title>重整版-typora | 陈修榜的博客</title>
   
 
 
@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2021/10/15/%E5%85%B3%E4%BA%8Espring%E5%AE%9A%E6%97%B6%E5%99%A8QuartzJobBean%E7%9A%84%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2022/03/06/%E9%87%8D%E6%95%B4%E7%89%88-typora/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">关于spring定时器QuartzJobBean的不执行问题</h1>
+          <h1 class="post-title" itemprop="name headline">重整版-typora</h1>
         
 
         <div class="post-meta">
@@ -325,7 +325,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-15T15:16:08+08:00">2021-10-15</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-06T20:49:53+08:00">2022-03-06</time>
             
 
             
@@ -333,6 +333,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">软件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -355,7 +377,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">18k</span>
+                <span title="Words count in article">253</span>
               
 
               
@@ -369,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">18 mins.</span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -389,31 +411,9 @@
       
 
       
-        <p> 这几天项目上线，一直在加班。项目中用到了一个定时器，需要每天晚上的时候定时迁移任务。实际上这个项目已经有好几好定时任务了，都是在晚上执行。所以我们新加的定时任务也是把原有的东西CV一套过来，然后静静的等待它晚上执行。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 人才信息数据获取</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> omen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@DisallowConcurrentExecution</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetTalentDataQuartzJob</span>  <span class="keyword">extends</span> <span class="title">QuartzJobBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TalentUserService talentUserService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GetTalentDataQuartzJob</span><span class="params">(TalentUserService talentUserService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.talentUserService = talentUserService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(JobExecutionContext jobExecutionContext)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;********定时获取全量人才数据任务开始********&quot;</span>);</span><br><span class="line">        talentUserService.getAllTalentDataSaveOrUpdate();</span><br><span class="line">        log.info(<span class="string">&quot;********定时获取全量人才数据任务结束********&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是原先的定时器任务，这是一个类通过继承spring套装里的一个QuartzJobBean的这个抽象类，在通过实现自己的executeInternal方法，里面写入自己的需要执行的任务，然后这个类再作为一个组件配置到ioc容器中。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定时任务配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> omen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Profile(value = &#123;ENV_DEFAULT, ENV_PROD, ENV_QIE&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuartzConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JobDetail <span class="title">getTalentUserQuartzJobDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JobBuilder.newJob(GetTalentDataQuartzJob.class)</span><br><span class="line">                .withIdentity(<span class="string">&quot;getTalentUserQuartzJobDetail&quot;</span>)</span><br><span class="line">                .storeDurably()</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CronTrigger <span class="title">getTalentUserQuartzJobTrigger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TriggerBuilder.newTrigger()</span><br><span class="line">                .forJob(getTalentUserQuartzJobDetail())</span><br><span class="line">                .withIdentity(<span class="string">&quot;getTalentUserQuartzJobDetail&quot;</span>)</span><br><span class="line">                .withSchedule(cronSchedule(<span class="string">&quot;0 0 1 * * ?&quot;</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个是一个关于定时任务配置的配置类。我面例子中的配置截出来。上图中两个方法返回的Bean是配置第一个图中的定时任务：一个指定执行定时任务的类，一个是指定执行的cron表达式。</p>
-<p>然后我新加的定时业务也是从上述中复制两份（就是抄），如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 驾驶舱定时任务</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> omen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@DisallowConcurrentExecution</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CockpitJob</span> <span class="keyword">extends</span> <span class="title">QuartzJobBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> CockpitService cockpitService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CockpitJob</span><span class="params">(CockpitService cockpitService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cockpitService = cockpitService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(JobExecutionContext jobExecutionContext)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;********定时获取驾驶舱数据任务开始********&quot;</span>);</span><br><span class="line">        cockpitService.setYhCockpit1();</span><br><span class="line">        cockpitService.setYhCockpit2();</span><br><span class="line">        cockpitService.setYhCockpit3();</span><br><span class="line">        cockpitService.setYhCockpit6(DateUtil.yesterDay());</span><br><span class="line">        log.info(<span class="string">&quot;********定时获取驾驶舱数据任务结束********&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定时任务配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> omen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Profile(value = &#123;ENV_DEFAULT, ENV_PROD, ENV_QIE&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuartzConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JobDetail <span class="title">getTalentUserQuartzJobDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JobBuilder.newJob(GetTalentDataQuartzJob.class)</span><br><span class="line">                .withIdentity(<span class="string">&quot;getTalentUserQuartzJobDetail&quot;</span>)</span><br><span class="line">                .storeDurably()</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CronTrigger <span class="title">getTalentUserQuartzJobTrigger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TriggerBuilder.newTrigger()</span><br><span class="line">                .forJob(getTalentUserQuartzJobDetail())</span><br><span class="line">                .withIdentity(<span class="string">&quot;getTalentUserQuartzJobDetail&quot;</span>)</span><br><span class="line">                .withSchedule(cronSchedule(<span class="string">&quot;0 0 1 * * ?&quot;</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JobDetail <span class="title">cockpitDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JobBuilder.newJob(CockpitJob.class)</span><br><span class="line">                .withIdentity(<span class="string">&quot;cockpitDetail&quot;</span>)</span><br><span class="line">                .storeDurably()</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CronTrigger <span class="title">cockpitJobTrigger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TriggerBuilder.newTrigger()</span><br><span class="line">                .forJob(cockpitDetail())</span><br><span class="line">                .withIdentity(<span class="string">&quot;cockpitDetail&quot;</span>)</span><br><span class="line">                .withSchedule(cronSchedule(<span class="string">&quot;0 0 1 * * ?&quot;</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>就是这样，我新建了一个CockpitJob类，并且在定时任务配置中加了两个对应配置方法。</p>
-<p>PS:实际上QuartzConfiguration一共有10个方法，我截取一部分。</p>
-<p>然后费解的事情发生了，第二天查看日志时候发现。我新加上的定时任务CockpitJob里面的业务员没有执行（log没有打印）。</p>
-<p>事实上不单单如此，一共5个定时任务，GetTalentDataQuartzJob也没有执行。我觉得新加上的任务，代码没有问题。是不是执行时间一样导致执行时候阻塞，然后一起挂掉了呢？（上图中我给的两个定时任务，时间是一样的，这次两个都是没有执行）。</p>
-<p>于是我错开了所有定时任务的执行时间，到了第三天。</p>
-<p>通过调查日志，发现我新加上的CockpitJob定时器依然没有执行。其他剩下得所有定时任务都没问题了。这就很奇怪，时间错开了，代码也没有问题，为了这个定时器就是不执行呢？我在本地有跑过，指定未来几分钟后的一个时间点，然后执行，输出打印语句，都是没有问题的，为什么发布到线上，就出了奇奇怪怪的问题呢？</p>
-<p>如果所有哪里不一样，就是这个CockpitJob类的覆写方法executeInternal中，调用了cockpitService多个方法，难道是这个原因？下面是我改造前后。我将几个方法变成一个，这样只用调用一次（虽然我觉得和这个没什么关系。。。）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(JobExecutionContext jobExecutionContext)</span> </span>&#123;</span><br><span class="line">    log.info(<span class="string">&quot;********定时获取驾驶舱数据任务开始********&quot;</span>);</span><br><span class="line">    cockpitService.setYhCockpit1();</span><br><span class="line">    cockpitService.setYhCockpit2();</span><br><span class="line">    cockpitService.setYhCockpit3();</span><br><span class="line">    cockpitService.setYhCockpit6(DateUtil.yesterDay());</span><br><span class="line">    log.info(<span class="string">&quot;********定时获取驾驶舱数据任务结束********&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(JobExecutionContext jobExecutionContext)</span> </span>&#123;</span><br><span class="line">    log.info(<span class="string">&quot;********定时获取驾驶舱数据任务开始********&quot;</span>);</span><br><span class="line">    cockpitService.setYhCockpitJob();</span><br><span class="line">    log.info(<span class="string">&quot;********定时获取驾驶舱数据任务结束********&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不知道今天能否可以执行</p>
-<p>最后不知道其他开发者有没有遇到定时任务没执行的情况。</p>
+        <h1 id="TYPORA"><a href="#TYPORA" class="headerlink" title="TYPORA"></a>TYPORA</h1><p><a target="_blank" rel="noopener" href="https://typora.io/windows/dev_release.html">windows</a></p>
+<p><a target="_blank" rel="noopener" href="https://typora.io/dev_release.html">mac</a></p>
+<p>官网旧版链接（安装默认C盘），如果已安装，则覆盖原路径安装。</p>
 
       
     </div>
@@ -458,6 +458,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/typora/" rel="tag"># typora</a>
+          
+        </div>
+      
 
       
       
@@ -467,8 +473,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/04/%E5%85%B3%E4%BA%8Eelasticsearch%E4%B8%8Ejest%E4%B8%AD%E5%8F%8C%E6%8B%AC%E5%8F%B7%E8%AF%AD%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="关于elasticsearch与jest中双括号语法的问题">
-                <i class="fa fa-chevron-left"></i> 关于elasticsearch与jest中双括号语法的问题
+              <a href="/2022/03/06/%E9%87%8D%E6%95%B4%E7%89%88-JAVASE/" rel="next" title="重整版-JAVASE">
+                <i class="fa fa-chevron-left"></i> 重整版-JAVASE
               </a>
             
           </div>
@@ -476,10 +482,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/17/MabatisPlus%E4%B8%AD%E4%BD%BF%E7%94%A8AR%E6%A8%A1%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="MabatisPlus中使用AR模式操作数据库">
-                MabatisPlus中使用AR模式操作数据库 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -531,8 +533,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -551,7 +562,7 @@
               
                 <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -562,7 +573,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -573,7 +584,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -627,6 +638,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TYPORA"><span class="nav-number">1.</span> <span class="nav-text">TYPORA</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
