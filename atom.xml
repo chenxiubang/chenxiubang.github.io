@@ -6,7 +6,7 @@
   <link href="https://chenxiubang.top/atom.xml" rel="self"/>
   
   <link href="https://chenxiubang.top/"/>
-  <updated>2022-03-06T12:54:05.085Z</updated>
+  <updated>2022-03-06T13:07:11.122Z</updated>
   <id>https://chenxiubang.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重整版-JS</title>
+    <link href="https://chenxiubang.top/2022/03/06/%E9%87%8D%E6%95%B4%E7%89%88-JS/"/>
+    <id>https://chenxiubang.top/2022/03/06/%E9%87%8D%E6%95%B4%E7%89%88-JS/</id>
+    <published>2022-03-06T13:00:05.000Z</published>
+    <updated>2022-03-06T13:07:11.122Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><h2 id="js内置函数"><a href="#js内置函数" class="headerlink" title="js内置函数"></a>js内置函数</h2><h3 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN"></a>isNaN</h3><p>如参数是非数字返回true，否则false</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123ddd&quot;</span>));<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//传入的如果是underfined，对象，非数字字符串，返回true</span></span><br><span class="line"><span class="comment">//反之传入数字，数字字符串，返回false，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特殊：传入null ，空串，返回false</span></span><br></pre></td></tr></table></figure><h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt"></a>parseInt</h3><p>parseInt()函数把入参转化为一个整数，</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">// 数字字符串转化为数字 123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.3&quot;</span>)); <span class="comment">// 小数字符串转化为 123（取整，抹去后面的）</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;-123.3&quot;</span>)); <span class="comment">// 负数同理，保留符号，其他不变</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.33d&quot;</span>)); <span class="comment">//数字字符串 后面带了奇怪的东西 ，会去掉d，然后取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;ssss“)); //无法转化成整数的，像非数字字符串，undefined，对象，会转化成一个NaN【非数字】</span></span><br><span class="line"><span class="string">                     </span></span><br><span class="line"><span class="string">parseFloat();和它大同小异</span></span><br><span class="line"><span class="string">此外parseInt还可以通过parseInt(string, radix)，传入两个参数指定转化整数进制等。</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;JS&quot;&gt;&lt;a href=&quot;#JS&quot; class=&quot;headerlink&quot; title=&quot;JS&quot;&gt;&lt;/a&gt;JS&lt;/h1&gt;&lt;h2 id=&quot;js内置函数&quot;&gt;&lt;a href=&quot;#js内置函数&quot; class=&quot;headerlink&quot; title=&quot;js内置函数&quot;&gt;&lt;/a&gt;j</summary>
+      
+    
+    
+    
+    <category term="前端" scheme="https://chenxiubang.top/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="javascript" scheme="https://chenxiubang.top/tags/javascript/"/>
+    
+  </entry>
   
   <entry>
     <title>重整版-typora</title>
@@ -300,28 +324,6 @@
     
     
     <category term="redis" scheme="https://chenxiubang.top/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>javascript学习</title>
-    <link href="https://chenxiubang.top/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/"/>
-    <id>https://chenxiubang.top/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/</id>
-    <published>2022-01-12T02:50:05.000Z</published>
-    <updated>2022-01-12T07:19:49.928Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="js内置函数"><a href="#js内置函数" class="headerlink" title="js内置函数"></a>js内置函数</h4><h6 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN();"></a>isNaN();</h6><p>isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？</p><p>例子：isNaN(“123”)</p><p>如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123ddd&quot;</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure><p>传入的如果是underfined，对象，非数字字符串，就会返回true，</p><p>反之传入数字，数字字符串，就会打印false，</p><p>【特例】此外传入null ，空串，也会返回false</p><h6 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt();"></a>parseInt();</h6><p>parseInt()函数是可以把入参转化为一个整数，</p><p>例如：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">// 数字字符串转化为数字 123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.3&quot;</span>)); <span class="comment">// 小数字符串转化为 123（取整，抹去后面的）</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;-123.3&quot;</span>)); <span class="comment">// 负数同理，保留符号，其他不变</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.33d&quot;</span>)); <span class="comment">//数字字符串 后面带了奇怪的东西 ，会去掉d，然后取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;ssss“)); //无法转化成整数的，像非数字字符串，undefined，对象，会转化成一个NaN【非数字】</span></span><br><span class="line"><span class="string">                     </span></span><br><span class="line"><span class="string">parseFloat();和它大同小异</span></span><br><span class="line"><span class="string">此外parseInt还可以通过parseInt(string, radix)，传入两个参数指定转化整数进制等。</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4 id=&quot;js内置函数&quot;&gt;&lt;a href=&quot;#js内置函数&quot; class=&quot;headerlink&quot; title=&quot;js内置函数&quot;&gt;&lt;/a&gt;js内置函数&lt;/h4&gt;&lt;h6 id=&quot;isNaN&quot;&gt;&lt;a href=&quot;#isNaN&quot; class=&quot;headerlink&quot; title=</summary>
-      
-    
-    
-    
-    
-    <category term="js" scheme="https://chenxiubang.top/tags/js/"/>
     
   </entry>
   

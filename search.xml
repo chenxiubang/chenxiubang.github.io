@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>MabatisPlus中使用AR模式操作数据库</title>
-    <url>/2021/10/17/MabatisPlus%E4%B8%AD%E4%BD%BF%E7%94%A8AR%E6%A8%A1%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<p>熟悉操作mybatis plus的人一般都习惯使用 BaseService 或者 BaseMapper中的已经封装好的方法对数据库进行操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> TestService testService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/hello&quot;, method = &#123;RequestMethod.GET&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R&lt;Long&gt; <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;num&quot;)</span> Long num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> R.ok(testService.list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如上 我的TestService继承了MP中的IService接口 ，实现类继承了ServiceImp类。我就可以很容直接调用接口的实现代理类的list(),getById()等等方法对数据库进行crud操作</p>
-<p>除此外mybatis还支持使用动态语言的ar操作（active record）。我在entity类中继承mybatis的一个Model类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEntity</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">TestEntity</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@TableId</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Model类是MP里的一个抽象类，早期版本需要实现其pkVal()方法，不过现在MP3中已经对所有方法都做了实现。</p>
-<p>这是这个类中的一部分</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ActiveRecord 模式 CRUD</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 必须存在对应的原始mapper并继承baseMapper并且可以使用的前提下</span></span><br><span class="line"><span class="comment"> * 才能使用此 AR 模式 !!!</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;?&gt;&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">transient</span> Log log = LogFactory.getLog(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入（字段选择插入）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insert</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> SqlHelper.retBool(sqlSession.insert(sqlStatement(SqlMethod.INSERT_ONE), <span class="keyword">this</span>));</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeSqlSession(sqlSession);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据 ID 查询</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id 主键ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">selectById</span><span class="params">(Serializable id)</span> </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sqlSession.selectOne(sqlStatement(SqlMethod.SELECT_BY_ID), id);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeSqlSession(sqlSession);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据主键查询</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">selectById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Assert.isFalse(StringUtils.checkValNull(pkVal()), <span class="string">&quot;selectById primaryKey is null.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> selectById(pkVal());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询总记录数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> queryWrapper 实体对象封装操作类（可以为 null）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">selectList</span><span class="params">(Wrapper&lt;T&gt; queryWrapper)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = CollectionUtils.newHashMapWithExpectedSize(<span class="number">1</span>);</span><br><span class="line">        map.put(Constants.WRAPPER, queryWrapper);</span><br><span class="line">        SqlSession sqlSession = sqlSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sqlSession.selectList(sqlStatement(SqlMethod.SELECT_LIST), map);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeSqlSession(sqlSession);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Serializable <span class="title">pkVal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Serializable) ReflectionKit.getFieldValue(<span class="keyword">this</span>, TableInfoHelper.getTableInfo(getClass()).getKeyProperty());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>可以看到继承这个类的实体可以同样拥有通过实例对象调用方法，实现和调用service或者mapper一样crud的能力。例如上图中的Insert()，selectById()方法等等。有兴趣的可以去试下，几乎是一样的，这里不再赘述。</p>
-]]></content>
-      <tags>
-        <tag>mybatis plus</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker随笔</title>
     <url>/2021/12/26/docker%E9%9A%8F%E7%AC%94/</url>
     <content><![CDATA[<p>docker大多数人会将它设置为开机自启，但尽管如此，很多运行的docker容器在服务器重启后，示例是不会重启的。这是因为你在运行docker的时候少加上了一个参数。</p>
@@ -144,28 +124,6 @@
       </categories>
       <tags>
         <tag>elasticsearch</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript学习</title>
-    <url>/2022/01/12/javascript%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h4 id="js内置函数"><a href="#js内置函数" class="headerlink" title="js内置函数"></a>js内置函数</h4><h6 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN();"></a>isNaN();</h6><p>isNaN函数，js内置函数，不知道什么的缩写 is Na（非？） Number？</p>
-<p>例子：isNaN(“123”)</p>
-<p>如果填入的参数是非数字返回true，如果是数据返回false，很好理解，就是方法名神经病</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123ddd&quot;</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-
-<p>传入的如果是underfined，对象，非数字字符串，就会返回true，</p>
-<p>反之传入数字，数字字符串，就会打印false，</p>
-<p>【特例】此外传入null ，空串，也会返回false</p>
-<h6 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt();"></a>parseInt();</h6><p>parseInt()函数是可以把入参转化为一个整数，</p>
-<p>例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">// 数字字符串转化为数字 123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.3&quot;</span>)); <span class="comment">// 小数字符串转化为 123（取整，抹去后面的）</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;-123.3&quot;</span>)); <span class="comment">// 负数同理，保留符号，其他不变</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.33d&quot;</span>)); <span class="comment">//数字字符串 后面带了奇怪的东西 ，会去掉d，然后取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;ssss“)); //无法转化成整数的，像非数字字符串，undefined，对象，会转化成一个NaN【非数字】</span></span><br><span class="line"><span class="string">                     </span></span><br><span class="line"><span class="string">parseFloat();和它大同小异</span></span><br><span class="line"><span class="string">此外parseInt还可以通过parseInt(string, radix)，传入两个参数指定转化整数进制等。</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <tags>
-        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -1262,6 +1220,25 @@
       </categories>
       <tags>
         <tag>typora</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重整版-JS</title>
+    <url>/2022/03/06/%E9%87%8D%E6%95%B4%E7%89%88-JS/</url>
+    <content><![CDATA[<h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><h2 id="js内置函数"><a href="#js内置函数" class="headerlink" title="js内置函数"></a>js内置函数</h2><h3 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN"></a>isNaN</h3><p>如参数是非数字返回true，否则false</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;123ddd&quot;</span>));<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//传入的如果是underfined，对象，非数字字符串，返回true</span></span><br><span class="line"><span class="comment">//反之传入数字，数字字符串，返回false，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特殊：传入null ，空串，返回false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt"></a>parseInt</h3><p>parseInt()函数把入参转化为一个整数，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123&quot;</span>)); <span class="comment">// 数字字符串转化为数字 123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.3&quot;</span>)); <span class="comment">// 小数字符串转化为 123（取整，抹去后面的）</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;-123.3&quot;</span>)); <span class="comment">// 负数同理，保留符号，其他不变</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;123.33d&quot;</span>)); <span class="comment">//数字字符串 后面带了奇怪的东西 ，会去掉d，然后取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">&quot;ssss“)); //无法转化成整数的，像非数字字符串，undefined，对象，会转化成一个NaN【非数字】</span></span><br><span class="line"><span class="string">                     </span></span><br><span class="line"><span class="string">parseFloat();和它大同小异</span></span><br><span class="line"><span class="string">此外parseInt还可以通过parseInt(string, radix)，传入两个参数指定转化整数进制等。</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
 </search>
