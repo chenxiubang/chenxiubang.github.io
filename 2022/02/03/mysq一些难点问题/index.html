@@ -377,7 +377,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">13k</span>
+                <span title="Words count in article">17k</span>
               
 
               
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">13 mins.</span>
+                <span title="Reading time">17 mins.</span>
               
             </div>
           
@@ -504,6 +504,83 @@
 <ol start="10">
 <li>函数太多了，自己百度</li>
 </ol>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><ol>
+<li><p>CURRENT_DATE mysql关键字，返回当前日期</p>
+<p>例子：2022-03-06</p>
+<p>也可以使用CURRENT_DATE() ，同名函数。</p>
+</li>
+<li><p>CURRENT_TIME 类似上一条，返回当前时间</p>
+<p>例子：15:34:38 ，一样有同名函数，建议使用关键字即可</p>
+</li>
+<li><p>now() ,最常用的mysql日期函数，返回当前时间</p>
+<p>例子 2022-03-06 15:01:01 ，完整日期时间</p>
+<p>一个冷门技巧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select now() + 0 form dual;  -- 会返回如下的日期格式 20220306153744 ，很快捷的格式化</span><br></pre></td></tr></table></figure></li>
+<li><p>UNIX_TIMESTAMP() </p>
+<p>返回10位unix时间戳函数  例子：1646552350</p>
+</li>
+<li><p>UNIX_TIMESTAMP(date);</p>
+<p>带参数的时间戳函数，返回该date日期的时间戳值，</p>
+<p>例如：UNIX_TIMESTAMP(‘2022-01-01 00:00:00’)，UNIX_TIMESTAMP(now())</p>
+</li>
+<li><p>FROM_UNIXTIME(1645370920)</p>
+<p>这个函数就是将时间戳转化为日期格式的，与上面相反。参数同样为10位的unix时间戳。</p>
+</li>
+<li><p>year(date),month(date),day(date)</p>
+<p>这几个函数是获得指定日期的年，月，日</p>
+<p>例如现在是2022-03-06</p>
+<p>select year(now())  – 2022</p>
+<p>select month(now())  – 3</p>
+<p>select day(now())  – 6</p>
+</li>
+<li><p> 这几个是比较冷门的，一次性讲</p>
+</li>
+</ol>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">MONTHNAME(now())  -- 返回date的月份 january ..</span><br><span class="line">,DAYNAME( CURRENT_DATE ) -- 返回date星期 MONDAY ...</span><br><span class="line">,WEEKDAY(CURRENT_DATE ()) -- 返回周几  周一是0，周二是1 ...</span><br><span class="line">,QUARTER ( &#x27;2022-01-01&#x27; ), -- 返回季节 1~4</span><br><span class="line">WEEK (now()) 			 -- 返回为一年中的第几周</span><br><span class="line">,DAYOFWEEK(now())		-- 返回为周几 周日是1 周一是2</span><br><span class="line">,DAYOFYEAR(now())		-- 返回为年的第几天</span><br><span class="line">,DAYOFMONTH(now()) 		-- 返回为月的第几天</span><br><span class="line">FROM DUAL;	</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li> extract() 函数 【提取】可以获取date中特定部分</li>
+</ol>
+<p>   格式：EXTRACT(unit FROM date)</p>
+<p>   例子：select EXTRACT(SECOND from now())  – 获取当前时间的秒数</p>
+<p>   select EXTRACT(HOUR_SECOND FROM now()) from dual;    – 返回当前时间小时和秒</p>
+<p>   select EXTRACT(YEAR_MONTH FROM now()) from dual;     –返回当前时间年和月</p>
+<p>   总之具体用法参考文档</p>
+<ol start="10">
+<li><p>select TIME_TO_SEC(now()) from dual;<br>select SEC_TO_TIME(85271) from dual;</p>
+<p>time和秒数的互相转化，这个用的不多</p>
+</li>
+</ol>
+<h3 id="日期计算函数"><a href="#日期计算函数" class="headerlink" title="日期计算函数"></a>日期计算函数</h3><p>日期计算使用场合非常多，所以单独领出来。</p>
+<p>日期加函数</p>
+<ul>
+<li>DATE_ADD(date,INTERVAL expr unit)</li>
+<li>ADDDATE(date,INTERVAL expr unit)</li>
+</ul>
+<p>日期减函数</p>
+<p>DATE_SUB(date,INTERVAL expr unit)</p>
+<p>SUBDATE(date,INTERVAL expr unit)</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select date_add(now(), interval 1 year) from dual; -- 一年之后</span><br><span class="line">select date_sub(now(), interval 1 year) from dual; -- 一年之前</span><br><span class="line">select date_sub(now(), interval &#x27;1_2&#x27; YEAR_MONTH) from dual; -- 一年两个月之前</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>日期相差函数 和时间相差函数</p>
+<p>select DATEDIFF(now(),’2021-01-01’) from dual;     – 两个时间相差天数</p>
+<p>select TIMEDIFF(now(),’2021-01-01 00:00:00’) from dual;  – 两个时间相差时间</p>
+</li>
+</ul>
+<h3 id="日期格式化函数"><a href="#日期格式化函数" class="headerlink" title="日期格式化函数"></a>日期格式化函数</h3><p>格式化所需要的格式符要参考文档</p>
+<ul>
+<li><p>日期——&gt;字符串</p>
+<p>DATE_FORMAT(date,format)</p>
+<p>例子：select DATE_FORMAT(now(),’%Y-%m-%d’)from dual;</p>
+<p>select TIME_FORMAT(CURRENT_TIME,’%H++%i++%s’) from dual;<br>select DATE_FORMAT(now(),’%Y-%M-%D %h:%i:%s %W %w %T %r’)from dual;</p>
+</li>
+<li><p>字符串——&gt;日期</p>
+<p>STR_TO_DATE(str,format)</p>
+<p>select STR_TO_DATE(‘2020-01-01’,’%Y-%m-%d’)from dual;</p>
+</li>
+</ul>
 
       
     </div>
@@ -742,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">Mysql千万级别数据分页查询的效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and%E5%92%8Cor%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">and和or语句优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XOR"><span class="nav-number">5.</span> <span class="nav-text">XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%9A%84%E8%BF%9E%E8%A1%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">几个特殊的连表关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#natural-join"><span class="nav-number">6.1.</span> <span class="nav-text">natural join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E2%80%A6-using"><span class="nav-number">6.2.</span> <span class="nav-text">join … using()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">Mysql函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">7.1.</span> <span class="nav-text">字符串函数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-for-update"><span class="nav-number">1.</span> <span class="nav-text">select .. for update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E5%B1%80%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">mysql的局部索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%8D%83%E4%B8%87%E7%BA%A7%E5%88%AB%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">Mysql千万级别数据分页查询的效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and%E5%92%8Cor%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">and和or语句优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XOR"><span class="nav-number">5.</span> <span class="nav-text">XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%9A%84%E8%BF%9E%E8%A1%A8%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">几个特殊的连表关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#natural-join"><span class="nav-number">6.1.</span> <span class="nav-text">natural join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E2%80%A6-using"><span class="nav-number">6.2.</span> <span class="nav-text">join … using()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">Mysql函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">7.1.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">7.2.</span> <span class="nav-text">日期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0"><span class="nav-number">7.3.</span> <span class="nav-text">日期计算函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0"><span class="nav-number">7.4.</span> <span class="nav-text">日期格式化函数</span></a></li></ol></li></ol></div>
             
 
           </div>

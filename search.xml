@@ -1201,6 +1201,83 @@
 <ol start="10">
 <li>函数太多了，自己百度</li>
 </ol>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><ol>
+<li><p>CURRENT_DATE mysql关键字，返回当前日期</p>
+<p>例子：2022-03-06</p>
+<p>也可以使用CURRENT_DATE() ，同名函数。</p>
+</li>
+<li><p>CURRENT_TIME 类似上一条，返回当前时间</p>
+<p>例子：15:34:38 ，一样有同名函数，建议使用关键字即可</p>
+</li>
+<li><p>now() ,最常用的mysql日期函数，返回当前时间</p>
+<p>例子 2022-03-06 15:01:01 ，完整日期时间</p>
+<p>一个冷门技巧</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select now() + 0 form dual;  -- 会返回如下的日期格式 20220306153744 ，很快捷的格式化</span><br></pre></td></tr></table></figure></li>
+<li><p>UNIX_TIMESTAMP() </p>
+<p>返回10位unix时间戳函数  例子：1646552350</p>
+</li>
+<li><p>UNIX_TIMESTAMP(date);</p>
+<p>带参数的时间戳函数，返回该date日期的时间戳值，</p>
+<p>例如：UNIX_TIMESTAMP(‘2022-01-01 00:00:00’)，UNIX_TIMESTAMP(now())</p>
+</li>
+<li><p>FROM_UNIXTIME(1645370920)</p>
+<p>这个函数就是将时间戳转化为日期格式的，与上面相反。参数同样为10位的unix时间戳。</p>
+</li>
+<li><p>year(date),month(date),day(date)</p>
+<p>这几个函数是获得指定日期的年，月，日</p>
+<p>例如现在是2022-03-06</p>
+<p>select year(now())  – 2022</p>
+<p>select month(now())  – 3</p>
+<p>select day(now())  – 6</p>
+</li>
+<li><p> 这几个是比较冷门的，一次性讲</p>
+</li>
+</ol>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT </span><br><span class="line">MONTHNAME(now())  -- 返回date的月份 january ..</span><br><span class="line">,DAYNAME( CURRENT_DATE ) -- 返回date星期 MONDAY ...</span><br><span class="line">,WEEKDAY(CURRENT_DATE ()) -- 返回周几  周一是0，周二是1 ...</span><br><span class="line">,QUARTER ( &#x27;2022-01-01&#x27; ), -- 返回季节 1~4</span><br><span class="line">WEEK (now()) 			 -- 返回为一年中的第几周</span><br><span class="line">,DAYOFWEEK(now())		-- 返回为周几 周日是1 周一是2</span><br><span class="line">,DAYOFYEAR(now())		-- 返回为年的第几天</span><br><span class="line">,DAYOFMONTH(now()) 		-- 返回为月的第几天</span><br><span class="line">FROM DUAL;	</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li> extract() 函数 【提取】可以获取date中特定部分</li>
+</ol>
+<p>   格式：EXTRACT(unit FROM date)</p>
+<p>   例子：select EXTRACT(SECOND from now())  – 获取当前时间的秒数</p>
+<p>   select EXTRACT(HOUR_SECOND FROM now()) from dual;    – 返回当前时间小时和秒</p>
+<p>   select EXTRACT(YEAR_MONTH FROM now()) from dual;     –返回当前时间年和月</p>
+<p>   总之具体用法参考文档</p>
+<ol start="10">
+<li><p>select TIME_TO_SEC(now()) from dual;<br>select SEC_TO_TIME(85271) from dual;</p>
+<p>time和秒数的互相转化，这个用的不多</p>
+</li>
+</ol>
+<h3 id="日期计算函数"><a href="#日期计算函数" class="headerlink" title="日期计算函数"></a>日期计算函数</h3><p>日期计算使用场合非常多，所以单独领出来。</p>
+<p>日期加函数</p>
+<ul>
+<li>DATE_ADD(date,INTERVAL expr unit)</li>
+<li>ADDDATE(date,INTERVAL expr unit)</li>
+</ul>
+<p>日期减函数</p>
+<p>DATE_SUB(date,INTERVAL expr unit)</p>
+<p>SUBDATE(date,INTERVAL expr unit)</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select date_add(now(), interval 1 year) from dual; -- 一年之后</span><br><span class="line">select date_sub(now(), interval 1 year) from dual; -- 一年之前</span><br><span class="line">select date_sub(now(), interval &#x27;1_2&#x27; YEAR_MONTH) from dual; -- 一年两个月之前</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>日期相差函数 和时间相差函数</p>
+<p>select DATEDIFF(now(),’2021-01-01’) from dual;     – 两个时间相差天数</p>
+<p>select TIMEDIFF(now(),’2021-01-01 00:00:00’) from dual;  – 两个时间相差时间</p>
+</li>
+</ul>
+<h3 id="日期格式化函数"><a href="#日期格式化函数" class="headerlink" title="日期格式化函数"></a>日期格式化函数</h3><p>格式化所需要的格式符要参考文档</p>
+<ul>
+<li><p>日期——&gt;字符串</p>
+<p>DATE_FORMAT(date,format)</p>
+<p>例子：select DATE_FORMAT(now(),’%Y-%m-%d’)from dual;</p>
+<p>select TIME_FORMAT(CURRENT_TIME,’%H++%i++%s’) from dual;<br>select DATE_FORMAT(now(),’%Y-%M-%D %h:%i:%s %W %w %T %r’)from dual;</p>
+</li>
+<li><p>字符串——&gt;日期</p>
+<p>STR_TO_DATE(str,format)</p>
+<p>select STR_TO_DATE(‘2020-01-01’,’%Y-%m-%d’)from dual;</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>数据库</category>
