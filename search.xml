@@ -165,30 +165,6 @@
       </tags>
   </entry>
   <entry>
-    <title>mybaits中的provider写法</title>
-    <url>/2021/11/01/mybaits%E4%B8%AD%E7%9A%84provider%E5%86%99%E6%B3%95/</url>
-    <content><![CDATA[<p>早在学习初期解除mybatis框架的时候，我学习的是将sql写在xml中，这样做到了代码和sql分离。随着工作后，我又见到各种五花八门的写法。比较靠谱一点的就是这样的</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StuTalentUserAuditDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">StuTalentUserAuditEo</span>&gt;</span>&#123;</span><br><span class="line">    <span class="meta">@Select(&quot;select * from audit where id_card=#&#123;idCard&#125;&quot;)</span></span><br><span class="line">    <span class="function">Eo <span class="title">select</span><span class="params">(<span class="meta">@Param(&quot;idCard&quot;)</span> String idCard)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from audit where id_card=#&#123;idCard&#125; and status=#&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function">Eo <span class="title">select1</span><span class="params">(<span class="meta">@Param(&quot;idCard&quot;)</span> String idCard,<span class="meta">@Param(&quot;status&quot;)</span> String status)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>再dao中的方法脑袋上写sql’语句。</p>
-<p>还有过分点的</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HotelDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">HotelEo</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据经纬度获取酒店列表, 按照距离远近排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dto</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Select(&quot;SELECT &quot; +</span></span><br><span class="line"><span class="meta">            &quot; id, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; hotel_name AS hotelName, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; hotel_name_eng AS hotelNameEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; discount_desc AS discountDesc, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; discount_desc AS discountDescEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; addr, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; addr_eng AS addrEng, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; img, &quot; +</span></span><br><span class="line"><span class="meta">            &quot; mobile,&quot; +</span></span><br><span class="line"><span class="meta">            &quot; round(ST_Distance_Sphere (point(longitude,latitude),point( #&#123;dto.lon&#125;, #&#123;dto.lat&#125;))) as distance &quot; +</span></span><br><span class="line"><span class="meta">            &quot;FROM &quot; +</span></span><br><span class="line"><span class="meta">            &quot; front_hotel &quot; +</span></span><br><span class="line"><span class="meta">            &quot;where status = 1 &quot; +</span></span><br><span class="line"><span class="meta">            &quot;order by distance asc&quot;)</span></span><br><span class="line">    <span class="function">List&lt;HotelDto&gt; <span class="title">getHotelListByLocation</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> LocationDto dto)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这种长度的sql你写在脑袋上真的恶心，配个xml会死吗？代码和sql完美黏在一起</p>
-<p>今天我又见到另一种写法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApartmentChangeDao</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">ApartmentChangeEo</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@SelectProvider(type = MyProvider.class, method = &quot;changeLeftJoinTalent&quot;)</span></span><br><span class="line">    <span class="function">List&lt;ApartmentChangePageDto&gt; <span class="title">info</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> ApartmentChangeQueryDto dto)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是dao，不过脑袋上是selectProvider注解，这里指定了两个属性，一个是自定义类，另一个是他的方法名</p>
-<p>然后到那个MyProvider里面看看</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">changeLeftJoinTalent</span><span class="params">(<span class="meta">@Param(&quot;dto&quot;)</span> ApartmentChangeQueryDto dto)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String sql = <span class="keyword">new</span> SQL() &#123;&#123;</span><br><span class="line">            SELECT(<span class="string">&quot;t1.`id` ,t1.`id_card`,t1.`mobile`,t1.`name`,t1.`status`,t1.`create_time` ,t1.change_type,t2.status AS tstatus&quot;</span>);</span><br><span class="line"></span><br><span class="line">            FROM(<span class="string">&quot;apartment_change t1&quot;</span>);</span><br><span class="line">            LEFT_OUTER_JOIN(<span class="string">&quot;apartment_talent t2 ON t1.`apartment_id` = t2.`id`&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNumeric(dto.getKeyword())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.mobile LIKE CONCAT(&#x27;%&#x27;,#&#123;dto.keyword&#125;,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dto.getKeyword()) &amp;&amp; !StringUtils.isNumeric(dto.getKeyword())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.name LIKE CONCAT(&#x27;%&#x27;,#&#123;dto.keyword&#125;,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dto.getStartTime() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.create_time&gt;=#&#123;dto.startTime&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (dto.getEndTime() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.create_time&lt;=#&#123;dto.endTime&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dto.getIdcard())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.id_card = #&#123;dto.idcard&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getNeStatus())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t2.status &lt;&gt; #&#123;dto.neStatus&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getStatus()) &amp;&amp;</span><br><span class="line">                    StringUtils.equalsAny(dto.getStatus(), ApartmentChangeEnum.HUMAN_WAIT.name(),</span><br><span class="line">                            ApartmentChangeEnum.HUMAN_FAIL.name(), ApartmentChangeEnum.CITY_WAIT.name(),</span><br><span class="line">                            ApartmentChangeEnum.lotteryWait.name())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t1.status = #&#123;dto.status&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotEmpty(dto.getStatus())) &#123;</span><br><span class="line">                WHERE(<span class="string">&quot;t2.status = #&#123;dto.status&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ORDER_BY(<span class="string">&quot;t1.id DESC&quot;</span>);</span><br><span class="line">        &#125;&#125;.toString();</span><br><span class="line">        <span class="keyword">return</span> sql;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这个类中其实就是就是在该方法种用双括号语法创建一个SQL对象，然后toString，return出去。</p>
-<p>如果了解双括号语法，对上面应该不会陌生，</p>
-<p>这里的SELECT ,FROM ,等等都是方法名全部大写的的方法，他们有返回值，但是这里没有使用而已。</p>
-<p>SELECT ,FORM ,WHERE等方法执行实际上最终就是不停地拼接，最后的toString打印完整地sql</p>
-]]></content>
-  </entry>
-  <entry>
     <title>redis基本黑窗口命令1</title>
     <url>/2021/11/09/redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/</url>
     <content><![CDATA[<p>redis中常用命令：</p>
@@ -1010,51 +986,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot和日志框架</title>
-    <url>/2022/02/07/SpringBoot%E5%92%8C%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="springboot和日志框架"><a href="#springboot和日志框架" class="headerlink" title="springboot和日志框架"></a>springboot和日志框架</h1><p>市民上的日志框架和日志门面有很多，日志门面是日志的抽象层，面向接口编程的思想，只关心接口，具体实现又不同的实现完成，像jdbc的驱动一样是相通的涉及思想。</p>
-<p>常用的日志门面有slf4j（simple log for java），jcl（java commom log) ，jboss-logging等</p>
-<p>其中用的最多的还是slf4j，也是springboot的默认日志门面，但早期的Spring版本可能还是使用jcl作为日志门面。至于jboss-logging，没人用的。</p>
-<p>日志实现由log4j，log4j2，logback，jul等。其中log4j是最早的日志实现，但开发log4j的人觉得该日志框架有点缺陷，于是设计了新的日志框架叫logback（不是log4j2）。所以log4j和logback是同一个人设计的，也正是因为有了第二个日志框架，设计者才意识到需要由日志门面模式，于是又有了slf4j，于是乎这个人，我不知道他是谁，他搞出了log4j，logback和slf4j，带出了日志门面和日志框架的思想。（早期的log4j没有日志门面的思想，所以不是很推荐使用）。再后来别的团队在log4j的基础上改进，做出了新的日志实现log4j2，（注意log4j2反而是别人做的）。log4j2也是非常优秀的日志实现。至于jul java.util.logging 完全就是java自己为了防止日志市场被人抢走而做出来的，并不是很好用。所以我们一般推荐logback和log4j2。</p>
-<p>Springboot默认使用时slf4j+logback的组合，一个应用中可能又多个框架：比如mybatis，Spring（早期是common-logging），Hebernate（jboss-logging），等。每个框架使用的日志框架有可能不一样</p>
-<p><strong>但是不用担心，springboot已经帮我们把应用中的日志实现统一，你只需要指定应用所需要的日志实现</strong></p>
-<h3 id="日志框架的统一"><a href="#日志框架的统一" class="headerlink" title="日志框架的统一"></a>日志框架的统一</h3><p>springboot的具体手法是排除掉其他日志框架，留下当前应用使用的日志框架，再用转换包，代替排除掉的日志依赖包</p>
-<p>这样启动就不会报错缺少依赖包了。</p>
-<p>比如项目门面是slf4j，日志框架是logback，但是项目里有一堆日志实现，springboot就使用<code>log4j-to-slf4j.jar</code>,<code>jul-to-slf4j.jar</code>等包代替原来的缺失的jar包，这样应用中的日志门面和实现就统一了。</p>
-<p>*<strong>这些springboot都帮我们做好了，不要脑残起来换成log4j实现，麻烦又容易出错，而且log4j是早期日志实现</strong></p>
-<h3 id="如何在应用中使用slf4j"><a href="#如何在应用中使用slf4j" class="headerlink" title="如何在应用中使用slf4j"></a>如何在应用中使用slf4j</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(MyTest.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        logger.debug(<span class="string">&quot;debug&quot;</span>);</span><br><span class="line">        logger.info(<span class="string">&quot;info&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>你只需要用一个<code>LoggerFactory</code>的getLogger()方法，传入当前类的类名，你就可以在这个类中通过调用这个实例的</p>
-<p>.info()等方法打印日志。</p>
-<h3 id="在springboot项目中根据你日志实现是哪一种，配置具体实现的配置文件"><a href="#在springboot项目中根据你日志实现是哪一种，配置具体实现的配置文件" class="headerlink" title="在springboot项目中根据你日志实现是哪一种，配置具体实现的配置文件"></a>在springboot项目中根据你日志实现是哪一种，配置具体实现的配置文件</h3><p>springboot里的类文件里面可以看到默认的日志实现的配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.boot.logging.java</span><br><span class="line">	|-logging.properties</span><br><span class="line">	|-logging-file.properties</span><br><span class="line">org.springframework.boot.logging.log4j2</span><br><span class="line">	|-log4j2.xml</span><br><span class="line">	|-log4j2-file.xml</span><br><span class="line">org.springframework.boot.logging.logback</span><br><span class="line">	|-base.xml</span><br><span class="line">	|-console-appender.xml</span><br><span class="line">	|-defaults.xml</span><br><span class="line">	|-file-appender.xml</span><br></pre></td></tr></table></figure>
-
-<p>如果不配置专属的日志配置文件，就会采用上文路径，spring-boot配置好的配置文件</p>
-<p>以logback为例，又logback.xml 和logback-spring.xml</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在类路径下放每个日志框架字节的配置文件，Spring就不会使用自己默认的配置了</span><br><span class="line">以logback为例，在类路径下放logback.xml 或者logback-spring.xml</span><br><span class="line">这边推荐使用带-spring的，这样启动后先被spring处理，然后再由日志框架接管</span><br><span class="line">日志框架只认识logback.xml</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用lockback.xml作为配置文件名才能启用spring的标签 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">&quot;!default&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">&quot;info&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">&quot;default&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">&quot;debug&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;rollingFileAppender&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="切换springboot的日志框架"><a href="#切换springboot的日志框架" class="headerlink" title="切换springboot的日志框架"></a>切换springboot的日志框架</h3><p><strong>springboot默认的slf4j和logback挺好的，别脑残起来换成jul，或者log4j</strong></p>
-<p>但是你可以换成slf4j+log4j2的日志组合，这个spring为我们提供了方法，很简单</p>
-<p>排除掉web的starter中的logging starter，再引入log4j2的starter</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-log4j2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>go语言入门（1）</title>
     <url>/2021/10/30/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>这段时间稍微解除了golang，写了几个helloworld，笔记了几个go基础语法的点。</p>
@@ -1221,6 +1152,32 @@
 ]]></content>
       <tags>
         <tag>ngxin</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重整版-SpringBoot</title>
+    <url>/2022/03/08/%E9%87%8D%E6%95%B4%E7%89%88-SpringBoot/</url>
+    <content><![CDATA[<h1 id="SPRING"><a href="#SPRING" class="headerlink" title="SPRING"></a>SPRING</h1><h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>日志框架：日志门面+实现</p>
+<p>日志门面是日志的抽象层，即面向接口编程的思想。与<code>jdbc</code>的思想类似。</p>
+<ul>
+<li><p>常用门面<code>slf4j``（simple log for java）</code>，<code>jcl``（java commom log) </code>，<code>jboss-logging</code>等</p>
+<p>使用最多的门面<code>slf4j</code>，也是<code>springboot</code>的默认日志门面。早期的Spring版本有使用<code>jcl</code>作为门面。</p>
+</li>
+<li><p>日志实现有<code>log4j</code>，<code>log4j2</code>，<code>logback</code>，<code>jul</code>等</p>
+<p>其中<code>log4j</code>是最早的日志实现，开发<code>log4j</code>的作者觉得该日志框有一些问题，后设计新的日志框架<code>logback</code>,也由此诞生了日志门面。于是又诞生了<code>slf4j</code>（因此早期的<code>log4j</code>没有日志门面的思想，不推荐使用)。</p>
+<p>又之后其他团队在<code>log4j</code>的基础上改进，开发了<code>log4j2</code>，也是非常优秀</p>
+<p>而<code>jul</code>是<code>java</code>为了防止日志市场完全抢走而开发的，比较一般。</p>
+</li>
+</ul>
+<p><code>springboot</code>默认使用<code>slf4j</code>+<code>logback</code>组合。</p>
+<p>一个项目中可能有多个框架：<code>mybatis</code>，<code>spring</code>（早期是common-logging），<code>hebernate</code>（<code>jboss-logging</code>）等，每个使用的日志框架不同。</p>
+<p><code>springboot</code>已经把应用中的日志实现统一，开发人员只需指定所需要的日志实现</p>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
       </tags>
   </entry>
 </search>
