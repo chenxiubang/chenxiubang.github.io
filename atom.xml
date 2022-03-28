@@ -6,7 +6,7 @@
   <link href="https://chenxiubang.top/atom.xml" rel="self"/>
   
   <link href="https://chenxiubang.top/"/>
-  <updated>2022-03-08T06:59:56.137Z</updated>
+  <updated>2022-03-28T12:18:53.215Z</updated>
   <id>https://chenxiubang.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重整版-redis</title>
+    <link href="https://chenxiubang.top/2022/03/28/%E9%87%8D%E6%95%B4%E7%89%88-redis/"/>
+    <id>https://chenxiubang.top/2022/03/28/%E9%87%8D%E6%95%B4%E7%89%88-redis/</id>
+    <published>2022-03-28T12:06:07.000Z</published>
+    <updated>2022-03-28T12:18:53.215Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="redis和lua实现限流"><a href="#redis和lua实现限流" class="headerlink" title="redis和lua实现限流"></a>redis和lua实现限流</h2><p>redis属于内存数据库，性能高。不同于网关层的nginx和限流组件sentinel，这种限流方式需要自己实现。</p><p>原理：通过一个唯一业务号的key控制在一个时间段请求的上线，每次请求这个业务会incr自增一次。当大于自己传入的阈值时，就会返回业务繁忙的错误。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisAccessLimitService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisScript&lt;Boolean&gt; redisScript;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">limit</span><span class="params">(String key, Integer limit)</span> </span>&#123;</span><br><span class="line">        Boolean acquire = redisTemplate.execute(redisScript, Lists.newArrayList(key), limit.toString());</span><br><span class="line">        AssertUtil.isFalse(acquire, <span class="string">&quot;服务器繁忙&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>配置类和lua脚本</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DefaultRedisScript&lt;Boolean&gt; <span class="title">defaultRedisScript</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DefaultRedisScript&lt;Boolean&gt; script = <span class="keyword">new</span> DefaultRedisScript&lt;&gt;();</span><br><span class="line">    <span class="comment">//lua脚本类路径</span></span><br><span class="line">    script.setLocation(<span class="keyword">new</span> ClassPathResource(<span class="string">&quot;limit.lua&quot;</span>));</span><br><span class="line">    script.setResultType(Boolean.class);</span><br><span class="line">    <span class="keyword">return</span> script;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 获得业务唯一的key</span></span><br><span class="line"><span class="keyword">local</span> bizKey = KEYS[<span class="number">1</span>]</span><br><span class="line"><span class="comment">-- 获得限流的传参</span></span><br><span class="line"><span class="keyword">local</span> limit = <span class="built_in">tonumber</span>(ARGV[<span class="number">1</span>])</span><br><span class="line"><span class="comment">-- 获得当前业务key的值，如果nil返回&#x27;0&#x27;</span></span><br><span class="line"><span class="keyword">local</span> count = <span class="built_in">tonumber</span>(redis.call(<span class="string">&#x27;get&#x27;</span>, bizKey) <span class="keyword">or</span> <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line"><span class="comment">--判断是否到达阈值</span></span><br><span class="line"><span class="keyword">if</span> count + <span class="number">1</span> &gt; limit <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="comment">-- 递增并且设置1秒后过期</span></span><br><span class="line">    redis.call(<span class="string">&#x27;incrby&#x27;</span>, bizKey, <span class="number">1</span>)</span><br><span class="line">    redis.call(<span class="string">&#x27;expire&#x27;</span>, bizKey, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>因为redis是单线程，所以以上为线程安全的。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Redis&quot;&gt;&lt;a href=&quot;#Redis&quot; class=&quot;headerlink&quot; title=&quot;Redis&quot;&gt;&lt;/a&gt;Redis&lt;/h1&gt;&lt;h2 id=&quot;redis和lua实现限流&quot;&gt;&lt;a href=&quot;#redis和lua实现限流&quot; class=&quot;header</summary>
+      
+    
+    
+    
+    <category term="数据库" scheme="https://chenxiubang.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="redis" scheme="https://chenxiubang.top/tags/redis/"/>
+    
+  </entry>
   
   <entry>
     <title>重整版-SpringBoot</title>
@@ -463,34 +487,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>反向代理</title>
-    <link href="https://chenxiubang.top/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
-    <id>https://chenxiubang.top/2021/11/14/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</id>
-    <published>2021-11-14T12:36:43.000Z</published>
-    <updated>2022-02-05T08:34:06.479Z</updated>
-    
-    <content type="html"><![CDATA[<p>反向代理这个词最多出现在nginx。</p><p>也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。</p><p>但刚学习的时候很多人不知道什么是反向代理。</p><p>其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。</p><p>比如张三要访问谷歌，但是在国内直接访问国外的域名非常困难。这时候就出现了一个中间代理服务器，用户就通过它，将请求转发给谷歌，实现成功获取资源。这个服务器对于用户是有感知的，用户通过它，访问到了想要的网站。</p><p>而nginx的反向代理与此不同，它将真实的服务器藏在自己身后，自己对于用户而言，是一个服务器，用户并无法知道真正的服务器地址。用户将请求交给nginx，由nginx通过负载均衡策略，把请求分发给后台真实的服务集群。再将请求响应给用户。反向代理的nginx对应用户而言，更像一个真实的服务器。</p><p>补充一点nginx常用命令</p><p>在nginx的目录（linux默认情况）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin</span><br></pre></td></tr></table></figure><p>会有一个nginx文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -V</span><br></pre></td></tr></table></figure><p>查看nginx版本号</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure><p>启动nginx</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s stop</span><br></pre></td></tr></table></figure><p>关闭nginx</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure><p>重新加载nginx （并不是重新启动，而是重新加载修改后的nginx.conf文件）</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;反向代理这个词最多出现在nginx。&lt;/p&gt;
-&lt;p&gt;也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。&lt;/p&gt;
-&lt;p&gt;但刚学习的时候很多人不知道什么是反向代理。&lt;/p&gt;
-&lt;p&gt;其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。&lt;/p&gt;
-&lt;p&gt;比如张三要访</summary>
-      
-    
-    
-    
-    <category term="linux" scheme="https://chenxiubang.top/categories/linux/"/>
-    
-    
-    <category term="ngxin" scheme="https://chenxiubang.top/tags/ngxin/"/>
     
   </entry>
   

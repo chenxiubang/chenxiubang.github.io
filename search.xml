@@ -1192,4 +1192,25 @@
         <tag>spring</tag>
       </tags>
   </entry>
+  <entry>
+    <title>重整版-redis</title>
+    <url>/2022/03/28/%E9%87%8D%E6%95%B4%E7%89%88-redis/</url>
+    <content><![CDATA[<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="redis和lua实现限流"><a href="#redis和lua实现限流" class="headerlink" title="redis和lua实现限流"></a>redis和lua实现限流</h2><p>redis属于内存数据库，性能高。不同于网关层的nginx和限流组件sentinel，这种限流方式需要自己实现。</p>
+<p>原理：通过一个唯一业务号的key控制在一个时间段请求的上线，每次请求这个业务会incr自增一次。当大于自己传入的阈值时，就会返回业务繁忙的错误。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisAccessLimitService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisScript&lt;Boolean&gt; redisScript;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">limit</span><span class="params">(String key, Integer limit)</span> </span>&#123;</span><br><span class="line">        Boolean acquire = redisTemplate.execute(redisScript, Lists.newArrayList(key), limit.toString());</span><br><span class="line">        AssertUtil.isFalse(acquire, <span class="string">&quot;服务器繁忙&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>配置类和lua脚本</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DefaultRedisScript&lt;Boolean&gt; <span class="title">defaultRedisScript</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DefaultRedisScript&lt;Boolean&gt; script = <span class="keyword">new</span> DefaultRedisScript&lt;&gt;();</span><br><span class="line">    <span class="comment">//lua脚本类路径</span></span><br><span class="line">    script.setLocation(<span class="keyword">new</span> ClassPathResource(<span class="string">&quot;limit.lua&quot;</span>));</span><br><span class="line">    script.setResultType(Boolean.class);</span><br><span class="line">    <span class="keyword">return</span> script;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 获得业务唯一的key</span></span><br><span class="line"><span class="keyword">local</span> bizKey = KEYS[<span class="number">1</span>]</span><br><span class="line"><span class="comment">-- 获得限流的传参</span></span><br><span class="line"><span class="keyword">local</span> limit = <span class="built_in">tonumber</span>(ARGV[<span class="number">1</span>])</span><br><span class="line"><span class="comment">-- 获得当前业务key的值，如果nil返回&#x27;0&#x27;</span></span><br><span class="line"><span class="keyword">local</span> count = <span class="built_in">tonumber</span>(redis.call(<span class="string">&#x27;get&#x27;</span>, bizKey) <span class="keyword">or</span> <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line"><span class="comment">--判断是否到达阈值</span></span><br><span class="line"><span class="keyword">if</span> count + <span class="number">1</span> &gt; limit <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="comment">-- 递增并且设置1秒后过期</span></span><br><span class="line">    redis.call(<span class="string">&#x27;incrby&#x27;</span>, bizKey, <span class="number">1</span>)</span><br><span class="line">    redis.call(<span class="string">&#x27;expire&#x27;</span>, bizKey, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>因为redis是单线程，所以以上为线程安全的。</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
 </search>
