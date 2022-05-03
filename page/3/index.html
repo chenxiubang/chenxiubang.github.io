@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2021/11/14/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2021/11/15/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -316,7 +316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/14/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" itemprop="url">反向代理</a></h1>
+                <a class="post-title-link" href="/2021/11/15/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/" itemprop="url">tomcat配置用户</a></h1>
         
 
         <div class="post-meta">
@@ -328,7 +328,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-14T20:36:43+08:00">2021-11-14</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-15T13:55:36+08:00">2021-11-15</time>
             
 
             
@@ -336,28 +336,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -380,7 +358,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">1.6k</span>
+                <span title="Words count in article">3.8k</span>
               
 
               
@@ -394,7 +372,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -416,15 +394,12 @@
       
         
           
-          反向代理这个词最多出现在nginx。
-也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。
-但刚学习的时候很多人不知道什么是反向代理。
-其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。
-比如张三要访问谷歌，但是在国内直接访问国外的域名非常困难。这时候就出现了一个中间代理服务器，用
+          tomcat首页也就是常规localhost:8080，在学习期间常常遇到的页面。
+在这个页面除了一堆tomcat的介绍，还会有右侧几个管理界面入口：server status， manage app，host mananger等等。但是这些是需要用tomcat管理账号才能进入的。这么配置在tomc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/11/14/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/#more" rel="contents">
+            <a class="btn" href="/2021/11/15/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -712,7 +687,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">5.7k</span>
+                <span title="Words count in article">5.4k</span>
               
 
               
@@ -726,7 +701,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -750,11 +725,12 @@
           
           redis中常用命令：
 
-keys  * （查看当前库所有key）
-exists （key） （查看是否存在当前名字的key，存在返回1，否则0）
-type （key） （查看当前名字key的数据类型，例如返回：string）
-del （key) （删除该名字的key，同步，阻塞）
-unlink （
+select  （no)   （选择redis的0-15中其中一个数据库）
+flashdb （清空当前库所有key）
+flushall （删除redis16个库所有的key）
+expire  （key）（time） （给某个key设置过期时间）
+
+redis 关于list的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1340,7 +1316,7 @@ unlink （
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1431,7 +1407,7 @@ unlink （
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">66k</span>
+    <span title="Site words total count">68k</span>
   
 
   
@@ -1440,7 +1416,7 @@ unlink （
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Site reading time">1:06</span>
+    <span title="Site reading time">1:08</span>
   
 </div>
 

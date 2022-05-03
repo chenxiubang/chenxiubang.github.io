@@ -124,7 +124,8 @@
   <entry>
     <title>重整版-nginx</title>
     <url>/2022/03/07/%E9%87%8D%E6%95%B4%E7%89%88-nginx/</url>
-    <content><![CDATA[<h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><h2 id="ngxin配置文件"><a href="#ngxin配置文件" class="headerlink" title="ngxin配置文件"></a>ngxin配置文件</h2><p>nginx配置文件<code>nginx.conf</code>由三部分构成</p>
+    <content><![CDATA[<h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>三大使用途径：负载均衡，反向代理，动静分离</p>
+<h2 id="ngxin配置文件"><a href="#ngxin配置文件" class="headerlink" title="ngxin配置文件"></a>ngxin配置文件</h2><p>nginx配置文件<code>nginx.conf</code>由三部分构成</p>
 <ul>
 <li><code>头信息</code></li>
 <li><code>events代码块</code></li>
@@ -146,9 +147,6 @@
 <p>当队列已经满了，也就是大于burst的值，再来的请求即返回503</p>
 <p><code>brust</code>通常配合<code>nodelay</code>一同使用，可以使队列内的请求不用排队延时处理。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">前后端分离，限流基于json返回</span></span><br><span class="line">error_page 555 /555;</span><br><span class="line"></span><br><span class="line">location /555 &#123;</span><br><span class="line">	default_type application/json;</span><br><span class="line">    add_header Content-Type &#x27;text/html:charset=utf-8&#x27;;</span><br><span class="line">    return 200 &#x27;&#123;&quot;code&quot;:500,&quot;msg&quot;:&quot;访问高峰期请稍后重试&quot;,&quot;data&quot;:null&#125;&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 ]]></content>
       <tags>
         <tag>ngxin</tag>
@@ -526,6 +524,9 @@
 
 <p>docker login登录填写用户名密码，不然推送不了的</p>
 <p>登录一次后就记住账号密码了，如果想要安全起见，就得要docker logout</p>
+<p>docker挂载：容器数据挂载到外部去修改</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --name=容器名字  -d --restart=always -p 80:80 (先写主机，后写容器) -v</span><br><span class="line"></span><br><span class="line">还是先写主机后写容器</span><br><span class="line">/data/aaa:/data/aaa:ro</span><br><span class="line">ro= readonly rw=readwrite nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>云原生</category>
@@ -836,17 +837,10 @@
     <url>/2021/11/09/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91redis%E5%9F%BA%E6%9C%AC%E9%BB%91%E7%AA%97%E5%8F%A3%E5%91%BD%E4%BB%A41/</url>
     <content><![CDATA[<p>redis中常用命令：</p>
 <ol>
-<li>keys  * （查看当前库所有key）</li>
-<li>exists （key） （查看是否存在当前名字的key，存在返回1，否则0）</li>
-<li>type （key） （查看当前名字key的数据类型，例如返回：string）</li>
-<li>del （key) （删除该名字的key，同步，阻塞）</li>
-<li>unlink （key）（发送指令后，异步删除该key，系统会提示已经删除）（tip：unlink是解除链接的意思）</li>
 <li>select  （no)   （选择redis的0-15中其中一个数据库）</li>
 <li>flashdb （清空当前库所有key）</li>
 <li>flushall （删除redis16个库所有的key）</li>
 <li>expire  （key）（time） （给某个key设置过期时间）</li>
-<li>ttl （key)  （可以查看该key的剩余过期时间，返回秒，返回-1说明永不过期，返回-2 说明已经过期）</li>
-<li>dbsize  （返回当前选择库的key的数量）   </li>
 </ol>
 <h4 id="redis-关于list的操作命令"><a href="#redis-关于list的操作命令" class="headerlink" title="redis 关于list的操作命令"></a>redis 关于list的操作命令</h4><p>lpop（rpop）:key: :可以从左边或者右边，将一个list的key取出第一个元素，返回这个key的value值，如果操作后没有一个值的，这个:key:就会被删除。</p>
 <p>tips: lop（rpop）k1 count 后面还可以跟一个数字表示弹出元素个数，不过不加具体数目，默认为1</p>
@@ -1184,40 +1178,6 @@
       </tags>
   </entry>
   <entry>
-    <title>反向代理</title>
-    <url>/2021/11/14/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>反向代理这个词最多出现在nginx。</p>
-<p>也是ngxin三特特性：负载均衡，反向代理，动静分离，之一。</p>
-<p>但刚学习的时候很多人不知道什么是反向代理。</p>
-<p>其实传统的正向代理，也就是代理，在我们访问网站时就经常出现。</p>
-<p>比如张三要访问谷歌，但是在国内直接访问国外的域名非常困难。这时候就出现了一个中间代理服务器，用户就通过它，将请求转发给谷歌，实现成功获取资源。这个服务器对于用户是有感知的，用户通过它，访问到了想要的网站。</p>
-<p>而nginx的反向代理与此不同，它将真实的服务器藏在自己身后，自己对于用户而言，是一个服务器，用户并无法知道真正的服务器地址。用户将请求交给nginx，由nginx通过负载均衡策略，把请求分发给后台真实的服务集群。再将请求响应给用户。反向代理的nginx对应用户而言，更像一个真实的服务器。</p>
-<p>补充一点nginx常用命令</p>
-<p>在nginx的目录（linux默认情况）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/local/nginx/sbin</span><br></pre></td></tr></table></figure>
-
-<p>会有一个nginx文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./nginx -V</span><br></pre></td></tr></table></figure>
-
-<p>查看nginx版本号</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure>
-
-<p>启动nginx</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./nginx -s stop</span><br></pre></td></tr></table></figure>
-
-<p>关闭nginx</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
-
-<p>重新加载nginx （并不是重新启动，而是重新加载修改后的nginx.conf文件）</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>ngxin</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用jul创建的一个工具类</title>
     <url>/2021/10/28/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/</url>
     <content><![CDATA[<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hzsmk.common.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.experimental.UtilityClass;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chenxiubang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0 2021-10-28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@UtilityClass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据类路径创建logger对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(<span class="string">&quot;com.hzsmk.common.util.LogUtil&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//不沿用父logger的处理器</span></span><br><span class="line">        logger.setUseParentHandlers(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建输出处理器，控制台的ConsoleHandler，文件的FileHandler</span></span><br><span class="line">        ConsoleHandler consoleHandler = <span class="keyword">new</span> ConsoleHandler();</span><br><span class="line">        SimpleFormatter simpleFormatter = <span class="keyword">new</span> SimpleFormatter();</span><br><span class="line">        FileHandler fileHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//该处项目启动后必然会有该目录和文件，所以通常不会出现io异常</span></span><br><span class="line">            fileHandler = <span class="keyword">new</span> FileHandler(<span class="string">&quot;logs\\smk_yhqrcode.log&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> fileHandler != <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        fileHandler.setFormatter(simpleFormatter);</span><br><span class="line">        consoleHandler.setFormatter(simpleFormatter);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//logger和处理器都需要设置自定义级别</span></span><br><span class="line">        logger.setLevel(Level.ALL);</span><br><span class="line">        consoleHandler.setLevel(Level.ALL);</span><br><span class="line">        fileHandler.setLevel(Level.INFO);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为logger添加多个handler</span></span><br><span class="line">        logger.addHandler(consoleHandler);</span><br><span class="line">        logger.addHandler(fileHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logAll</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.ALL, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFinest</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINEST, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFiner</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINER, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFine</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logConfig</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.CONFIG, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logInfo</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.INFO, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logWarning</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.WARNING, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logServer</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.SEVERE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logOff</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.OFF, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1233,5 +1193,81 @@
 <p>下面就是一些工具方法，因为刚写没想到什么好想法，就都是传一个Object对象，然后打印。</p>
 <p>其实jul的东西远不止此，这里只是写皮毛。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>jcl临时笔记</title>
+    <url>/2022/05/03/jcl%E4%B8%B4%E6%97%B6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="java并发编程"><a href="#java并发编程" class="headerlink" title="java并发编程"></a>java并发编程</h1><h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2><p>jmm（java memory model），一种抽象的内存计算模型，并不真实存在。</p>
+<p><code>java</code>中实例对象存放便是<code>主内存</code>。</p>
+<p>多线程下，各个线程操作内存数据，并非直接在主内存上修改。</p>
+<p>而是将主内存的数据拷贝一份到自己的<code>工作内存</code>之中，在自己的<code>工作内存</code>完成修改操作后，再写回主内存。</p>
+<p><strong>主内存</strong>——<strong>拷贝到工作内存</strong>——<strong>修改工作内存副本</strong>——<strong>写回主内存</strong></p>
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><p><code>jmm</code>要求实现规范：</p>
+<ol>
+<li><p>保证可见性</p>
+</li>
+<li><p>保证原子性</p>
+</li>
+<li><p>禁止指令重排</p>
+</li>
+</ol>
+<p>synchronized：完全实现</p>
+<p>volatile：保证可见性、禁止指令重排。但不保证原子性。</p>
+<p>所以，volatile更像一种轻量的实现。</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>定义：工作线程B能马上看到工作线程A更改的数据</p>
+<p>以<code>volatile</code>的实现的为例：</p>
+<p><strong>主内存</strong>——&gt;<strong>强制从主内存读取</strong>——&gt;<strong>修改后写回主内存</strong></p>
+<p>对比不加<code>volatile</code></p>
+<p><strong>主内存</strong>——<strong>拷贝到工作内存</strong>——<strong>修改工作内存副本</strong>——<strong>写回主内存</strong></p>
+<p>验证volatile可见性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">volatileTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyData myData = <span class="keyword">new</span> MyData();</span><br><span class="line">    <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">3</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        myData.setNum(<span class="number">100</span>);</span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//此处必须空循环</span></span><br><span class="line">    <span class="keyword">while</span> (myData.getNum()==<span class="number">0</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//volatile修饰</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.num = num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>资源类的num只有在用volatile修饰，主线程才会感知num的值被修改，程序才会结束。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">volatileTest2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyData myData = <span class="keyword">new</span> MyData();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">1000</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; myData.incrment()).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//主线程礼让，确保只剩下主线程和垃圾回收线程。</span></span><br><span class="line">    <span class="keyword">while</span> (Thread.activeCount() &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        Thread.yield();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//打印总数</span></span><br><span class="line">    System.out.println(myData.getNum());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//递增操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">incrment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        num++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个保证原子性的案例中，启动了10*1000线程。但最终打印数往往小于10000。</p>
+<p>原因边是volatile不能保证原子性，资源类的num++并非原子操作。</p>
+<p>在这个案例中，我们虽然可以用<code>synchronized</code>。但这里推荐用atomicInteger+volatile的方案</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">volatile AtomicInteger num = new AtomicInteger()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">num.getAndIncrement();</span><br></pre></td></tr></table></figure>
+
+<p>这里使用atomic原子类来处理</p>
+<p>还有volatile的指令重排序的问题（了解即可）</p>
+<h3 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h3><p>java程序运行时，JIT（Just-In-Time Compiler，实时编译器）可以动态调整程序代码运行顺序。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A代码-重耗时</span><br><span class="line">B代码-轻耗时</span><br><span class="line">C代码-重耗时</span><br><span class="line">D代码-轻耗时</span><br></pre></td></tr></table></figure>
+
+<p>优先将轻度耗时的代码先执行完，以让出资源给其他指令。代码重排是为了追求更高的程序运行效率</p>
+<p>重排发生在没有依赖关系时</p>
+<p>上述代码可能会调整为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">B代码-轻耗时</span><br><span class="line">D代码-轻耗时</span><br><span class="line">A代码-重耗时</span><br><span class="line">C代码-重耗时</span><br></pre></td></tr></table></figure>
+
+<p>单例场景下的volatile使用 ，DCL double check lock 双重锁检查单例默认 需要用volatile 禁止多线程实例的指令重排</p>
+<h2 id="Compare-And-Swap"><a href="#Compare-And-Swap" class="headerlink" title="Compare And Swap"></a>Compare And Swap</h2><p>Cas是一条cpu并发原语</p>
+<p>它的功能是判断内存某个位置的值是否为预期值，如果是则改为新的值，这个过程是原子的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AtomicInteger atomicInteger = new AtomicInteger(2019);</span><br><span class="line">boolean b = atomicInteger.compareAndSet(2020, 2021);</span><br><span class="line">System.out.println(b);</span><br><span class="line">System.out.println(&quot;ok le&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>cas是怎么样保证原子性的？</p>
+<p>这里用到了Unsafe类，</p>
+<p>CAS并发原语在java语言的体现就是sun.misc.Unsafe类中的各个方法，调用Unsafe类的CAS方法，（Unsafe类的方法均为native）JVM会帮我们实现出汇编指令。</p>
+<p>CAS是一种系统原语，原语是操作系统用语范畴，由若干指令组成，用于完成某个功能的一个过程。原语执行必须连续，不能被终端。也就是说CAS是一条CPU原子指令。</p>
+<p>cas缺点：</p>
+<ol>
+<li><p>如果失败，一直循环CPU开销大</p>
+</li>
+<li><p>ABA问题：比方说一个值 a=1，变成 2，又变成1。 这时候其他的cas和其比较值，这样比较符合预期。但是实际值已经变化了2次。</p>
+</li>
+</ol>
+<p>​    一句话：虽然CAS操作成功，只代表结果一直，不代表过程没有问题。</p>
+<p>原子引用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AuthTokenEo a1 = <span class="keyword">new</span> AuthTokenEo();</span><br><span class="line">AuthTokenEo a2 = <span class="keyword">new</span> AuthTokenEo();</span><br><span class="line">AtomicReference&lt;AuthTokenEo&gt; authTokenEoAtomicReference = <span class="keyword">new</span> AtomicReference&lt;&gt;();</span><br><span class="line">authTokenEoAtomicReference.set(a1);</span><br><span class="line"><span class="keyword">boolean</span> b = authTokenEoAtomicReference.compareAndSet(a1, a2);</span><br><span class="line">System.out.println(b);</span><br><span class="line"><span class="keyword">boolean</span> c = authTokenEoAtomicReference.compareAndSet(a1, a2);</span><br><span class="line">System.out.println(c);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
   </entry>
 </search>
