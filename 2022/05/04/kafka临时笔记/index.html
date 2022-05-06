@@ -88,13 +88,13 @@
 
 <meta name="description" content="随便写写">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://chenxiubang.top/categories/index.html">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="https://chenxiubang.top/tags/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
 <meta property="og:description" content="随便写写">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-01-24T11:12:49.000Z">
-<meta property="article:modified_time" content="2022-01-24T11:15:02.492Z">
+<meta property="article:published_time" content="2022-01-24T11:09:21.000Z">
+<meta property="article:modified_time" content="2022-01-24T11:11:37.538Z">
 <meta property="article:author" content="chenxiubang">
 <meta name="twitter:card" content="summary">
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://chenxiubang.top/categories/"/>
+  <link rel="canonical" href="https://chenxiubang.top/tags/"/>
 
 
 
 
 
-  <title>go语言入门（1） | 陈修榜的博客</title>
+  <title>kafka临时笔记 | 陈修榜的博客</title>
   
 
 
@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2021/10/30/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="https://chenxiubang.top/2022/05/04/kafka%E4%B8%B4%E6%97%B6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">go语言入门（1）</h1>
+          <h1 class="post-title" itemprop="name headline">kafka临时笔记</h1>
         
 
         <div class="post-meta">
@@ -325,7 +325,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-30T20:14:20+08:00">2021-10-30</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-05-04T15:05:10+08:00">2022-05-04</time>
             
 
             
@@ -333,28 +333,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -377,7 +355,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">1.9k</span>
+                <span title="Words count in article">1.1k</span>
               
 
               
@@ -391,7 +369,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -411,22 +389,34 @@
       
 
       
-        <p>这段时间稍微解除了golang，写了几个helloworld，笔记了几个go基础语法的点。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>首先go是编译型的语言，用go build命令生成编译后的文件（window下默认是文件名+.exe后缀）</p>
-<p>可以通过 go build -o 文件名.后缀  自定义指定生成编译后的文件</p>
-<p>此外可以用go run 命令 直接合并编译+运行操作</p>
-<p>tips：我现在写go是用vscode，一些操作命令和jetbrains产品有点不同。</p>
-<p>比如： vscode的快捷键 alt + shift + ↓ 相当与idea里面的 ctrl + d 向下复制</p>
-<p>golang语言提倡简介：导入的包可声明的变量必须要有使用，否则会编译报错</p>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\go3.go:3:2: imported and not used: &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">.\go3.go:10:2: a declared but not used</span><br></pre></td></tr></table></figure>
-
-
-
+        <h1 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h1><p>定义：kafka是基于<code>发布订阅</code>的一个<code>分布式</code>的消息队列</p>
+<p>这是kafka的老的定义</p>
+<p>队列：先进先出</p>
+<p>消息队列的两种基本模式：</p>
+<p>点对点（一对一）：消费者主动拉去数据，消息接收后清除。</p>
+<p>发布订阅模式（一对多）：消费者消费数据后，不会清除数据。</p>
+<p>kafka基于后者。</p>
+<p>发布订阅又分为两种：</p>
+<ol>
+<li>队列主动推送</li>
+<li>消费者主动拉取</li>
+</ol>
+<p>kafka是主动拉取，这样可以由消费者把控，缺点是消费者需要长轮询去拉取。</p>
+<p>消息队列不是文件存储系统。</p>
+<h2 id="kafka架构"><a href="#kafka架构" class="headerlink" title="kafka架构"></a>kafka架构</h2><p>broke是消息队列的实例（此处是kafka的实例）</p>
+<p>举例：三个broke实例构成一个kafka cluster 集群管理消息</p>
+<p>消息又有许多种：比如点赞消息，评论消息。</p>
+<p>在一个broke实例里就会有多种topic（主题）。将不同消息做一个分类。</p>
+<p>主题副本分区：一个主题在一个broke存有一份，又会在另一个broke创建一个分区。</p>
+<p>目的：分区提高负载能力。</p>
+<p>leader和follower：一个主题topic在另一个broke实例会有一个备份。（注意：备份和分区的是不一样的）</p>
+<p>如果有一个broke的leader挂掉了，就会把另外一个broker的follower备份提升为leader。</p>
+<p>消费者：在kafka的架构中，会把多个相同的消费者组成一个消费者组。</p>
+<p><strong>一个分区只能被一个消费者组当中的一个消费者消费</strong></p>
+<p>消费者组是为了提高消费能力。</p>
+<p>kafka还需要zookeeper</p>
+<p>zk帮助Kafka集群存储一些信息，比如kafka挂了，重新启动后，拿从zk中拿之前的数据。</p>
+<p>低版本的kafka有些数据是存在zk当中，但是到了高版本，某些数据存在kafka的自身的系统topic当中，存在本地磁盘当中，默认保存7天。</p>
 
       
     </div>
@@ -471,12 +461,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/go/" rel="tag"># go</a>
-          
-        </div>
-      
 
       
       
@@ -486,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/28/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/" rel="next" title="用jul创建的一个工具类">
-                <i class="fa fa-chevron-left"></i> 用jul创建的一个工具类
+              <a href="/2022/05/03/jcl%E4%B8%B4%E6%97%B6%E7%AC%94%E8%AE%B0/" rel="next" title="jcl临时笔记">
+                <i class="fa fa-chevron-left"></i> jcl临时笔记
               </a>
             
           </div>
@@ -495,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/30/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91rabbitmq%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F/" rel="prev" title="rabbitmq简单队列入门程序">
-                rabbitmq简单队列入门程序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -550,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -570,7 +559,7 @@
               
                 <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -592,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -647,6 +636,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kafka"><span class="nav-number">1.</span> <span class="nav-text">kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">kafka架构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -672,7 +677,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">68k</span>
+    <span title="Site words total count">60k</span>
   
 
   
@@ -681,7 +686,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Site reading time">1:08</span>
+    <span title="Site reading time">1:01</span>
   
 </div>
 

@@ -200,66 +200,9 @@
       </tags>
   </entry>
   <entry>
-    <title>elasticsearch安装简述</title>
-    <url>/2022/01/24/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91elasticsearch%E5%AE%89%E8%A3%85%E7%AE%80%E8%BF%B0/</url>
-    <content><![CDATA[<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>领导让安装es做日志分析，参照他的博客，我安装的也是es6.2.2</p>
-<p>es不允许root启动，所以新建用户和组</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">groupadd es</span><br><span class="line">useradd es</span><br><span class="line">passwd es # 修改用户密码</span><br><span class="line">usermod -G es es #添加到组</span><br></pre></td></tr></table></figure>
-
-<p>然后visudo修改用户可执行命令(不知道什么用)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Allow root to run any commonds anywhere</span></span></span><br><span class="line">root	ALL=(ALL)	ALL</span><br><span class="line">es		ALL=(ALL)	ALL</span><br></pre></td></tr></table></figure>
-
-<p>切换es用户 su es</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">这里是es具体的安装文件夹</span></span><br><span class="line">sudo chown -R es:es elasticsearch-6.2.2/</span><br></pre></td></tr></table></figure>
-
-<p>这是我现在的配置,其他没用暂时都删了</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#集群名称</span></span><br><span class="line"><span class="attr">cluster.name:</span> <span class="string">ymt_es</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#该节点名称，不同节点配置不同名称</span></span><br><span class="line"><span class="attr">node.name:</span> <span class="string">node-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据目录</span></span><br><span class="line"><span class="attr">path.data:</span> <span class="string">/disk/elasticsearchdata/data</span></span><br><span class="line"></span><br><span class="line"><span class="attr">path.logs:</span> <span class="string">/disk/elasticsearchdata/logs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#内存锁</span></span><br><span class="line"><span class="attr">bootstrap.memory_lock:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#服务器当前ip</span></span><br><span class="line"><span class="attr">network.host:</span> <span class="number">10.32</span><span class="number">.185</span><span class="number">.78</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#端口</span></span><br><span class="line"><span class="attr">http.port:</span> <span class="number">9200</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#其他节点</span></span><br><span class="line"><span class="attr">discovery.zen.ping.unicast.hosts:</span> [<span class="string">&quot;10.32.185.78&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#最大master节点</span></span><br><span class="line"><span class="attr">discovery.zen.minimum_master_nodes:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>进入到es的bin目录</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> -d是后台启动，可以不带-d启动测试观察</span></span><br><span class="line">./elastucsearch -d</span><br></pre></td></tr></table></figure>
-
-<p>如果启动失败遇到memery大小之类的</p>
-<p>还要配置如下</p>
-<ol>
-<li><p>vim /etc/security/limits.conf</p>
-<p>这个是我配置好的，仅作参考，不行百度</p>
-</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root soft nofile 65535</span><br><span class="line">root hard nofile 65535</span><br><span class="line">* soft nofile 65536</span><br><span class="line">* hard nofile 131072</span><br><span class="line">* soft memlock unlimited</span><br><span class="line">* hard memlock unlimited</span><br><span class="line">* hard nproc 4096</span><br><span class="line">* soft nproc 4096</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>vi /etc/sysctl.conf (这个也是已经改好的，把vm取出来粘贴，具体百度)</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br><span class="line">vm.swappiness=1</span><br></pre></td></tr></table></figure>
-
-<p>​    第二点执行完后要用 <code>sysctl -p</code> 生效</p>
-<h3 id="提词器"><a href="#提词器" class="headerlink" title="提词器"></a>提词器</h3><p>github搜索<code>elasticsearch-analysis-ik</code>找到对应相同es的提词器版本，下载即可。</p>
-<p>注意：要下载zip压缩包</p>
-<p>解压后刷到es 的plugins文件夹下即可。注意这两个新加上的插件也要<code>sudo chown -R es:es elasticsearch-6.2.2/</code>再来一下。</p>
-<p>这个时候启动就会看到插件被装载。</p>
-<p>提词器用法还不清楚，以后再说</p>
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>elasticsearch</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBootApplication注解</title>
     <url>/2021/11/10/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91SpringBootApplication%E6%B3%A8%E8%A7%A3/</url>
     <content><![CDATA[<p>Springboot的引导类，程序入口上添加的spring核心注解：@SpringBootApplication。</p>
-<p>点入源码后如图</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是2.2.6.RELEASE的，不同发行版可能会有差异</p>
-<p>上图中除去元注解Target，Retention，Documented，Inherited，首先第一个注解：springbootConfiguration。</p>
-<p>从名字就可以得知，这是springboot配置，点入后</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Configuration</span><br><span class="line">public @interface SpringBootConfiguration &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>他也只是个普通带有Configuration的配置类，某种程度上SpringbootApplication和Configuration是没有差别。</p>
-<p>一个隶属boot，一个是Spring的。</p>
 <p>第二个注解@EnableAutoConfiguration，翻译过来开启自动配置，点击进入</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY = <span class="string">&quot;spring.boot.enableautoconfiguration&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -571,33 +514,6 @@
 ]]></content>
       <tags>
         <tag>java日志</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>go语言入门（1）</title>
-    <url>/2021/10/30/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<p>这段时间稍微解除了golang，写了几个helloworld，笔记了几个go基础语法的点。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>首先go是编译型的语言，用go build命令生成编译后的文件（window下默认是文件名+.exe后缀）</p>
-<p>可以通过 go build -o 文件名.后缀  自定义指定生成编译后的文件</p>
-<p>此外可以用go run 命令 直接合并编译+运行操作</p>
-<p>tips：我现在写go是用vscode，一些操作命令和jetbrains产品有点不同。</p>
-<p>比如： vscode的快捷键 alt + shift + ↓ 相当与idea里面的 ctrl + d 向下复制</p>
-<p>golang语言提倡简介：导入的包可声明的变量必须要有使用，否则会编译报错</p>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.\go3.go:3:2: imported and not used: &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">.\go3.go:10:2: a declared but not used</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>go</tag>
       </tags>
   </entry>
   <entry>
@@ -1007,60 +923,7 @@
   <entry>
     <title>springboot的学习</title>
     <url>/2021/12/07/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91springboot%E7%9A%84%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h4 id="Configuraiton注解"><a href="#Configuraiton注解" class="headerlink" title="@Configuraiton注解"></a>@Configuraiton注解</h4><p>在spring中被该注解标注的类是一个配置类，它属于spring底层注解</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration &#123;</span><br><span class="line">    <span class="meta">@AliasFor(</span></span><br><span class="line"><span class="meta">        annotation = Component.class</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">proxyBeanMethods</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这是spring5中，confiuration注解的内容，其中有一个proxyBeanMethods属性，默认true</p>
-<p>这里注意</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">confiuration：</span><br><span class="line">proxyBeanMethods=true	默认 全量配置（Full）</span><br><span class="line">proxyBeanMethods=false		轻量配置（Lite）</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean(&quot;dog&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dog <span class="title">dog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Dog();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面是我一个配置类，通过打印容器中的，被标记的@Configuration注解的类，可以看到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">proxyBeanMethods=false</span><br><span class="line">com.example.config.MyConfig@307cf964</span><br><span class="line"></span><br><span class="line">proxyBeanMethods=true</span><br><span class="line">com.example.config.MyConfig$$EnhancerBySpringCGLIB$$9d14a21c@7761e342</span><br></pre></td></tr></table></figure>
-
-
-
-<p>co从上述看出，默认情况（true），这个配置类实际是一个用Cglib代理的类。配置类的作用往往是用来注入bean的，例如上述方法中的dog（）方法，往容器中注入了Dog的实例。</p>
-<p>首先说明，如果主动调用dog（）方法，返回的对象呢日哦内容地址是否会一直？</p>
-<p>答案是：如果默认情况下，是一致的。也是就是当proxyBeanMethod=true的时间，也就是这个类是代理类的时候，这个是时候每次调用被@Bean标记的方法的时候，首先会检查容器从中，是或否存在这个类的实例，如果没有择入，如果有，则取容器中的Bean对象。</p>
-<p>所以说，如果现在在有了proxyBeanMethods属性后，如果把值设置为flase，每次调用方法，就可以不用取检查容器，而是直接创建对象，这样的好处就是启动也迅速，！。也是就我们说的轻量默认模式（LIte），这也是为了什么，这个配置的类需要时代理类的缘故，因为只有是代理类，才可以在调用发发前，检查做判断。</p>
-<h4 id="import"><a href="#import" class="headerlink" title="@import"></a>@import</h4><p>@import注解是导入主键组件的一个注解。</p>
-<p>！！~~~</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123;</span><br><span class="line">    Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>z这个注解是spring的原生注解，存在于context宝中</p>
-<p>首先第一点，这个注解只能标注于类上，而且<code>必须啊是spring组件的类</code>。</p>
-<p>第二点，这个注解比可以宝指定的类do导入spring容器，看源码可知，它只有一个vlaue数据属性，是一个Class数组。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(&#123;Cat.class&#125;)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>r如图这个配置类中，我没有写其他方法，只是为了给@InImport注解使用，作为一个组件给其承载。</p>
-<p>@import组件二注解指定了Cat的Class。于是把Cat注入容器。</p>
-<p>PS：这个地方它会调用Cat类的无参构造器9(w无论是否私有，因为此处是通过反射)，实例化让弄然后注入容器中！所以午餐狗赞其是费差个重要的。</p>
-<p>第三点这个方针屎，注入容器的组件（上述屎cat，它在容器中的名字不是cat，而是全类型！）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">com.example.domain.Cat</span><br></pre></td></tr></table></figure>
-
-<p>它不想@Bean用方法名作为bean的名字，而是全类型。</p>
-<p>最后：如果有用过最早Spring配置文件配置的年代就会明白。这里的Spring中的@Iport的注解其实就是以前applicationContext.xml的<beans></beans>标间中的<import>标签，它在那个年代是为了解决配置文件过多的问题，在一个配置文件中导入另外一个配置文件，其实换到Springboot中，注解化后其实作用也差别不是很大，依然是需要依附于一个组件（配置文件）来使用，导入Bean（配置文件）。</p>
-<h4 id="configurationProperties的使用"><a href="#configurationProperties的使用" class="headerlink" title="configurationProperties的使用"></a>configurationProperties的使用</h4><p>在java中一个实体（前提是spring的组件）如果在启动就是要为其付值属性，可以天机添加上述注解，</p>
-<p>如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;omen.cat&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OmenCat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> BigDecimal height;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OmenCat&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&quot;, height=&quot;</span> + height +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是一个普通的javabean，他有三个属性，而且是spring的组件。</p>
-<p>我们在yml或者properties配置文件中配置了相关配置，一下用yml示例</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">omen:</span></span><br><span class="line">  <span class="attr">cat:</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">tom</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">12.1</span></span><br></pre></td></tr></table></figure>
-
-<p>yu于是！@ConfigurationProperties注解的prefix属性就起到了关联作用。将浅醉前缀是omen.cat的配置文件衍射到java bean</p>
-<p>打印bean得到如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">OmenCat&#123;name=&#x27;tom&#x27;, age=2, height=12.1&#125;</span><br></pre></td></tr></table></figure>
-
-<p>za在世家，在实际开发中，一些经常使用的对象，比如AliPayClent，往往会经常服用复用的对象，我们会配置成spring组件，然后用配置文件统一配置appId，publicKey,sercetkey等。等到要使用的时候，从容器中过去出取出。</p>
-<p>还有一点要注意，这个组件一定要有set方法，如果没有set方法，无法为其衍射复制，打印的属性就都会是null。</p>
-<h4 id="springboo全面接管spring-mvc"><a href="#springboo全面接管spring-mvc" class="headerlink" title="springboo全面接管spring mvc"></a>springboo全面接管spring mvc</h4><p>方法：在某个spring boot的配置类头上加上@EnableWebMvc注解，表面全面接管spring mvc</p>
+    <content><![CDATA[<h4 id="springboo全面接管spring-mvc"><a href="#springboo全面接管spring-mvc" class="headerlink" title="springboo全面接管spring mvc"></a>springboo全面接管spring mvc</h4><p>方法：在某个spring boot的配置类头上加上@EnableWebMvc注解，表面全面接管spring mvc</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import(&#123;DelegatingWebMvcConfiguration.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableWebMvc &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>源码如上，这是个标记注解，但是最主要是它用@import注解导入了一个DelegatingWebMvcConfiguration组件</p>
@@ -1152,49 +1015,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>随笔1126</title>
-    <url>/2021/11/26/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E9%9A%8F%E7%AC%941126/</url>
-    <content><![CDATA[<ul>
-<li><input disabled="" type="checkbox"> 使用linux 的shell脚本实现一些自动化部署操作，比如cpu到80%的时候，去调用一些aliyun的api实现服务器的扩容==</li>
-<li><input disabled="" type="checkbox"> :apple:苹果的名字叫apple</li>
-<li><input disabled="" type="checkbox"> redis setnx 命令 set key if not exist？？？</li>
-<li><input disabled="" type="checkbox"> redis strlen命令 ： strlen k1 ，可以查看redis :key:的长度</li>
-<li><input disabled="" type="checkbox"> redis append命令：append :key: value, 返回增加后的value长度，如果:key:不存在，就创建</li>
-<li><input disabled="" type="checkbox"> redis 中string数据类型的value值最大可以512M</li>
-<li><input disabled="" type="checkbox"> redis string数据类型的 incr ， dect命令。（increment decrement）对一个数字类的key每次加1或者减去1。ps：只能输数字类型的value。</li>
-</ul>
-<p>​    如果想设置自定义步长：incrby（decrby）:key: 步长数字。。例子decrby k1 5 (每次操作减去5)</p>
-<ul>
-<li><input disabled="" type="checkbox"> mset ,mget 不知道是什么的缩写。比如mset，可以一次设置多个值，mset k1 10 k2 20这样的格式，还有mget k1 k2。可以一次批量设置和获取值。同理有msetnx，这个像上面的setnx，只不过又是批量操作。这里要注意msetnx，只要设置的多个值，有一个因为已经存在key而失败，所有设置均失败。（原子操作，一个失败，全部失败）</li>
-<li><input disabled="" type="checkbox"> redis命令：getset k1 v1 。这个有点像java中Map的put方法，set成功后会写入新的value值，返回之前被覆盖的值。</li>
-<li><input disabled="" type="checkbox"> getrange :key: 索引起始 索引结束 ：例子 getrange k1 0 2。redis中已经存在k1=chenxiubang。用上述命令可以获取并截取字符串的，类似于java中的substring，不过这个包含索引左侧和右侧。（包左也包右），最终获取的是che。</li>
-<li><input disabled="" type="checkbox"> 同理还有setrange。格式是setrange :key: 索引下标  value值。例如redis中已经存在k1=chenxiubang。用上述命令，setrange k1 2 qqqq，这样这个命令就会从第三个字符，用qqqq覆盖原有的字符，结果是chqqqqubang。设置成功后会返回，最终字符串的长度。</li>
-<li><input disabled="" type="checkbox"> 之前有个设置:key:的过期时间expire命令，现在可以使用setex，set expire的缩写吧，直接在set值得时候就设置过期时间。格式：set k1  过期时间 value值。</li>
-<li><input disabled="" type="checkbox"> redis启动使用命令redis-server 配置文件路径来指定某个配置文件来进行启动，如果是要停止redis，比较简单除暴的方法是使用kill -9 直接强行杀死进程，或是使用redis-cli shutdown命令来给redis发送一个停止的命令（或者使用redis-cli连接上redis，然后使用shutdown，也是一样的），这种方式比起杀死进程，可以避免内存数据丢失。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用jul创建的一个工具类</title>
-    <url>/2021/10/28/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E7%94%A8jul%E5%88%9B%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B7%A5%E5%85%B7%E7%B1%BB/</url>
-    <content><![CDATA[<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hzsmk.common.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.experimental.UtilityClass;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chenxiubang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0 2021-10-28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@UtilityClass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据类路径创建logger对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(<span class="string">&quot;com.hzsmk.common.util.LogUtil&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//不沿用父logger的处理器</span></span><br><span class="line">        logger.setUseParentHandlers(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建输出处理器，控制台的ConsoleHandler，文件的FileHandler</span></span><br><span class="line">        ConsoleHandler consoleHandler = <span class="keyword">new</span> ConsoleHandler();</span><br><span class="line">        SimpleFormatter simpleFormatter = <span class="keyword">new</span> SimpleFormatter();</span><br><span class="line">        FileHandler fileHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//该处项目启动后必然会有该目录和文件，所以通常不会出现io异常</span></span><br><span class="line">            fileHandler = <span class="keyword">new</span> FileHandler(<span class="string">&quot;logs\\smk_yhqrcode.log&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> fileHandler != <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        fileHandler.setFormatter(simpleFormatter);</span><br><span class="line">        consoleHandler.setFormatter(simpleFormatter);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//logger和处理器都需要设置自定义级别</span></span><br><span class="line">        logger.setLevel(Level.ALL);</span><br><span class="line">        consoleHandler.setLevel(Level.ALL);</span><br><span class="line">        fileHandler.setLevel(Level.INFO);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为logger添加多个handler</span></span><br><span class="line">        logger.addHandler(consoleHandler);</span><br><span class="line">        logger.addHandler(fileHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logAll</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.ALL, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFinest</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINEST, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFiner</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINER, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logFine</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.FINE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logConfig</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.CONFIG, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logInfo</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.INFO, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logWarning</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.WARNING, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logServer</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.SEVERE, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logOff</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        logger.log(Level.OFF, obj.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>上面是我今天学了一些jul知识后再springboot项目中创建的一个工具类</p>
-<p>首先是根据静态常量创建一个本工具类类路径的logger对象</p>
-<p>紧接着由于默认的logger对象沿用的是父类的日志handler，</p>
-<p>先禁用父类handler，然后创建一个ConsoleHandler对象和一个FileHandler对象，分别是让日志控制台输入，和文件持久化的。</p>
-<p>这里要注意一点的是，文件持久化的FileHandler对象要指定路径，这里会有一个受检异常，如果路径不对文件不存在会引发io错误。</p>
-<p>两个Handler都要有一个SimpleFormat对象，这个也是jul下的（别和SimpleDateFormat对象弄混了）</p>
-<p>再接着我们为logger和两个Handler对象设置日志级别即可，你可以为两个Handler设置不同的日志级别，但一定要设置。</p>
-<p>最后用addHandler方法将处理器设置给logger，整个过程在静态代码块中处理。</p>
-<p>下面就是一些工具方法，因为刚写没想到什么好想法，就都是传一个Object对象，然后打印。</p>
-<p>其实jul的东西远不止此，这里只是写皮毛。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>jcl临时笔记</title>
     <url>/2022/05/03/jcl%E4%B8%B4%E6%97%B6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="java并发编程"><a href="#java并发编程" class="headerlink" title="java并发编程"></a>java并发编程</h1><h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2><p>jmm（java memory model），一种抽象的内存计算模型，并不真实存在。</p>
@@ -1269,5 +1089,38 @@
       <tags>
         <tag>java</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>kafka临时笔记</title>
+    <url>/2022/05/04/kafka%E4%B8%B4%E6%97%B6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h1><p>定义：kafka是基于<code>发布订阅</code>的一个<code>分布式</code>的消息队列</p>
+<p>这是kafka的老的定义</p>
+<p>队列：先进先出</p>
+<p>消息队列的两种基本模式：</p>
+<p>点对点（一对一）：消费者主动拉去数据，消息接收后清除。</p>
+<p>发布订阅模式（一对多）：消费者消费数据后，不会清除数据。</p>
+<p>kafka基于后者。</p>
+<p>发布订阅又分为两种：</p>
+<ol>
+<li>队列主动推送</li>
+<li>消费者主动拉取</li>
+</ol>
+<p>kafka是主动拉取，这样可以由消费者把控，缺点是消费者需要长轮询去拉取。</p>
+<p>消息队列不是文件存储系统。</p>
+<h2 id="kafka架构"><a href="#kafka架构" class="headerlink" title="kafka架构"></a>kafka架构</h2><p>broke是消息队列的实例（此处是kafka的实例）</p>
+<p>举例：三个broke实例构成一个kafka cluster 集群管理消息</p>
+<p>消息又有许多种：比如点赞消息，评论消息。</p>
+<p>在一个broke实例里就会有多种topic（主题）。将不同消息做一个分类。</p>
+<p>主题副本分区：一个主题在一个broke存有一份，又会在另一个broke创建一个分区。</p>
+<p>目的：分区提高负载能力。</p>
+<p>leader和follower：一个主题topic在另一个broke实例会有一个备份。（注意：备份和分区的是不一样的）</p>
+<p>如果有一个broke的leader挂掉了，就会把另外一个broker的follower备份提升为leader。</p>
+<p>消费者：在kafka的架构中，会把多个相同的消费者组成一个消费者组。</p>
+<p><strong>一个分区只能被一个消费者组当中的一个消费者消费</strong></p>
+<p>消费者组是为了提高消费能力。</p>
+<p>kafka还需要zookeeper</p>
+<p>zk帮助Kafka集群存储一些信息，比如kafka挂了，重新启动后，拿从zk中拿之前的数据。</p>
+<p>低版本的kafka有些数据是存在zk当中，但是到了高版本，某些数据存在kafka的自身的系统topic当中，存在本地磁盘当中，默认保存7天。</p>
+]]></content>
   </entry>
 </search>

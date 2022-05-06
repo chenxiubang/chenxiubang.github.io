@@ -88,13 +88,13 @@
 
 <meta name="description" content="随便写写">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://chenxiubang.top/categories/index.html">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="https://chenxiubang.top/tags/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
 <meta property="og:description" content="随便写写">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-01-24T11:12:49.000Z">
-<meta property="article:modified_time" content="2022-01-24T11:15:02.492Z">
+<meta property="article:published_time" content="2022-01-24T11:09:21.000Z">
+<meta property="article:modified_time" content="2022-01-24T11:11:37.538Z">
 <meta property="article:author" content="chenxiubang">
 <meta name="twitter:card" content="summary">
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://chenxiubang.top/categories/"/>
+  <link rel="canonical" href="https://chenxiubang.top/tags/"/>
 
 
 
@@ -355,7 +355,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">17k</span>
+                <span title="Words count in article">6.5k</span>
               
 
               
@@ -369,7 +369,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">17 mins.</span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -389,60 +389,7 @@
       
 
       
-        <h4 id="Configuraiton注解"><a href="#Configuraiton注解" class="headerlink" title="@Configuraiton注解"></a>@Configuraiton注解</h4><p>在spring中被该注解标注的类是一个配置类，它属于spring底层注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration &#123;</span><br><span class="line">    <span class="meta">@AliasFor(</span></span><br><span class="line"><span class="meta">        annotation = Component.class</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">proxyBeanMethods</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这是spring5中，confiuration注解的内容，其中有一个proxyBeanMethods属性，默认true</p>
-<p>这里注意</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">confiuration：</span><br><span class="line">proxyBeanMethods=true	默认 全量配置（Full）</span><br><span class="line">proxyBeanMethods=false		轻量配置（Lite）</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean(&quot;dog&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dog <span class="title">dog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Dog();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面是我一个配置类，通过打印容器中的，被标记的@Configuration注解的类，可以看到</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxyBeanMethods=false</span><br><span class="line">com.example.config.MyConfig@307cf964</span><br><span class="line"></span><br><span class="line">proxyBeanMethods=true</span><br><span class="line">com.example.config.MyConfig$$EnhancerBySpringCGLIB$$9d14a21c@7761e342</span><br></pre></td></tr></table></figure>
-
-
-
-<p>co从上述看出，默认情况（true），这个配置类实际是一个用Cglib代理的类。配置类的作用往往是用来注入bean的，例如上述方法中的dog（）方法，往容器中注入了Dog的实例。</p>
-<p>首先说明，如果主动调用dog（）方法，返回的对象呢日哦内容地址是否会一直？</p>
-<p>答案是：如果默认情况下，是一致的。也是就是当proxyBeanMethod=true的时间，也就是这个类是代理类的时候，这个是时候每次调用被@Bean标记的方法的时候，首先会检查容器从中，是或否存在这个类的实例，如果没有择入，如果有，则取容器中的Bean对象。</p>
-<p>所以说，如果现在在有了proxyBeanMethods属性后，如果把值设置为flase，每次调用方法，就可以不用取检查容器，而是直接创建对象，这样的好处就是启动也迅速，！。也是就我们说的轻量默认模式（LIte），这也是为了什么，这个配置的类需要时代理类的缘故，因为只有是代理类，才可以在调用发发前，检查做判断。</p>
-<h4 id="import"><a href="#import" class="headerlink" title="@import"></a>@import</h4><p>@import注解是导入主键组件的一个注解。</p>
-<p>！！~~~</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123;</span><br><span class="line">    Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>z这个注解是spring的原生注解，存在于context宝中</p>
-<p>首先第一点，这个注解只能标注于类上，而且<code>必须啊是spring组件的类</code>。</p>
-<p>第二点，这个注解比可以宝指定的类do导入spring容器，看源码可知，它只有一个vlaue数据属性，是一个Class数组。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(&#123;Cat.class&#125;)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>r如图这个配置类中，我没有写其他方法，只是为了给@InImport注解使用，作为一个组件给其承载。</p>
-<p>@import组件二注解指定了Cat的Class。于是把Cat注入容器。</p>
-<p>PS：这个地方它会调用Cat类的无参构造器9(w无论是否私有，因为此处是通过反射)，实例化让弄然后注入容器中！所以午餐狗赞其是费差个重要的。</p>
-<p>第三点这个方针屎，注入容器的组件（上述屎cat，它在容器中的名字不是cat，而是全类型！）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.example.domain.Cat</span><br></pre></td></tr></table></figure>
-
-<p>它不想@Bean用方法名作为bean的名字，而是全类型。</p>
-<p>最后：如果有用过最早Spring配置文件配置的年代就会明白。这里的Spring中的@Iport的注解其实就是以前applicationContext.xml的<beans></beans>标间中的<import>标签，它在那个年代是为了解决配置文件过多的问题，在一个配置文件中导入另外一个配置文件，其实换到Springboot中，注解化后其实作用也差别不是很大，依然是需要依附于一个组件（配置文件）来使用，导入Bean（配置文件）。</p>
-<h4 id="configurationProperties的使用"><a href="#configurationProperties的使用" class="headerlink" title="configurationProperties的使用"></a>configurationProperties的使用</h4><p>在java中一个实体（前提是spring的组件）如果在启动就是要为其付值属性，可以天机添加上述注解，</p>
-<p>如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;omen.cat&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OmenCat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> BigDecimal height;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OmenCat&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&quot;, height=&quot;</span> + height +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是一个普通的javabean，他有三个属性，而且是spring的组件。</p>
-<p>我们在yml或者properties配置文件中配置了相关配置，一下用yml示例</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">omen:</span></span><br><span class="line">  <span class="attr">cat:</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">tom</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">12.1</span></span><br></pre></td></tr></table></figure>
-
-<p>yu于是！@ConfigurationProperties注解的prefix属性就起到了关联作用。将浅醉前缀是omen.cat的配置文件衍射到java bean</p>
-<p>打印bean得到如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OmenCat&#123;name=&#x27;tom&#x27;, age=2, height=12.1&#125;</span><br></pre></td></tr></table></figure>
-
-<p>za在世家，在实际开发中，一些经常使用的对象，比如AliPayClent，往往会经常服用复用的对象，我们会配置成spring组件，然后用配置文件统一配置appId，publicKey,sercetkey等。等到要使用的时候，从容器中过去出取出。</p>
-<p>还有一点要注意，这个组件一定要有set方法，如果没有set方法，无法为其衍射复制，打印的属性就都会是null。</p>
-<h4 id="springboo全面接管spring-mvc"><a href="#springboo全面接管spring-mvc" class="headerlink" title="springboo全面接管spring mvc"></a>springboo全面接管spring mvc</h4><p>方法：在某个spring boot的配置类头上加上@EnableWebMvc注解，表面全面接管spring mvc</p>
+        <h4 id="springboo全面接管spring-mvc"><a href="#springboo全面接管spring-mvc" class="headerlink" title="springboo全面接管spring mvc"></a>springboo全面接管spring mvc</h4><p>方法：在某个spring boot的配置类头上加上@EnableWebMvc注解，表面全面接管spring mvc</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import(&#123;DelegatingWebMvcConfiguration.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableWebMvc &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>源码如上，这是个标记注解，但是最主要是它用@import注解导入了一个DelegatingWebMvcConfiguration组件</p>
@@ -511,8 +458,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/11/26/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91%E9%9A%8F%E7%AC%941126/" rel="next" title="随笔1126">
-                <i class="fa fa-chevron-left"></i> 随笔1126
+              <a href="/2021/11/15/%E3%80%90%E8%BF%87%E6%97%B6%E3%80%91tomcat%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/" rel="next" title="tomcat配置用户">
+                <i class="fa fa-chevron-left"></i> tomcat配置用户
               </a>
             
           </div>
@@ -604,7 +551,7 @@
               
                 <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -626,7 +573,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -690,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configuraiton%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">@Configuraiton注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#import"><span class="nav-number">2.</span> <span class="nav-text">@import</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#configurationProperties%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">configurationProperties的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#springboo%E5%85%A8%E9%9D%A2%E6%8E%A5%E7%AE%A1spring-mvc"><span class="nav-number">4.</span> <span class="nav-text">springboo全面接管spring mvc</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#springboo%E5%85%A8%E9%9D%A2%E6%8E%A5%E7%AE%A1spring-mvc"><span class="nav-number">1.</span> <span class="nav-text">springboo全面接管spring mvc</span></a></li></ol></div>
             
 
           </div>
@@ -722,7 +669,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">68k</span>
+    <span title="Site words total count">60k</span>
   
 
   
@@ -731,7 +678,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Site reading time">1:08</span>
+    <span title="Site reading time">1:01</span>
   
 </div>
 

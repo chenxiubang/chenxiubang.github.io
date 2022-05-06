@@ -88,13 +88,13 @@
 
 <meta name="description" content="随便写写">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://chenxiubang.top/categories/index.html">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="https://chenxiubang.top/tags/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
 <meta property="og:description" content="随便写写">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-01-24T11:12:49.000Z">
-<meta property="article:modified_time" content="2022-01-24T11:15:02.492Z">
+<meta property="article:published_time" content="2022-01-24T11:09:21.000Z">
+<meta property="article:modified_time" content="2022-01-24T11:11:37.538Z">
 <meta property="article:author" content="chenxiubang">
 <meta name="twitter:card" content="summary">
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://chenxiubang.top/categories/"/>
+  <link rel="canonical" href="https://chenxiubang.top/tags/"/>
 
 
 
@@ -377,7 +377,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">10k</span>
+                <span title="Words count in article">7.1k</span>
               
 
               
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">10 mins.</span>
+                <span title="Reading time">7 mins.</span>
               
             </div>
           
@@ -412,16 +412,6 @@
 
       
         <p>Springboot的引导类，程序入口上添加的spring核心注解：@SpringBootApplication。</p>
-<p>点入源码后如图</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是2.2.6.RELEASE的，不同发行版可能会有差异</p>
-<p>上图中除去元注解Target，Retention，Documented，Inherited，首先第一个注解：springbootConfiguration。</p>
-<p>从名字就可以得知，这是springboot配置，点入后</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Configuration</span><br><span class="line">public @interface SpringBootConfiguration &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>他也只是个普通带有Configuration的配置类，某种程度上SpringbootApplication和Configuration是没有差别。</p>
-<p>一个隶属boot，一个是Spring的。</p>
 <p>第二个注解@EnableAutoConfiguration，翻译过来开启自动配置，点击进入</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY = <span class="string">&quot;spring.boot.enableautoconfiguration&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -591,7 +581,7 @@
               
                 <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -613,7 +603,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -693,7 +683,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">68k</span>
+    <span title="Site words total count">60k</span>
   
 
   
@@ -702,7 +692,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Site reading time">1:08</span>
+    <span title="Site reading time">1:01</span>
   
 </div>
 
