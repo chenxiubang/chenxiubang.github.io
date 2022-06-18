@@ -933,6 +933,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="meta">@ConditionalOnWebApplication(type = Type.SERVLET)</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(&#123; Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class &#125;)</span></span><br><span class="line"> <span class="comment">//容器中不存在WebMvcConfigurationSupport组件才生效</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(WebMvcConfigurationSupport.class)</span></span><br><span class="line"><span class="meta">@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE + 10)</span></span><br><span class="line"><span class="meta">@AutoConfigureAfter(&#123; DispatcherServletAutoConfiguration.class, TaskExecutionAutoConfiguration.class,</span></span><br><span class="line"><span class="meta">		ValidationAutoConfiguration.class &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvcAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_PREFIX = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_SUFFIX = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] SERVLET_LOCATIONS = &#123; <span class="string">&quot;/&quot;</span> &#125;;</span><br><span class="line">    </span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
 <p>上面就是springboot全面接管spring mvc的原理</p>
+<p>@EnableConfigurationProperties</p>
+<p>这个都是写在配置类当中的。</p>
+<p>这个的主要是为了解决三方包的类无法加@Compent注解的问题，所有有了这种方式</p>
 ]]></content>
       <tags>
         <tag>spring-boot</tag>
@@ -1122,5 +1125,18 @@
 <p>zk帮助Kafka集群存储一些信息，比如kafka挂了，重新启动后，拿从zk中拿之前的数据。</p>
 <p>低版本的kafka有些数据是存在zk当中，但是到了高版本，某些数据存在kafka的自身的系统topic当中，存在本地磁盘当中，默认保存7天。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>netty笔记</title>
+    <url>/2022/05/10/netty%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="netty"><a href="#netty" class="headerlink" title="netty"></a>netty</h1><ol>
+<li>传统io   bio   适用于连接数少的固定架构 ，并发局限于应用，jdk早期版本唯一选择。</li>
+<li>nio  适用连接数多，连接时间短的架构。比如聊天室，弹幕，服务器通信。jdk1.4开始支持。</li>
+<li>aio  适用连接数多，连接时间长的架构。比如相册服务器。要充分调用OS加入并发。编程复杂。jdk1.7开始支持。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>netty</tag>
+      </tags>
   </entry>
 </search>

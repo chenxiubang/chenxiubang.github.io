@@ -88,13 +88,13 @@
 
 <meta name="description" content="随便写写">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://chenxiubang.top/tags/index.html">
+<meta property="og:title" content="分类">
+<meta property="og:url" content="https://chenxiubang.top/categories/index.html">
 <meta property="og:site_name" content="陈修榜的博客">
 <meta property="og:description" content="随便写写">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-01-24T11:09:21.000Z">
-<meta property="article:modified_time" content="2022-01-24T11:11:37.538Z">
+<meta property="article:published_time" content="2022-01-24T11:12:49.000Z">
+<meta property="article:modified_time" content="2022-01-24T11:15:02.492Z">
 <meta property="article:author" content="chenxiubang">
 <meta name="twitter:card" content="summary">
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://chenxiubang.top/tags/"/>
+  <link rel="canonical" href="https://chenxiubang.top/categories/"/>
 
 
 
@@ -355,7 +355,7 @@
                 
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
-                <span title="Words count in article">6.5k</span>
+                <span title="Words count in article">6.6k</span>
               
 
               
@@ -369,7 +369,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">7 mins.</span>
               
             </div>
           
@@ -399,6 +399,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="meta">@ConditionalOnWebApplication(type = Type.SERVLET)</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(&#123; Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class &#125;)</span></span><br><span class="line"> <span class="comment">//容器中不存在WebMvcConfigurationSupport组件才生效</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(WebMvcConfigurationSupport.class)</span></span><br><span class="line"><span class="meta">@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE + 10)</span></span><br><span class="line"><span class="meta">@AutoConfigureAfter(&#123; DispatcherServletAutoConfiguration.class, TaskExecutionAutoConfiguration.class,</span></span><br><span class="line"><span class="meta">		ValidationAutoConfiguration.class &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvcAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_PREFIX = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_SUFFIX = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] SERVLET_LOCATIONS = &#123; <span class="string">&quot;/&quot;</span> &#125;;</span><br><span class="line">    </span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
 <p>上面就是springboot全面接管spring mvc的原理</p>
+<p>@EnableConfigurationProperties</p>
+<p>这个都是写在配置类当中的。</p>
+<p>这个的主要是为了解决三方包的类无法加@Compent注解的问题，所有有了这种方式</p>
 
       
     </div>
@@ -551,7 +554,7 @@
               
                 <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -573,7 +576,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
