@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chenxiubang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ElasticSearch相关知识点Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎 文档参考Elasticsearch版本：  7.10.0 8.1.0  REST API索引新增索引说明：新增索引只能使用put请求 1PUT &#x2F;my-index    说明：新增索引时自定义分片数、副本数 例子： 123456789PUT &#x2F;my-index&amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch知识点">
+<meta property="og:url" content="https://chenxiubang.github.io/2022/12/23/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="ElasticSearch相关知识点Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎 文档参考Elasticsearch版本：  7.10.0 8.1.0  REST API索引新增索引说明：新增索引只能使用put请求 1PUT &#x2F;my-index    说明：新增索引时自定义分片数、副本数 例子： 123456789PUT &#x2F;my-index&amp;#123;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-12-23T12:11:42.000Z">
+<meta property="article:modified_time" content="2023-10-30T14:56:05.876Z">
+<meta property="article:author" content="chenxiubang">
+<meta property="article:tag" content="elastic stack">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chenxiubang.github.io/2022/12/23/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chenxiubang.github.io/2022/12/23/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9/","path":"2022/12/23/ElasticSearch知识点/","title":"ElasticSearch知识点"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ElasticSearch知识点 | 我的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">我的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ElasticSearch%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">ElasticSearch相关知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#REST-API"><span class="nav-number">1.1.</span> <span class="nav-text">REST API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">新增索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">删除索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">修改索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">查询索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">索引是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%85%A8%E9%83%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">查询全部索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#POST%E5%92%8CPUT%E5%B9%82%E7%AD%89%E6%80%A7"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">POST和PUT幂等性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%96%87%E6%A1%A3"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">新增文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E6%A1%A3"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">修改文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">文档是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">文档批量处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-number">1.1.2.7.</span> <span class="nav-text">文档版本控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.</span> <span class="nav-text">文档查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#keyword%E5%AD%90%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">keyword子类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E9%83%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">全部查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#id%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">id查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9Aid%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">多id查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#match-%E5%8C%B9%E9%85%8D%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">match 匹配查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#match-phrase-%E7%9F%AD%E8%AF%AD%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.6.</span> <span class="nav-text">match_phrase  短语查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#term-%E7%B2%BE%E7%A1%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.7.</span> <span class="nav-text">term 精确查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#terms-%E7%B2%BE%E7%A1%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.8.</span> <span class="nav-text">terms 精确查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#range-%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.9.</span> <span class="nav-text">range 范围查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fuzzy-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.10.</span> <span class="nav-text">fuzzy 模糊查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exists-%E5%AD%98%E5%9C%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.11.</span> <span class="nav-text">exists 存在查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bool-%E5%A4%9A%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.3.12.</span> <span class="nav-text">bool 多条件查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boost%E6%9D%83%E9%87%8D"><span class="nav-number">1.1.3.13.</span> <span class="nav-text">boost权重</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.3.14.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E5%90%88"><span class="nav-number">1.1.3.15.</span> <span class="nav-text">聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">1.1.3.16.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E9%AB%98%E4%BA%AE"><span class="nav-number">1.1.3.17.</span> <span class="nav-text">文档高亮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%85%E5%90%AB-x2F-%E6%8E%92%E9%99%A4%E5%AD%97%E6%AE%B5"><span class="nav-number">1.1.3.18.</span> <span class="nav-text">包含&#x2F;排除字段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%A8%A1%E6%9D%BF%EF%BC%88%E8%BF%87%E6%97%B6%EF%BC%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引模板（过时）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-x2F-%E4%BF%AE%E6%94%B9%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">新增&#x2F;修改模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">删除模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">查询模板</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E8%AF%8D%E5%99%A8"><span class="nav-number">1.1.5.</span> <span class="nav-text">分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ik%E5%88%86%E8%AF%8D%E5%99%A8"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">安装ik分词器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">自定义关键字</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenxiubang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">chenxiubang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chenxiubang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chenxiubang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/chenxiubang" title="https:&#x2F;&#x2F;github.com&#x2F;chenxiubang" rel="noopener" target="_blank">GitHub</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://chenxiubang.com/" title="https:&#x2F;&#x2F;chenxiubang.com" rel="noopener" target="_blank">网站</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chenxiubang.github.io/2022/12/23/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="chenxiubang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ElasticSearch知识点 | 我的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ElasticSearch知识点
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-12-23 20:11:42" itemprop="dateCreated datePublished" datetime="2022-12-23T20:11:42+08:00">2022-12-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-30 22:56:05" itemprop="dateModified" datetime="2023-10-30T22:56:05+08:00">2023-10-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="ElasticSearch相关知识点"><a href="#ElasticSearch相关知识点" class="headerlink" title="ElasticSearch相关知识点"></a>ElasticSearch相关知识点</h1><p>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎</p>
+<p>文档参考Elasticsearch版本：</p>
+<ul>
+<li>7.10.0</li>
+<li>8.1.0</li>
+</ul>
+<h2 id="REST-API"><a href="#REST-API" class="headerlink" title="REST API"></a>REST API</h2><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h4 id="新增索引"><a href="#新增索引" class="headerlink" title="新增索引"></a>新增索引</h4><p>说明：新增索引只能使用put请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index</span><br></pre></td></tr></table></figure>
+
+
+
+<p>说明：新增索引时自定义分片数、副本数</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;:&#123;</span><br><span class="line">        &quot;index&quot;:&#123;</span><br><span class="line">            &quot;number_of_shards&quot;:3,</span><br><span class="line">            &quot;number_of_replicas&quot;:2</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>number_of_shards：分片数，默认为1</p>
+<p>number_of_replicas：副本数，默认为1</p>
+<p>上述可简化如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;:&#123;</span><br><span class="line">        &quot;number_of_shards&quot;:3,</span><br><span class="line">        &quot;number_of_replicas&quot;:2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>说明：新增索引时自定义映射</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index</span><br><span class="line">&#123;</span><br><span class="line">    &quot;mappings&quot;:&#123;</span><br><span class="line">        &quot;properties&quot;:&#123;</span><br><span class="line">            &quot;字段1&quot;:&#123;</span><br><span class="line">                &quot;type&quot;:&quot;keyword&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;字段2&quot;:&#123;</span><br><span class="line">                &quot;type&quot;:&quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;:&quot;ik_max_word&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>type：指定文档字段的数据类型</p>
+<p>analyzer：指定文档字段使用的分词器</p>
+<span id="more"></span>
+
+<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /my-index</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="修改索引"><a href="#修改索引" class="headerlink" title="修改索引"></a>修改索引</h4><p>说明：索引创建后很多参数是无法修改的，以下列举一些可以修改的参数</p>
+<p>说明：修改索引副本数</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT	/my-index/_settings</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;:&#123;</span><br><span class="line">        &quot;index&quot;:&#123;</span><br><span class="line">            &quot;number_of_replicas&quot;:2</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>说明：修改索引映射</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index/_mapping</span><br><span class="line">&#123;</span><br><span class="line">    &quot;properties&quot;:&#123;</span><br><span class="line">        &quot;字段&quot;:&#123;</span><br><span class="line">            &quot;type&quot;:&quot;keyword&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>索引中如果已经存在有该字段的文档，就不允许修改</li>
+</ul>
+<h4 id="查询索引"><a href="#查询索引" class="headerlink" title="查询索引"></a>查询索引</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET	/my-index</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="索引是否存在"><a href="#索引是否存在" class="headerlink" title="索引是否存在"></a>索引是否存在</h4><p>说明：通过响应状态码检查索引是否存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HEAD /my-index</span><br></pre></td></tr></table></figure>
+
+<p>200：索引存在</p>
+<p>404：索引不存在</p>
+<p>如果只是检查索引是否存在，使用该方式开销更小</p>
+<h4 id="查询全部索引"><a href="#查询全部索引" class="headerlink" title="查询全部索引"></a>查询全部索引</h4><p>说明：查看当前elasticsearch中所有的索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET	/_cat/indices?v</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>该响应内容不是json格式</li>
+</ul>
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><h4 id="POST和PUT幂等性"><a href="#POST和PUT幂等性" class="headerlink" title="POST和PUT幂等性"></a>POST和PUT幂等性</h4><p>在HTTP协议中，POST是非幂等请求，PUT是幂等请求</p>
+<p>每次调用POST请求，都将产生新的资源</p>
+<p>每次调用PUT请求，会用数据替换服务器上的指定资源，多次调用只产生一次影响</p>
+<h4 id="新增文档"><a href="#新增文档" class="headerlink" title="新增文档"></a>新增文档</h4><p>说明：</p>
+<ul>
+<li>新增文档使用post请求（推荐）</li>
+<li>新增文档使用put请求</li>
+</ul>
+<p>post新增文档，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /my-index/_doc/自定义id(可选)</span><br><span class="line">&#123;</span><br><span class="line">    &quot;字段1&quot;:&quot;值1&quot;,</span><br><span class="line">    &quot;字段2&quot;:&quot;值2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：post新增文档时，文档id若不指定，则使用ES自动生成的id</p>
+<p>put新增文档，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index/_doc/自定义id</span><br><span class="line">&#123;</span><br><span class="line">    &quot;字段1&quot;:&quot;值1&quot;,</span><br><span class="line">    &quot;字段2&quot;:&quot;值2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：put新增文档时，文档id必须指定</p>
+<p>注意：</p>
+<ul>
+<li>上述put请求当指定id的文档已存在，就会全量替换该文档。</li>
+</ul>
+<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /my-index/_doc/文档id</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="修改文档"><a href="#修改文档" class="headerlink" title="修改文档"></a>修改文档</h4><p>说明：修改文档可分为如下</p>
+<ul>
+<li>覆盖修改：本质为删除旧文档，然后重新创建新文档</li>
+<li>局部修改：修改已有文档的局部字段</li>
+</ul>
+<p>覆盖修改，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /my-index/_doc/文档id</span><br><span class="line">&#123;</span><br><span class="line">    &quot;字段1&quot;:&quot;值1&quot;,</span><br><span class="line">    &quot;字段2&quot;:&quot;值2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>若该id的文档原先不存在，就会创建文档</li>
+</ul>
+<p>局部修改，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /my-index/_update/文档id</span><br><span class="line">&#123;</span><br><span class="line">    &quot;doc&quot;:&#123;</span><br><span class="line">        &quot;字段1&quot;:&quot;值1&quot;,</span><br><span class="line">        &quot;字段2&quot;:&quot;值2&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="文档是否存在"><a href="#文档是否存在" class="headerlink" title="文档是否存在"></a>文档是否存在</h4><p>说明：通过响应状态码检查文档是否存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HEAD /my-index/_doc/文档id</span><br></pre></td></tr></table></figure>
+
+<p>200：文档存在</p>
+<p>404：文档不存在</p>
+<p>如果只是检查文档是否存在，使用该方式开销更小</p>
+<h4 id="文档批量处理"><a href="#文档批量处理" class="headerlink" title="文档批量处理"></a>文档批量处理</h4><p>说明：</p>
+<ul>
+<li><p>批量处理可以在一次http请求中执行批量的文档操作</p>
+</li>
+<li><p>一次批量处理可同时包含：批量新增、批量删除、批量更新</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /_bulk</span><br><span class="line">&#123;&quot;create&quot;:&#123;&quot;_index&quot;:&quot;my-index&quot;,&quot;_id&quot;:&quot;新增文档id&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;字段1&quot;:&quot;值1&quot;,&quot;字段2&quot;:&quot;值2&quot;&#125;</span><br><span class="line">&#123;&quot;delete&quot;:&#123;&quot;_index&quot;:&quot;my-index&quot;,&quot;_id&quot;:&quot;删除文档id&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;update&quot;:&#123;&quot;_index&quot;:&quot;my-index&quot;,&quot;_id&quot;:&quot;更新文档id&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;doc&quot;:&#123;&quot;字段1&quot;:&quot;值1&quot;&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：</p>
+<ul>
+<li><p>请求体格式并非json	</p>
+</li>
+<li><p>行末的换行符不能省略</p>
+</li>
+</ul>
+<h4 id="文档版本控制"><a href="#文档版本控制" class="headerlink" title="文档版本控制"></a>文档版本控制</h4><p>说明：</p>
+<ul>
+<li>版本控制发生在更新操作（包括局部更新、覆盖更新）</li>
+<li>版本号字段<code>if_seq_no</code>与<code>if_primary_term</code>与文档符合的更新才能生效</li>
+</ul>
+<p>以覆盖更新举例，例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /my-index/_doc/文档id?if_seq_no=序列号&amp;if_primary_term=唯一号</span><br><span class="line">&#123;</span><br><span class="line">    &quot;字段1&quot;:&quot;值1&quot;,</span><br><span class="line">    &quot;字段2&quot;:&quot;值2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="文档查询"><a href="#文档查询" class="headerlink" title="文档查询"></a>文档查询</h3><h4 id="keyword子类型"><a href="#keyword子类型" class="headerlink" title="keyword子类型"></a>keyword子类型</h4><p>说明：</p>
+<p>通常情况下，elasticsearch自动生成的text类型字段有一个keyword子类型（如果是静态字段映射则需要自己手动指定）</p>
+<p>keyword子类型在精确匹配、聚合、排序等场景都有很大作用</p>
+<p>text：</p>
+<ul>
+<li>会分词，然后进行索引</li>
+<li>支持模糊、精确查询</li>
+<li>不支持聚合</li>
+</ul>
+<p>keyword：</p>
+<ul>
+<li><p>不进行分词，直接索引</p>
+</li>
+<li><p>支持模糊、精确查询</p>
+</li>
+<li><p>支持聚合</p>
+</li>
+</ul>
+<h4 id="全部查询"><a href="#全部查询" class="headerlink" title="全部查询"></a>全部查询</h4><p>说明：查询索引下全部文档数据</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;match_all&quot;:&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>默认情况下，elasticsearch限制返回文档条数，默认只显示10条</li>
+</ul>
+<p>上述可简化如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="id查询"><a href="#id查询" class="headerlink" title="id查询"></a>id查询</h4><p>说明：通过文档id查询文档</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_doc/文档id</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="多id查询"><a href="#多id查询" class="headerlink" title="多id查询"></a>多id查询</h4><p>说明：根据多个文档id查询多个文档</p>
+<p>跨索引多id查询</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET /mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;docs&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_index&quot;: &quot;my-index-001&quot;,</span><br><span class="line">      &quot;_id&quot;: &quot;1000&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_index&quot;: &quot;my-index-002&quot;,</span><br><span class="line">      &quot;_id&quot;: &quot;2000&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>单个索引下多id查询</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;docs&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_id&quot;: &quot;1000&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_id&quot;: &quot;2000&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>上述可简化如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;ids&quot; : [&quot;1000&quot;, &quot;2000&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="match-匹配查询"><a href="#match-匹配查询" class="headerlink" title="match 匹配查询"></a>match 匹配查询</h4><p>说明：</p>
+<ul>
+<li>match先对查询内容分词，再去匹配索引库查询</li>
+<li>匹配的文档结果按照得分由高到低排序</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;match&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;:&quot;查询内容&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;match&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;:&#123;</span><br><span class="line">                &quot;query&quot;:&quot;查询内容&quot;,</span><br><span class="line">                &quot;operator&quot;:&quot;and&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>operator：匹配分词的规则</p>
+<ul>
+<li><p>or（默认）：至少匹配一个分词</p>
+</li>
+<li><p>and：需要匹配所有分词</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot; :&#123;</span><br><span class="line">        &quot;match&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;: &#123;</span><br><span class="line">            	“query&quot;:&quot;查询内容&quot;,</span><br><span class="line">            	&quot;minimum_should_match&quot;:2</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>minimum_should_match：指定至少需要匹配的分词个数（或者至少需要匹配的百分比：例如80%）</p>
+<h4 id="match-phrase-短语查询"><a href="#match-phrase-短语查询" class="headerlink" title="match_phrase  短语查询"></a>match_phrase  短语查询</h4><p>说明：</p>
+<ul>
+<li>对查询内容分词，查找文档字段中值包含所有分词，且分词顺序一致，且分词连续的文档</li>
+<li>匹配的文档结果按照得分由高到低排序</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;match_phrase&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;:&quot;查询内容&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;match_phrase&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;:&#123;</span><br><span class="line">                &quot;query&quot;:&quot;查询内容&quot;,</span><br><span class="line">                &quot;slop&quot;:1</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>slop：分词后针对分词连续的规则，允许中间间隔其他分词的个数</p>
+<h4 id="term-精确查询"><a href="#term-精确查询" class="headerlink" title="term 精确查询"></a>term 精确查询</h4><p>说明：</p>
+<ul>
+<li><p>精确匹配值：例如数字，日期，布尔值等</p>
+</li>
+<li><p>查询内容为文本时不进行分词，直接匹配索引库</p>
+</li>
+<li><p>term配置多值字段（如数组），只要匹配其中一个元素就算匹配</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;term&quot;:&#123;</span><br><span class="line">            &quot;字段名&quot;:&#123;</span><br><span class="line">                &quot;value&quot;:&quot;查询内容&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：</p>
+<ul>
+<li><p>term不对查询文本分词，但文档字段内容可能是分词后保存在索引库，而不能完全匹配</p>
+<p>此时可以使用keyword子类型，实现完全匹配</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;term&quot;:&#123;</span><br><span class="line">            &quot;字段名.keyword&quot;:&#123;</span><br><span class="line">                &quot;value&quot;:&quot;查询内容&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="terms-精确查询"><a href="#terms-精确查询" class="headerlink" title="terms 精确查询"></a>terms 精确查询</h4><p>说明：</p>
+<ul>
+<li><p>和term效果相同，可以传递多个查询内容</p>
+</li>
+<li><p>只要term匹配其中一个查询内容就算匹配</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;terms&quot;:&#123;</span><br><span class="line">            &quot;字段名&quot;:[</span><br><span class="line">                &quot;查询内容1&quot;,</span><br><span class="line">                &quot;查询内容2&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="range-范围查询"><a href="#range-范围查询" class="headerlink" title="range 范围查询"></a>range 范围查询</h4><p>说明：</p>
+<ul>
+<li><p>gt：大于</p>
+</li>
+<li><p>gte：大于等于</p>
+</li>
+<li><p>lt：小于</p>
+</li>
+<li><p>lte：小于等于</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;range&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;:&#123;</span><br><span class="line">                &quot;gt&quot;:10,</span><br><span class="line">                &quot;lte&quot;:20</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="fuzzy-模糊查询"><a href="#fuzzy-模糊查询" class="headerlink" title="fuzzy 模糊查询"></a>fuzzy 模糊查询</h4><p>说明：通过模糊查询去匹配内容含错别字、多字、少字的文档</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;fuzzy&quot;:&#123;</span><br><span class="line">            &quot;字段名&quot;:&#123;</span><br><span class="line">                &quot;value&quot;:&quot;查询内容&quot;,</span><br><span class="line">                &quot;fuzziness&quot;:1,</span><br><span class="line">                &quot;prefix_length&quot;:0</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fuzziness：查询内容通过N次操作变成允许匹配索引库的查询内容，该值默认为0，最大为2。下列情况为1次操作：</p>
+<ol>
+<li>修改一个字符：<code>b</code>ox -&gt; <code>f</code>ox</li>
+<li>移除一个字符：foo<code>t</code> -&gt; foo</li>
+<li>插入一个字符：term -&gt; term<code>s</code></li>
+<li>调换临近的两个字符：<code>ca</code>t -&gt; <code>ac</code>t</li>
+</ol>
+<p>prefix_length：查询内容和匹配内容的前N个字符必须匹配，默认为0</p>
+<h4 id="exists-存在查询"><a href="#exists-存在查询" class="headerlink" title="exists 存在查询"></a>exists 存在查询</h4><p>说明：查询指定字段存在值（非null）的文档</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;exists&quot;:&#123;</span><br><span class="line">            &quot;field&quot;:&quot;字段名&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="bool-多条件查询"><a href="#bool-多条件查询" class="headerlink" title="bool 多条件查询"></a>bool 多条件查询</h4><p>说明：</p>
+<ul>
+<li><p>多条件查询，由一至多个子句的组成</p>
+</li>
+<li><p>子句类型有4种</p>
+<ol>
+<li><p>must：必须匹配，贡献算分</p>
+</li>
+<li><p>should：选择性匹配，贡献算分（如果没有must子句，should子句则至少满足一条匹配）</p>
+</li>
+<li><p>must_not：必须不匹配，不贡献算分</p>
+</li>
+<li><p>filter：必须匹配，不贡献算分</p>
+</li>
+</ol>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;bool&quot;:&#123;</span><br><span class="line">            &quot;must&quot;:[</span><br><span class="line">				...</span><br><span class="line">            ],</span><br><span class="line">            &quot;should&quot;:[</span><br><span class="line">				...</span><br><span class="line">            ],</span><br><span class="line">            &quot;minimum_should_match&quot;:1,</span><br><span class="line">            &quot;must_not&quot;:[</span><br><span class="line">				...</span><br><span class="line">            ],</span><br><span class="line">            &quot;filter&quot;:[</span><br><span class="line">				...</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>minimum_should_match：should子句至少需要匹配的个数</p>
+<p>说明：</p>
+<ul>
+<li><p>各个子句中可使用DSL查询的语法，例如match、term、range等等</p>
+</li>
+<li><p>各个子句中可继续套用bool多条件查询</p>
+</li>
+</ul>
+<h4 id="boost权重"><a href="#boost权重" class="headerlink" title="boost权重"></a>boost权重</h4><p>说明：</p>
+<ul>
+<li><p>通过指定一个boost值控制查询子句的相应权重，最终影响文档评分。</p>
+</li>
+<li><p>大部分query查询语法都能设置boost权重</p>
+</li>
+<li><p>boost默认值1</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;bool&quot;:&#123;</span><br><span class="line">            &quot;must&quot;:[</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;match&quot;:&#123;</span><br><span class="line">                        &quot;字段值1&quot;:&#123;</span><br><span class="line">                            &quot;query&quot;:&quot;值1&quot;,</span><br><span class="line">                            &quot;boost&quot;:1.5</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &quot;should&quot;:[</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;term&quot;:&#123;</span><br><span class="line">                        &quot;字段值2&quot;:&#123;</span><br><span class="line">                            &quot;value&quot;:&quot;值2&quot;,</span><br><span class="line">                            &quot;boost&quot;:2</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>说明：对查询的文档按某种规则排序</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;sort&quot;:[</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;文档字段&quot;:&#123;</span><br><span class="line">                &quot;order&quot;:&quot;desc&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>text字段不能参与排序，可使用keyword子类型进行排序</li>
+</ul>
+<h4 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h4><p>常见聚合类型：</p>
+<ul>
+<li><p>terms：分组</p>
+</li>
+<li><p>sum：求和</p>
+</li>
+<li><p>avg：求平均值</p>
+</li>
+<li><p>max：求最大值</p>
+</li>
+<li><p>min：求最小值</p>
+</li>
+<li><p>top_hits：取前n条数据</p>
+</li>
+<li><p>再套用聚合操作</p>
+</li>
+</ul>
+<p>不同聚合操作请求格式略有不同，但基本遵循如下</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;aggs&quot;:&#123;</span><br><span class="line">        &quot;自定义名称&quot;:&#123;</span><br><span class="line">            &quot;聚合类型&quot;:&#123;</span><br><span class="line">                &quot;field&quot;:&quot;聚合字段&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;size&quot;:0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：默认聚合查询会查询不必要的文档数据，size设置为0不查询文档数据</p>
+<p>注意：</p>
+<ul>
+<li>text字段不能参与聚合分组、排序，可使用keyword子类型聚合操作</li>
+</ul>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;from&quot;:0,</span><br><span class="line">    &quot;size&quot;:10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>from：起始文档序号（从0开始）</p>
+<p>size：显示文档数</p>
+<h4 id="文档高亮"><a href="#文档高亮" class="headerlink" title="文档高亮"></a>文档高亮</h4><p>说明：文档高亮需结合DSL查询。对文档中匹配上搜索内容的文本，通过增加html标签强化显示</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;:&#123;</span><br><span class="line">        &quot;match&quot;:&#123;</span><br><span class="line">            &quot;文档字段&quot;:&quot;查询内容&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;highlight&quot;:&#123;</span><br><span class="line">        &quot;pre_tags&quot;:&quot;&lt;em&gt;&quot;,</span><br><span class="line">        &quot;post_tags&quot;:&quot;&lt;/em&gt;&quot;,</span><br><span class="line">        &quot;fields&quot;:&#123;</span><br><span class="line">            &quot;高亮字段&quot;:&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>pre_tags：默认为em标签，加粗文本</p>
+<p>post_tags：默认为em标签，加粗文本</p>
+<h4 id="包含-x2F-排除字段"><a href="#包含-x2F-排除字段" class="headerlink" title="包含&#x2F;排除字段"></a>包含&#x2F;排除字段</h4><p>说明：返回文档需要的字段</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;_source&quot;:&#123;</span><br><span class="line">        &quot;includes&quot;:[</span><br><span class="line">            &quot;字段1&quot;,</span><br><span class="line">            &quot;字段2&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;excludes&quot;:[</span><br><span class="line">            &quot;字段1&quot;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>includes：文档返回包含的字段</p>
+<p>excludes：文档返回排除的字段</p>
+<p>上述可简化如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET /my-index/_search</span><br><span class="line">&#123;</span><br><span class="line">    &quot;_source&quot;:[</span><br><span class="line">        &quot;字段1&quot;,</span><br><span class="line">        &quot;字段2&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>指定查询文档包含的字段</p>
+<h3 id="索引模板（过时）"><a href="#索引模板（过时）" class="headerlink" title="索引模板（过时）"></a>索引模板（过时）</h3><p>说明：创建匹配索引模板规则的索引后，会自动为索引增加模板中预先定义的参数</p>
+<p>注意：</p>
+<ul>
+<li>以下关于旧版索引模板，现已被弃用，将被 Elasticsearch 7.8 中引入的可组合模板取代</li>
+</ul>
+<h4 id="新增-x2F-修改模板"><a href="#新增-x2F-修改模板" class="headerlink" title="新增&#x2F;修改模板"></a>新增&#x2F;修改模板</h4><p>说明：新增&#x2F;修改模板可使用put、post请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PUT /_template/模板名称</span><br><span class="line">&#123;</span><br><span class="line">    &quot;index_patterns&quot;:[</span><br><span class="line">        &quot;test*&quot;,</span><br><span class="line">        &quot;bar*&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;settings&quot;:&#123;</span><br><span class="line">        &quot;number_of_shards&quot;:3</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mappings&quot;:&#123;</span><br><span class="line">        &quot;_source&quot;:&#123;</span><br><span class="line">            &quot;enabled&quot;:false</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;properties&quot;:&#123;</span><br><span class="line">            &quot;字段1&quot;:&#123;</span><br><span class="line">                &quot;type&quot;:&quot;keyword&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;字段2&quot;:&#123;</span><br><span class="line">                &quot;type&quot;:&quot;date&quot;,</span><br><span class="line">                &quot;format&quot;:&quot;EEE MMM dd HH:mm:ss Z yyyy&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>index_patterns：索引模板的匹配规则</p>
+<h4 id="删除模板"><a href="#删除模板" class="headerlink" title="删除模板"></a>删除模板</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /_template/模板名称</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="查询模板"><a href="#查询模板" class="headerlink" title="查询模板"></a>查询模板</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_template/模板名称</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h3><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>说明：查看不同分词器对词条的分词情况</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /_analyze</span><br><span class="line">&#123;</span><br><span class="line">    &quot;analyzer&quot;:&quot;ik_max_word&quot;,</span><br><span class="line">    &quot;text&quot;:[&quot;我是一名程序员&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>analyzer：使用的分词器</p>
+<p>常用分词器：</p>
+<ul>
+<li>standard：标准分词器</li>
+<li>ik_smart：ik默认分词器</li>
+<li>ik_max_word：ik最细粒度分词器</li>
+</ul>
+<h4 id="安装ik分词器"><a href="#安装ik分词器" class="headerlink" title="安装ik分词器"></a>安装ik分词器</h4><p>说明：ik分词器是elasticsearch最常用的中文分词器</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases">https://github.com/medcl/elasticsearch-analysis-ik/releases</a></p>
+<p>注意：</p>
+<ul>
+<li>分词器版本需要和当前elasticsearch版本对应</li>
+</ul>
+<p>安装步骤：</p>
+<ol>
+<li><p>进入elasticsearch的根目录的plugins目录</p>
+</li>
+<li><p>创建ik文件夹（文件夹名字自定义）</p>
+</li>
+<li><p>将下载的压缩包解压至ik文件夹</p>
+</li>
+<li><p>重新启动elasticsearch</p>
+</li>
+</ol>
+<h4 id="自定义关键字"><a href="#自定义关键字" class="headerlink" title="自定义关键字"></a>自定义关键字</h4><p>说明：对于一些特殊词条，例如：艾欧尼亚、弗雷尔卓德等，我们要规定他们为关键字，分词器不能对其进行分词</p>
+<p>以ik分词器为例：</p>
+<ol>
+<li><p>进入<code>Elasticsearch根目录</code>—&gt;<code>plugins文件夹</code>—&gt;<code>ik文件夹</code>—&gt;<code>config文件夹</code> ，创建<code>自定义.dic</code>文件</p>
+</li>
+<li><p>往<code>自定义.dic</code>写入关键字，每个关键字占一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">关键字1</span><br><span class="line">关键字2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑<code>IKAnalyzer.cfgxml</code>文件，将<code>自定义.dic</code>配置为扩展字典</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">properties</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://java.sun.com/dtd/properties.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">comment</span>&gt;</span>IK Analyzer 扩展配置<span class="tag">&lt;/<span class="name">comment</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--用户可以在这里配置自己的扩展字典 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">&quot;ext_dict&quot;</span>&gt;</span>自定义.dic<span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">&quot;ext_stopwords&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启Elasticsearch</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/weixin.JPG" alt="chenxiubang WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.JPG" alt="chenxiubang Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/elastic-stack/" rel="tag"><i class="fa fa-tag"></i> elastic stack</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/23/Mysql%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="prev" title="Mysql知识点">
+                  <i class="fa fa-angle-left"></i> Mysql知识点
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-house"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chenxiubang</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chenxiubang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
