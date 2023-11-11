@@ -21,15 +21,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chenxiubang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Redis相关知识点java+lua脚本实现限流首先配置RedisScript 123456789@Beanpublic DefaultRedisScript&lt;Boolean&gt; defaultRedisScript() &amp;#123;    DefaultRedisScript&lt;Boolean&gt; script &#x3D; new DefaultRedisScript&lt;&gt;(">
+    <meta name="description" content="Redis知识点java+lua脚本实现限流首先配置RedisScript 123456789@Beanpublic DefaultRedisScript&lt;Boolean&gt; defaultRedisScript() &amp;#123;    DefaultRedisScript&lt;Boolean&gt; script &#x3D; new DefaultRedisScript&lt;&gt;();">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis知识点">
 <meta property="og:url" content="https://chenxiubang.github.io/2022/09/04/Redis%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="Redis相关知识点java+lua脚本实现限流首先配置RedisScript 123456789@Beanpublic DefaultRedisScript&lt;Boolean&gt; defaultRedisScript() &amp;#123;    DefaultRedisScript&lt;Boolean&gt; script &#x3D; new DefaultRedisScript&lt;&gt;(">
+<meta property="og:description" content="Redis知识点java+lua脚本实现限流首先配置RedisScript 123456789@Beanpublic DefaultRedisScript&lt;Boolean&gt; defaultRedisScript() &amp;#123;    DefaultRedisScript&lt;Boolean&gt; script &#x3D; new DefaultRedisScript&lt;&gt;();">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-04T07:14:09.000Z">
-<meta property="article:modified_time" content="2023-10-30T13:34:27.520Z">
+<meta property="article:modified_time" content="2023-11-11T15:04:24.721Z">
 <meta property="article:author" content="chenxiubang">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -141,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">Redis相关知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-lua%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E9%99%90%E6%B5%81"><span class="nav-number">1.1.</span> <span class="nav-text">java+lua脚本实现限流</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">Redis知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-lua%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E9%99%90%E6%B5%81"><span class="nav-number">1.1.</span> <span class="nav-text">java+lua脚本实现限流</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -156,18 +156,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -250,7 +250,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-30 21:34:27" itemprop="dateModified" datetime="2023-10-30T21:34:27+08:00">2023-10-30</time>
+      <time title="Modified: 2023-11-11 23:04:24" itemprop="dateModified" datetime="2023-11-11T23:04:24+08:00">2023-11-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -278,7 +278,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Redis相关知识点"><a href="#Redis相关知识点" class="headerlink" title="Redis相关知识点"></a>Redis相关知识点</h1><h2 id="java-lua脚本实现限流"><a href="#java-lua脚本实现限流" class="headerlink" title="java+lua脚本实现限流"></a>java+lua脚本实现限流</h2><p>首先配置RedisScript</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="Redis知识点"><a href="#Redis知识点" class="headerlink" title="Redis知识点"></a>Redis知识点</h1><h2 id="java-lua脚本实现限流"><a href="#java-lua脚本实现限流" class="headerlink" title="java+lua脚本实现限流"></a>java+lua脚本实现限流</h2><p>首先配置RedisScript</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> DefaultRedisScript&lt;Boolean&gt; <span class="title function_">defaultRedisScript</span><span class="params">()</span> &#123;</span><br><span class="line">    DefaultRedisScript&lt;Boolean&gt; script = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">//指定resourece下的lua脚本</span></span><br><span class="line">    <span class="type">ClassPathResource</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;limit.lua&quot;</span>);</span><br><span class="line">    script.setLocation(resource);</span><br><span class="line">    script.setResultType(Boolean.class);</span><br><span class="line">    <span class="keyword">return</span> script;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>编写lua脚本</p>

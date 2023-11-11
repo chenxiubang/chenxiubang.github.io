@@ -150,18 +150,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -207,6 +207,108 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://chenxiubang.github.io/2023/11/11/Nginx%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="chenxiubang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 我的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/11/Nginx%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">Nginx知识点</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-11 22:56:34" itemprop="dateCreated datePublished" datetime="2023-11-11T22:56:34+08:00">2023-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-12 00:41:00" itemprop="dateModified" datetime="2023-11-12T00:41:00+08:00">2023-11-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Nginx知识点"><a href="#Nginx知识点" class="headerlink" title="Nginx知识点"></a>Nginx知识点</h1><h2 id="proxy-pass配置规则"><a href="#proxy-pass配置规则" class="headerlink" title="proxy_pass配置规则"></a>proxy_pass配置规则</h2><p>首先判断<code>proxy_pass</code>的路径结尾是否带<code>/</code> </p>
+<ul>
+<li><p>路径结尾不带<code>/</code> （会把<code>location</code>中匹配部分加入代理路径）</p>
+</li>
+<li><p>路径结尾带<code>/</code> （不会把<code>location</code>中匹配部分加入代理路径）</p>
+</li>
+</ul>
+<p>以<code>http://127.0.0.1:80/test/hello.txt</code>作为请求，下面为不同配置的例子</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代理结果url: http://127.0.0.1:80/hello.txt</span></span><br><span class="line"><span class="section">location</span> /test/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:80/;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 代理结果url: http://127.0.0.1:80/test/hello.txt</span></span><br><span class="line"><span class="section">location</span> /test/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:80/test/;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 代理结果url: http://127.0.0.1:80/abc/hello.txt</span></span><br><span class="line"><span class="section">location</span> /test/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:80/abc/;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 代理结果url: http://127.0.0.1:80/test/hello.txt</span></span><br><span class="line"><span class="section">location</span> /test/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:80;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不建议这种配法</span></span><br><span class="line"><span class="comment"># 代理结果url: http://127.0.0.1:80/abchello.txt</span></span><br><span class="line"><span class="section">location</span> /test/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:80/abc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+<p>​                             </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://chenxiubang.github.io/2022/12/23/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -243,7 +345,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-30 22:56:05" itemprop="dateModified" datetime="2023-10-30T22:56:05+08:00">2023-10-30</time>
+      <time title="Modified: 2023-11-11 23:01:35" itemprop="dateModified" datetime="2023-11-11T23:01:35+08:00">2023-11-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -265,7 +367,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="ElasticSearch相关知识点"><a href="#ElasticSearch相关知识点" class="headerlink" title="ElasticSearch相关知识点"></a>ElasticSearch相关知识点</h1><p>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎</p>
+          <h1 id="ElasticSearch知识点"><a href="#ElasticSearch知识点" class="headerlink" title="ElasticSearch知识点"></a>ElasticSearch知识点</h1><p>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎</p>
 <p>文档参考Elasticsearch版本：</p>
 <ul>
 <li>7.10.0</li>
@@ -362,7 +464,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-30 22:56:22" itemprop="dateModified" datetime="2023-10-30T22:56:22+08:00">2023-10-30</time>
+      <time title="Modified: 2023-11-11 23:04:17" itemprop="dateModified" datetime="2023-11-11T23:04:17+08:00">2023-11-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -384,7 +486,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Mysql相关知识点"><a href="#Mysql相关知识点" class="headerlink" title="Mysql相关知识点"></a>Mysql相关知识点</h1><h2 id="SQL语法易错点"><a href="#SQL语法易错点" class="headerlink" title="SQL语法易错点"></a>SQL语法易错点</h2><ol>
+          <h1 id="Mysql知识点"><a href="#Mysql知识点" class="headerlink" title="Mysql知识点"></a>Mysql知识点</h1><h2 id="SQL语法易错点"><a href="#SQL语法易错点" class="headerlink" title="SQL语法易错点"></a>SQL语法易错点</h2><ol>
 <li><p>and的优先级大于or</p>
 <p>通俗理解，or查询会把条件分为左右两边来查</p>
 <p>例子：</p>
@@ -477,7 +579,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-30 21:34:27" itemprop="dateModified" datetime="2023-10-30T21:34:27+08:00">2023-10-30</time>
+      <time title="Modified: 2023-11-11 23:04:24" itemprop="dateModified" datetime="2023-11-11T23:04:24+08:00">2023-11-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -499,7 +601,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Redis相关知识点"><a href="#Redis相关知识点" class="headerlink" title="Redis相关知识点"></a>Redis相关知识点</h1><h2 id="java-lua脚本实现限流"><a href="#java-lua脚本实现限流" class="headerlink" title="java+lua脚本实现限流"></a>java+lua脚本实现限流</h2><p>首先配置RedisScript</p>
+          <h1 id="Redis知识点"><a href="#Redis知识点" class="headerlink" title="Redis知识点"></a>Redis知识点</h1><h2 id="java-lua脚本实现限流"><a href="#java-lua脚本实现限流" class="headerlink" title="java+lua脚本实现限流"></a>java+lua脚本实现限流</h2><p>首先配置RedisScript</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> DefaultRedisScript&lt;Boolean&gt; <span class="title function_">defaultRedisScript</span><span class="params">()</span> &#123;</span><br><span class="line">    DefaultRedisScript&lt;Boolean&gt; script = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">//指定resourece下的lua脚本</span></span><br><span class="line">    <span class="type">ClassPathResource</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;limit.lua&quot;</span>);</span><br><span class="line">    script.setLocation(resource);</span><br><span class="line">    script.setResultType(Boolean.class);</span><br><span class="line">    <span class="keyword">return</span> script;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>编写lua脚本</p>
@@ -577,7 +679,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-30 22:22:50" itemprop="dateModified" datetime="2023-10-30T22:22:50+08:00">2023-10-30</time>
+      <time title="Modified: 2023-11-11 23:04:05" itemprop="dateModified" datetime="2023-11-11T23:04:05+08:00">2023-11-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -599,7 +701,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Java-SE模块知识点"><a href="#Java-SE模块知识点" class="headerlink" title="Java SE模块知识点"></a>Java SE模块知识点</h1><p>这篇文章主要记录java基础中一些值得记录知识点。代码不涉及Web，框架，三方库。</p>
+          <h1 id="Java知识点"><a href="#Java知识点" class="headerlink" title="Java知识点"></a>Java知识点</h1><p>这篇文章主要记录<code>Java SE</code>中一些值得记录知识点。代码不涉及Web，框架，三方库。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/08/21/Java%E7%9F%A5%E8%AF%86%E7%82%B9/#more" rel="contents">
