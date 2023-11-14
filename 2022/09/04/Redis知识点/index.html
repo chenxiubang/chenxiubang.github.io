@@ -21,15 +21,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"chenxiubang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Redis知识点java+lua脚本实现限流首先配置RedisScript 123456789@Beanpublic DefaultRedisScript&lt;Boolean&gt; defaultRedisScript() &amp;#123;    DefaultRedisScript&lt;Boolean&gt; script &#x3D; new DefaultRedisScript&lt;&gt;();">
+    <meta name="description" content="Redis知识点缓存术语缓存穿透在缓存系统中，大量的请求去查询一个不在缓存也不在数据库中的数据，导致这些请求都穿过缓存直接访问后端数据库。此时缓存无法起到预期的作用，请求会直接命中数据库上，增加了数据库的负载，降低了系统性能。 通常发生在恶意攻击或非法请求中：攻击者故意发送大量不存在的请求，试图绕过缓存系统直接访问数据库，以达到拒绝服务（Denial of Service） 解决方案：  布隆过滤">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis知识点">
 <meta property="og:url" content="https://chenxiubang.github.io/2022/09/04/Redis%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="Redis知识点java+lua脚本实现限流首先配置RedisScript 123456789@Beanpublic DefaultRedisScript&lt;Boolean&gt; defaultRedisScript() &amp;#123;    DefaultRedisScript&lt;Boolean&gt; script &#x3D; new DefaultRedisScript&lt;&gt;();">
+<meta property="og:description" content="Redis知识点缓存术语缓存穿透在缓存系统中，大量的请求去查询一个不在缓存也不在数据库中的数据，导致这些请求都穿过缓存直接访问后端数据库。此时缓存无法起到预期的作用，请求会直接命中数据库上，增加了数据库的负载，降低了系统性能。 通常发生在恶意攻击或非法请求中：攻击者故意发送大量不存在的请求，试图绕过缓存系统直接访问数据库，以达到拒绝服务（Denial of Service） 解决方案：  布隆过滤">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-04T07:14:09.000Z">
-<meta property="article:modified_time" content="2023-11-11T15:04:24.721Z">
+<meta property="article:modified_time" content="2023-11-14T15:11:02.094Z">
 <meta property="article:author" content="chenxiubang">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -141,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">Redis知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-lua%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E9%99%90%E6%B5%81"><span class="nav-number">1.1.</span> <span class="nav-text">java+lua脚本实现限流</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">Redis知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.</span> <span class="nav-text">缓存术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">1.1.2.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">1.1.3.</span> <span class="nav-text">缓存雪崩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.</span> <span class="nav-text">持久化策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB"><span class="nav-number">1.2.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF"><span class="nav-number">1.2.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-lua%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E9%99%90%E6%B5%81"><span class="nav-number">1.3.</span> <span class="nav-text">java+lua脚本实现限流</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -250,7 +250,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-11-11 23:04:24" itemprop="dateModified" datetime="2023-11-11T23:04:24+08:00">2023-11-11</time>
+      <time title="Modified: 2023-11-14 23:11:02" itemprop="dateModified" datetime="2023-11-14T23:11:02+08:00">2023-11-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -278,7 +278,61 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Redis知识点"><a href="#Redis知识点" class="headerlink" title="Redis知识点"></a>Redis知识点</h1><h2 id="java-lua脚本实现限流"><a href="#java-lua脚本实现限流" class="headerlink" title="java+lua脚本实现限流"></a>java+lua脚本实现限流</h2><p>首先配置RedisScript</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="Redis知识点"><a href="#Redis知识点" class="headerlink" title="Redis知识点"></a>Redis知识点</h1><h2 id="缓存术语"><a href="#缓存术语" class="headerlink" title="缓存术语"></a>缓存术语</h2><h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>在缓存系统中，大量的请求去查询一个不在缓存也不在数据库中的数据，导致这些请求都穿过缓存直接访问后端数据库。此时缓存无法起到预期的作用，请求会直接命中数据库上，增加了数据库的负载，降低了系统性能。</p>
+<p>通常发生在恶意攻击或非法请求中：攻击者故意发送大量不存在的请求，试图绕过缓存系统直接访问数据库，以达到拒绝服务（Denial of Service）</p>
+<p>解决方案：</p>
+<ol>
+<li>布隆过滤器：使用布隆过滤器来过滤掉肯定不存在的数据，将这些数据拦截在缓存系统之前，减轻对数据库的压力。</li>
+<li>空值缓存：当查询的数据确实不存在时，也将其缓存，并设置一个较短的过期时间。这样下次相同的请求不会直接访问数据库。</li>
+</ol>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p>在缓存系统中，一个热点数据的缓存突然失效时，导致大量请求直接访问后端数据库，从而导致数据库负载激增，甚至可能引发系统崩溃的情况。</p>
+<p>解决方案：</p>
+<ol>
+<li>使用互斥锁（<code>Mutex</code>）：在缓存失效期间，只允许一个请求访问数据库并更新缓存，其他请求等待并直接使用更新后的缓存，避免大量请求同时访问数据库。</li>
+<li>热点数据永不过期：对于热点数据，可以设置缓存的过期时间很长，甚至不过期。</li>
+<li>预加载热点数据：在系统启动或周期性任务中，提前将热点数据加载到缓存中，以保证缓存始终有效，减少对数据库的直接访问。</li>
+</ol>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>在缓存系统中，由于大规模的缓存失效或同时重建，导致大量请求直接访问后端数据库，引发数据库负载剧增，甚至数据库宕机的现象</p>
+<p>解决方案：</p>
+<ol>
+<li>缓存数据过期时间分散：将缓存数据的失效时间做随机化处理，避免大量缓存同时失效所导致的并发请求集中访问数据库。</li>
+<li>多级缓存架构：在系统中采用多级缓存，例如本地缓存、分布式缓存，以减轻单一缓存失效对整个系统的影响</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="持久化策略"><a href="#持久化策略" class="headerlink" title="持久化策略"></a>持久化策略</h2><h3 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h3><p>RDB是<code>redis database bak</code>的缩写，是某个时间点中redis的内存数据的全量快照。</p>
+<p>RDB是redis默认的持久化策略，默认备份的二进制文件名为<code>dump.rdb</code></p>
+<p>RDB配置：</p>
+<p>以redis7配置方式为例（与早期版本略有差异）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save 3600 1 300 100 60 10000</span><br></pre></td></tr></table></figure>
+
+<p>该配置表示：每3600秒发生1次，或300秒发生100次，或60秒发生10000次写入操作，将会触发一次rdb快照</p>
+<p>手动触发RDB：</p>
+<p>通过手动执行<code>save</code>命令或者<code>bgsave</code>命令触发快照</p>
+<p><code>save</code>（阻塞命令，生产环境禁止使用）</p>
+<p><code>save</code>（非阻塞命令）</p>
+<p>适用场景：</p>
+<p>RDB适合需要快速备份和恢复，数据完整性要求不高的场景使用</p>
+<h3 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h3><p>AOF是<code>append on file</code>的缩写，开启后以日志形式记录所有写命令，在redis重启后通过重新执行这些命令还原内存数据</p>
+<p>AOF配置：</p>
+<p>修改配置文件<code>appendonly</code> 为yes开启AOF</p>
+<p>写回策略：</p>
+<p>开启AOF后，redis会将每个写命令加入到缓冲池，再根据具体写回策略决定持久化</p>
+<ul>
+<li><p>always：每个命令立即写入磁盘</p>
+</li>
+<li><p>everysec：每秒将缓存区命令写入磁盘</p>
+</li>
+<li><p>no：由操作系统系统调度</p>
+</li>
+</ul>
+<p>通过修改配置文件<code>appendfsync</code>修改写回策略，默认为<code>everysec</code></p>
+<p>AOF重写：</p>
+<p>当AOF文件大小超过设定峰值，redis就会开启AOF文件内容压缩，只保留可以恢复数据的最小指令集</p>
+<p>也可以通过<code>bgrewriteaof</code>命令手动执行压缩</p>
+<p>适用场景：</p>
+<p>数据完整性要求高的场景</p>
+<h2 id="java-lua脚本实现限流"><a href="#java-lua脚本实现限流" class="headerlink" title="java+lua脚本实现限流"></a>java+lua脚本实现限流</h2><p>首先配置RedisScript</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> DefaultRedisScript&lt;Boolean&gt; <span class="title function_">defaultRedisScript</span><span class="params">()</span> &#123;</span><br><span class="line">    DefaultRedisScript&lt;Boolean&gt; script = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">//指定resourece下的lua脚本</span></span><br><span class="line">    <span class="type">ClassPathResource</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;limit.lua&quot;</span>);</span><br><span class="line">    script.setLocation(resource);</span><br><span class="line">    script.setResultType(Boolean.class);</span><br><span class="line">    <span class="keyword">return</span> script;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>编写lua脚本</p>
@@ -288,7 +342,7 @@
 <p>在需要限流的业务代码前调用该方法，根据传入阈值对调用做限制</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisAccessLimitService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisScript&lt;Boolean&gt; redisScript;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> key 限流的redis key名称</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> limit 请求上限数</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">limit</span><span class="params">(String key, Integer limit)</span> &#123;</span><br><span class="line">        <span class="type">Boolean</span> <span class="variable">acquire</span> <span class="operator">=</span> redisTemplate.execute(redisScript, Lists.newArrayList(key), limit.toString());</span><br><span class="line">        <span class="comment">//抛出异常</span></span><br><span class="line">        AssertUtil.isFalse(Boolean.TRUE.equals(acquire), <span class="string">&quot;500&quot;</span>, <span class="string">&quot;限流了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span id="more"></span>
+<p>​	</p>
 
     </div>
 
